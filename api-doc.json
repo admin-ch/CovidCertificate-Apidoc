@@ -1,0 +1,351 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Covid Certificate API Gateway Service",
+    "description": "Rest API for Covid Certificate API Gateway Service.",
+    "license": {
+      "name": "Apache 2.0"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://cc-api-gateway-service.dev.app.cfap02.atlantica.admin.ch",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/covidcertificate/v1/vaccination": {
+      "post": {
+        "tags": [
+          "covid-certification-generation-controller"
+        ],
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationCertificateCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCertificateError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/covidcertificate/v1/recovery": {
+      "post": {
+        "tags": [
+          "covid-certification-generation-controller"
+        ],
+        "operationId": "create_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryCertificateCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCertificateError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/covidcertificate/v1/test": {
+      "post": {
+        "tags": [
+          "covid-certification-generation-controller"
+        ],
+        "operationId": "create_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestCertificateCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCertificateError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateCertificateError": {
+        "type": "object",
+        "properties": {
+          "erroCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "errorMessage": {
+            "type": "string"
+          }
+        }
+      },
+      "CovidCertificateCodeFieldDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "CovidCertificateHealthProfessionalDto": {
+        "type": "object",
+        "properties": {
+          "sourceIdp": {
+            "type": "string"
+          },
+          "idpuuid": {
+            "type": "string"
+          }
+        }
+      },
+      "CovidCertificatePersonNameDto": {
+        "type": "object",
+        "properties": {
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          }
+        }
+      },
+      "VaccinationCertificateCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
+            }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "vaccinationInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaccinationCertificateDataDto"
+            }
+          },
+          "healthProfessional": {
+            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
+          }
+        }
+      },
+      "VaccinationCertificateDataDto": {
+        "type": "object",
+        "properties": {
+          "vaccineProphylaxis": {
+            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          },
+          "medicinalProduct": {
+            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          },
+          "marketingAuthorizationHolder": {
+            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          },
+          "numberOfDoses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalNumberOfDoses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vaccinationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "countryOfVaccination": {
+            "type": "string"
+          }
+        }
+      },
+      "CovidCertificateCreateResponseDto": {
+        "type": "object",
+        "properties": {
+          "pdf": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          "qrCode": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          "qrCodeJson": {
+            "type": "string"
+          }
+        }
+      },
+      "RecoveryCertificateCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
+            }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "recoveryInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecoveryCertificateDataDto"
+            }
+          },
+          "healthProfessional": {
+            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
+          }
+        }
+      },
+      "RecoveryCertificateDataDto": {
+        "type": "object",
+        "properties": {
+          "dateOfFirstPositiveTestResult": {
+            "type": "string",
+            "format": "date"
+          },
+          "countryOfTest": {
+            "type": "string"
+          }
+        }
+      },
+      "TestCertificateCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
+            }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "testInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCertificateDataDto"
+            }
+          },
+          "healthProfessional": {
+            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
+          }
+        }
+      },
+      "TestCertificateDataDto": {
+        "type": "object",
+        "properties": {
+          "typeOfTest": {
+            "type": "string"
+          },
+          "testName": {
+            "type": "string"
+          },
+          "testManufacturer": {
+            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          },
+          "sampleDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resultDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          },
+          "testingCentreOrFacility": {
+            "type": "string"
+          },
+          "memberStateOfTest": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
