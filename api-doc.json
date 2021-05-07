@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://cc-api-gateway-service.dev.app.cfap02.atlantica.admin.ch",
+      "url": "https://cc-api-gateway-service.dev.app.cfap02.atlantica.admin.ch/",
       "description": "Generated server url"
     }
   ],
@@ -20,7 +20,7 @@
         "tags": [
           "covid-certification-generation-controller"
         ],
-        "operationId": "create",
+        "operationId": "createVaccinationCertificate",
         "requestBody": {
           "content": {
             "application/json": {
@@ -60,7 +60,7 @@
         "tags": [
           "covid-certification-generation-controller"
         ],
-        "operationId": "create_1",
+        "operationId": "createRecoveryCertificate",
         "requestBody": {
           "content": {
             "application/json": {
@@ -100,7 +100,7 @@
         "tags": [
           "covid-certification-generation-controller"
         ],
-        "operationId": "create_2",
+        "operationId": "createTestCertificate",
         "requestBody": {
           "content": {
             "application/json": {
