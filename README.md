@@ -30,7 +30,7 @@ In order to generate or revoke a covid certificate, an authorized user has first
 
 #### Authorized user
 
-The authorized users are onboarded in EIAM and can use a CHLogin or a HIN identity
+The authorized users are onboarded in EIAM and can use a CHLogin or a HIN identity.
 
 #### TLS tunnel
 
