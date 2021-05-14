@@ -1,9 +1,24 @@
-# covidcertificate-apidoc
-API documentation for the integration of primary systems with the machine to machine API.
+# Swiss Covid Certificate - API documentation
+
+## Introduction
+
+The covid certificate system can be used by third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
+
+### Links to EU digital green certificate
+- Specification of EU digital greeen certificate: https://ec.europa.eu/health/ehealth/covid-19_en
+- Code repository of EU digital greeen certificate: https://github.com/eu-digital-green-certificates
+
+## Third party system integration
+
+### Integration patterns
+
+### Security architecture
+
+## API doc
 
 Please import the `api-doc.json` file in the https://editor.swagger.io to see the visualization.
 
-## Error list
+### Error list
 There is a custom error body for the request if the server side parameter validation fails.
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
