@@ -20,7 +20,21 @@ The swiss covid certificate system is hosted and maintained by FOITT.
 
 ### Integration achitecture
 
+#### Integration with OneTime password
+
+In order to generate or revoke a covid certificate, an authorized user has first to generate an OneTime password which can then be used to access the generation and revokation APOI through a TLS tunnel:
+
+![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
+
 ### Security architecture
+
+#### Authorized user
+
+The authorized users are onboarded in EIAM and can use a CHLogin or a HIN identity
+
+#### TLS tunnel
+
+A TLS tunnel is made between the primary system and the API. One "SwissGov Regular CA 01" certificate is delivered to each primary system for this purpose.
 
 ## API doc
 
