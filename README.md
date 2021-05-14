@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The covid certificate system can be used by third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
+The swiss covid certificate system can be used by third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
 ### Links to EU digital green certificate
 - Specification of EU digital greeen certificate: https://ec.europa.eu/health/ehealth/covid-19_en
