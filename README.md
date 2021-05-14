@@ -10,15 +10,25 @@ The covid certificate system can be used by third party systems in order to gene
 
 ## Third party system integration
 
-### Integration patterns
+### Prerequisites
+
+1. Only authorized users (natural persons) can access the generation and revokation API. 
+2. Verification API  is freely accessible.
+3. Third party systems have to sign an agreement with FOITT in order to access the generation and verification API.
+
+### Integration achitecture
 
 ### Security architecture
 
 ## API doc
 
+### Generation API
+
+The generation API allows to create 3 types of covid certificate: vaccination, test and recovery.
+
 Please import the `api-doc.json` file in the https://editor.swagger.io to see the visualization.
 
-### Error list
+#### Error list
 There is a custom error body for the request if the server side parameter validation fails.
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
@@ -41,5 +51,9 @@ There is a custom error body for the request if the server side parameter valida
 - `{469, "No recovery data specified"}`
 - `{470, "Invalid date of first positive test result"}`
 - `{471, "Invalid country of test"}`
+
+### Revokation API
+
+### Verification API
 
 
