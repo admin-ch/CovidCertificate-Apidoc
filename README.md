@@ -1,4 +1,4 @@
-# Swiss Covid Certificate - API documentation
+# Swiss Covid Certificate - API documentation - WIP
 
 ## Introduction
 
