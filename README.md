@@ -12,7 +12,7 @@ The covid certificate system can be used by third party systems in order to gene
 
 ### Prerequisites
 
-1. Only authorized users (natural persons) can access the generation and revokation API. 
+1. Only authorized users (natural persons) can access the generation and revokation API. Authorized users are determined by the cantons or FOPH.
 2. Verification API  is freely accessible.
 3. Third party systems have to sign an agreement with FOITT in order to access the generation and verification API.
 
