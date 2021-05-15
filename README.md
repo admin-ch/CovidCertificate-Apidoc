@@ -36,6 +36,10 @@ The authorized users are onboarded in EIAM and can use a CHLogin or a HIN identi
 
 A TLS tunnel is made between the primary system and the API. One "SwissGov Regular CA 01" certificate is delivered to each primary system for this purpose.
 
+### Integration cookbook
+
+TBD
+
 ## API doc
 
 ### Generation API
