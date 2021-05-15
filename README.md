@@ -46,6 +46,10 @@ In order to generate or revoke a covid certificate, an authorized user has first
 
 ![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
 
+#### API sequence diagram
+
+![image](https://user-images.githubusercontent.com/319676/118361751-0db64f80-b58d-11eb-8f5a-fc7e193a1a00.png)
+
 ### Security architecture
 
 #### Authorized user
