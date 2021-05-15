@@ -81,6 +81,39 @@ TBD
 
 TBD
 
+## Data
+
+### General covid certificate data
+
+Mandatory data:
+- familyName: family name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Federer"
+- givenName: first name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Roger"
+- dateOfBirth: birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "1991-08-08"
+
+### Vaccination data
+
+Mandatory data:
+- vaccineProphylaxis: description of the vaccine/prophylaxis or its component(s). Format: string. Possible static values: 
+  - "1119305005" represented by "SARS-CoV-2 antigen vaccine" in the covide certificate
+  - "1119349007" represented by "SARS-CoV-2 mRNA vaccine" in the covide certificate
+  - "J07BX03" represented by "covid-19 vaccines" in the covide certificate
+- medicinalProduct: name of the medicinal product as registered in the country. Format: string. Possible static values: 
+  - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
+  - "68225" represented by "Comirnaty" in the covide certificate
+  - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
+- marketingAuthorizationHolder: marketing authorisation holder Format: string. Possible static values: 
+  - "Moderna Switzerland GmbH, Basel"
+  - "Pfizer AG, Zürich."
+  - "Janssen-Cilag AG, Zug" 
+- numberOfDoses: number in a series of doses. Format: integer, range: from 1 to 9. 
+- totalNumberOfDoses: total series of doses. Format: integer, range: from 1 to 9. 
+- vaccinationDate: date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-05-14"
+- countryOfVaccination: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland.
+
+### Test data
+
+### Recovery data
+
 ## API doc
 
 ### Generation API
