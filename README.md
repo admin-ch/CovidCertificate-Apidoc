@@ -42,9 +42,18 @@ The swiss covid certificate system is hosted and maintained by FOITT.
 
 #### Integration with OneTime password
 
-In order to generate or revoke a covid certificate, an authorized user has first to generate an OneTime password which can then be used to access the generation and revokation APOI through a TLS tunnel:
-
 ![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
+
+The use of the API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST request. The OTP has a limited validity.
+
+1. The authorized user previously registered and recognised by eIAM can obtain an OTP by logging on to the Web management UI page.
+2. When the authorized user accesses the Web management UI, its rights are verified by eIAM System
+3. The authorized user must insert this OTP in the primary system so that it is transmitted when calling the API.
+4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
+5. The OTP is transferred so that the authorized user can be identified, as header of the request.
+6. The content is hashed and signed with primary key of the "SwissGov Regular CA 01" certificate.
+7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
+8. The Management Service REST Api checks the integrity of the data and signature received and the OTP. 
 
 #### API sequence diagram
 
