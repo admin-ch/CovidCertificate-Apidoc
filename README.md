@@ -93,26 +93,69 @@ Mandatory data:
 ### Vaccination data
 
 Mandatory data:
-- vaccineProphylaxis: description of the vaccine/prophylaxis or its component(s). Format: string. Possible static values: 
-  - "1119305005" represented by "SARS-CoV-2 antigen vaccine" in the covide certificate
-  - "1119349007" represented by "SARS-CoV-2 mRNA vaccine" in the covide certificate
-  - "J07BX03" represented by "covid-19 vaccines" in the covide certificate
 - medicinalProduct: name of the medicinal product as registered in the country. Format: string. Possible static values: 
   - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
   - "68225" represented by "Comirnaty" in the covide certificate
   - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
-- marketingAuthorizationHolder: marketing authorisation holder Format: string. Possible static values: 
-  - "Moderna Switzerland GmbH, Basel"
-  - "Pfizer AG, Zürich."
-  - "Janssen-Cilag AG, Zug" 
 - numberOfDoses: number in a series of doses. Format: integer, range: from 1 to 9. 
 - totalNumberOfDoses: total series of doses. Format: integer, range: from 1 to 9. 
 - vaccinationDate: date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-05-14"
-- countryOfVaccination: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland.
+- countryOfVaccination: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
 
 ### Test data
 
+Mandatory data:
+- testName: name of the test. Format: string. This data is linked to the type of test. Possible static values:
+  - "PCR"
+  - "Panbio COVID-19 Ag Test"
+  - "AMP Rapid Test SARS-CoV-2 Ag"
+  - "Veritor System Rapid Detection of SARS-CoV-2"
+  - "SARS-CoV-2 Antigen Rapid Test Kit"
+  - "Wantai SARS-CoV-2 Ag Rapid Test (FIA)"
+  - "NowCheck COVID-19 Ag Test"
+  - "BIOSYNEX COVID-19 Ag BSS"
+  - "CerTest SARS-CoV-2 Card test"
+  - "Genbody COVID-19 Ag Test"
+  - "COVID-19 Ag Test Kit"
+  - "Covid-19 Antigen Rapid Test Kit"
+  - "Coronavirus Ag Rapid Test Cassette"
+  - "COVID-19 Rapid Antigen Test (Colloidal Gold)"
+  - "LumiraDx SARS-CoV-2 Ag Test"
+  - "Rapid SARS-CoV-2 Antigen Test Card"
+  - "NADAL COVID-19 Ag Test"
+  - "ExDia COVID-19 Ag"
+  - "SARS-CoV-2 Antigen Rapid Test"
+  - "Sofia SARS Antigen FIA"
+  - "COVID-19 Antigen Rapid Test Kit (Swab)"
+  - "STANDARD F COVID-19 Ag FIA"
+  - "STANDARD Q COVID-19 Ag Test"
+  - "CLINITEST Rapid Covid-19 Antigen Test"
+  - "Rapid SARS-CoV-2 Antigen Test Card"
+  - "Coronavirus Ag Rapid Test Cassette (Swab)"
+  - "BIOSYNEX COVID-19 Ag+ BSS"
+  - "COVID-VIRO"
+  - "NOVA Test SARS-CoV-2 Antigen Rapid Test Kit (Colloidal Gold Immunochromatography)"
+  - "EBS SARS-CoV-2 Ag Rapid Test"
+  - "Willi Fox COVID-19 Antigen rapid test"
+  - "SARS-CoV-2 Spike Protein Test Kit (Fluorescence Immunoassay)"
+  - "COVID-19 Antigen Rapid Test"
+  - "Rapid SARS-CoV-2 Antigen Test Card"
+  - "Wondof 2019-nCoV Antigen Test (Lateral Flow Method)"
+  - "Biozek covid-19 Antigen Rapidtest BCOV-502"
+  - "COVID-19 Antigen Detection Kit"
+  - "SARS-CoV-2 Antigen Rapid Test"
+  - "Panbio COVID-19 Ag Test"
+  - "mö-screen Corona Antigen Testr"
+- sampleDateTime: date and time of the test sample collection. Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
+- resultDateTime: date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
+- testingCentreOrFacility: name of centre or facility. Format: string, maxLength: 50 CHAR. Example: "Centre de test de Payerne"
+- memberStateOfTest: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+
 ### Recovery data
+
+Mandatory data:
+- dateOfFirstPositiveTestResult: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-10-03"
+- countryOfTest: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
 
 ## API doc
 
