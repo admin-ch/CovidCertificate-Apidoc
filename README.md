@@ -38,6 +38,10 @@ A TLS tunnel is made between the primary system and the API. One "SwissGov Regul
 
 ### Integration cookbook
 
+TBD 
+
+### Integration examples
+
 TBD
 
 ## API doc
