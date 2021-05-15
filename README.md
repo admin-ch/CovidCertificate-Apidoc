@@ -62,7 +62,7 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 #### Content signature
 
-The content transferred to the API is signed with the "SwissGov Regular CA 01" certificate.
+The content transferred to the API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
 
 ### Integration cookbook
 
