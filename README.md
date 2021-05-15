@@ -12,8 +12,6 @@
       - [Authorized user](#authorized-user)
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
-    + [Integration cookbook](#integration-cookbook)
-    + [Integration examples](#integration-examples)
   * [Data](#data)
     + [General covid certificate data](#general-covid-certificate-data)
     + [Vaccination data](#vaccination-data)
@@ -79,14 +77,6 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 #### Content signature
 
 The content transferred to the API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
-
-### Integration cookbook
-
-TBD 
-
-### Integration examples
-
-TBD
 
 ## Data
 
