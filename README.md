@@ -1,5 +1,25 @@
 # Swiss Covid Certificate - API documentation - WIP
 
+- [Swiss Covid Certificate - API documentation - WIP](#swiss-covid-certificate---api-documentation---wip)
+  * [Introduction](#introduction)
+    + [Links to EU digital green certificate](#links-to-eu-digital-green-certificate)
+  * [Third party system integration](#third-party-system-integration)
+    + [Prerequisites](#prerequisites)
+    + [Integration achitecture](#integration-achitecture)
+      - [Integration with OneTime password](#integration-with-onetime-password)
+    + [Security architecture](#security-architecture)
+      - [Authorized user](#authorized-user)
+      - [TLS tunnel](#tls-tunnel)
+    + [Integration cookbook](#integration-cookbook)
+    + [Integration examples](#integration-examples)
+  * [API doc](#api-doc)
+    + [Generation API](#generation-api)
+      - [Error list](#error-list)
+    + [Revokation API](#revokation-api)
+    + [Verification API](#verification-api)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 ## Introduction
 
 The swiss covid certificate system can be used by third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
