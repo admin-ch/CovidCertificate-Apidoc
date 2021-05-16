@@ -214,7 +214,7 @@ Mandatory data:
 
 The generation API allows to create 3 types of covid certificate: vaccination, test and recovery.
 
-Please import the `api-doc.json` file in the https://editor.swagger.io to see the visualization.
+See the [API doc](https://editor.swagger.io/?url=) to get technical information about the REST API.
 
 #### Error list
 There is a custom error body for the request if the server side parameter validation fails.
