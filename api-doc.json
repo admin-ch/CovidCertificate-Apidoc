@@ -11,8 +11,16 @@
   "servers": [
     {
       "url": "https://cc-api-gateway-service.dev.app.cfap02.atlantica.admin.ch/",
-      "description": "Generated server url"
-    }
+      "description": "DEV"
+    },
+    {
+      "url": "https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch/",
+      "description": "ABN"
+    },
+    {
+      "url": "https://cc-api-gateway-service.app.cfap02.atlantica.admin.ch/",
+      "description": "PROD"
+    },
   ],
   "paths": {
     "/api/covidcertificate/v1/vaccination": {
