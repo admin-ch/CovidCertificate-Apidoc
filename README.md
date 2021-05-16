@@ -92,6 +92,12 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 The content transferred to the REST API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
 
+The process is the following:
+
+1. Primary system creates a hash of the message to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data)
+2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself.
+3. Primary system places the JSON data and the signed hash in the payload and sends the message to generation REST API or to revocation REST API. 
+
 ## Data
 
 3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all certificate. The other data are specific to the type of certificate. 
