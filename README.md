@@ -27,7 +27,7 @@
 
 ## Introduction
 
-The swiss covid certificate system can be used by third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
+The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
 The swiss covid certificate system is hosted and maintained by FOITT.
 
@@ -83,26 +83,26 @@ The content transferred to the API is signed with the "SwissGov Regular CA 01" c
 ### Personal data
 
 Mandatory data appearing in all types of certificates:
-- familyName: family name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Federer"
-- givenName: first name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Roger"
-- dateOfBirth: birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "1991-08-08"
+- **familyName**: family name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Federer"
+- **givenName**: first name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Roger"
+- **dateOfBirth**: birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "1991-08-08"
 
 ### Vaccination data
 
 Mandatory data:
-- medicinalProduct: name of the medicinal product as registered in the country. Format: string. Possible static values: 
+- **medicinalProduct**: name of the medicinal product as registered in the country. Format: string. Possible static values: 
   - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
   - "68225" represented by "Comirnaty" in the covide certificate
   - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
-- numberOfDoses: number in a series of doses. Format: integer, range: from 1 to 9. 
-- totalNumberOfDoses: total series of doses. Format: integer, range: from 1 to 9. 
-- vaccinationDate: date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-05-14"
-- countryOfVaccination: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **numberOfDoses**: number in a series of doses. Format: integer, range: from 1 to 9. 
+- **totalNumberOfDoses**: total series of doses. Format: integer, range: from 1 to 9. 
+- **vaccinationDate**: date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-05-14"
+- **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
 
 ### Test data
 
 Mandatory data:
-- testName: name of the test. Format: string. Possible static values:
+- **testName**: name of the test. Format: string. Possible static values:
   - "PCR"
   - "Panbio COVID-19 Ag Test"
   - "AMP Rapid Test SARS-CoV-2 Ag"
@@ -143,16 +143,16 @@ Mandatory data:
   - "SARS-CoV-2 Antigen Rapid Test"
   - "Panbio COVID-19 Ag Test"
   - "mö-screen Corona Antigen Testr"
-- sampleDateTime: date and time of the test sample collection. Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
-- resultDateTime: date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
-- testingCentreOrFacility: name of centre or facility. Format: string, maxLength: 50 CHAR. Example: "Centre de test de Payerne"
-- memberStateOfTest: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **sampleDateTime**: date and time of the test sample collection. Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
+- **resultDateTime**: date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
+- **testingCentreOrFacility**: name of centre or facility. Format: string, maxLength: 50 CHAR. Example: "Centre de test de Payerne"
+- **memberStateOfTest**: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
 
 ### Recovery data
 
 Mandatory data:
-- dateOfFirstPositiveTestResult: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-10-03"
-- countryOfTest: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-10-03"
+- **countryOfTest**: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
 
 ## API doc
 
