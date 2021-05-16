@@ -3,6 +3,7 @@
 - [Swiss Covid Certificate - API documentation - WIP](#swiss-covid-certificate---api-documentation---wip)
   * [Introduction](#introduction)
     + [Links to EU digital green certificate](#links-to-eu-digital-green-certificate)
+  * [HOWTO use the covid certificate generation and revocation API ?](#howto-use-the-covid-certificate-generation-and-revocation-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites](#prerequisites)
     + [Integration achitecture](#integration-achitecture)
@@ -20,7 +21,7 @@
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
       - [Error list](#error-list)
-    + [Revokation API](#revokation-api)
+    + [Revocation API](#revocation-api)
     + [Verification API](#verification-api)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -37,7 +38,18 @@ The swiss covid certificate system is hosted and maintained by [FOITT](https://w
 
 ## HOWTO use the covid certificate generation and revocation API ?
 
+1. Indicate your interest to Covid-Zertifikat@bag.admin.ch
+2. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html)
+3. Receive a test certificate from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system inetgration can be developped and tested.
+4. If test is ok, receive a prod certificate in order to generate official swiss covid certificates
+5. REST API is free of charge. 
+6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with Covid-Zertifikat@bag.admin.ch 
+
 ## Third party system integration
+
+In order to generate and revoke covid certificates, two ways are possible:
+1. Use the [Web management UI](https://www.covidcertificate.admin.ch/). Only authorized users determined by the cantons can use the Web management UI.
+2. Integrate the REST API within a primary system (system used by health professionals to manage vaccine, test and recovery information). Only authorized users determined by the cantons can use the REST API. Only primary systems determined by [FOITT](https://www.bit.admin.ch/bit/en/home.html) can access the REST API.
 
 ### Prerequisites
 
