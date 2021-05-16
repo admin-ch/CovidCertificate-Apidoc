@@ -38,6 +38,8 @@ The swiss covid certificate system is hosted and maintained by [FOITT](https://w
 
 ## HOWTO use the covid certificate generation and revocation API ?
 
+If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
+
 1. Indicate your interest to Covid-Zertifikat@bag.admin.ch 
 2. Receive a test PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system integration can be developped and tested.
 3. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html). This is a condition for receiving a productive PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html).
