@@ -118,7 +118,7 @@ Mandatory data appearing in all types of certificates:
 ### Vaccination data
 
 Mandatory data:
-- **medicinalProduct**: name of the medicinal product as registered in the country. 
+- **medicinalProductCode**: name of the medicinal product as registered in the country. 
   - Format: string. Possible static values: 
     - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
     - "68225" represented by "Comirnaty" in the covide certificate
@@ -137,49 +137,12 @@ Mandatory data:
 ### Test data
 
 Mandatory data:
-- **testName**: name of the test. 
-  - Format: string. 
-  - Possible static values:
-    - "PCR"
-    - "Panbio COVID-19 Ag Test"
-    - "AMP Rapid Test SARS-CoV-2 Ag"
-    - "Veritor System Rapid Detection of SARS-CoV-2"
-    - "SARS-CoV-2 Antigen Rapid Test Kit"
-    - "Wantai SARS-CoV-2 Ag Rapid Test (FIA)"
-    - "NowCheck COVID-19 Ag Test"
-    - "BIOSYNEX COVID-19 Ag BSS"
-    - "CerTest SARS-CoV-2 Card test"
-    - "Genbody COVID-19 Ag Test"
-    - "COVID-19 Ag Test Kit"
-    - "Covid-19 Antigen Rapid Test Kit"
-    - "Coronavirus Ag Rapid Test Cassette"
-    - "COVID-19 Rapid Antigen Test (Colloidal Gold)"
-    - "LumiraDx SARS-CoV-2 Ag Test"
-    - "Rapid SARS-CoV-2 Antigen Test Card"
-    - "NADAL COVID-19 Ag Test"
-    - "ExDia COVID-19 Ag"
-    - "SARS-CoV-2 Antigen Rapid Test"
-    - "Sofia SARS Antigen FIA"
-    - "COVID-19 Antigen Rapid Test Kit (Swab)"
-    - "STANDARD F COVID-19 Ag FIA"
-    - "STANDARD Q COVID-19 Ag Test"
-    - "CLINITEST Rapid Covid-19 Antigen Test"
-    - "Rapid SARS-CoV-2 Antigen Test Card"
-    - "Coronavirus Ag Rapid Test Cassette (Swab)"
-    - "BIOSYNEX COVID-19 Ag+ BSS"
-    - "COVID-VIRO"
-    - "NOVA Test SARS-CoV-2 Antigen Rapid Test Kit (Colloidal Gold Immunochromatography)"
-    - "EBS SARS-CoV-2 Ag Rapid Test"
-    - "Willi Fox COVID-19 Antigen rapid test"
-    - "SARS-CoV-2 Spike Protein Test Kit (Fluorescence Immunoassay)"
-    - "COVID-19 Antigen Rapid Test"
-    - "Rapid SARS-CoV-2 Antigen Test Card"
-    - "Wondof 2019-nCoV Antigen Test (Lateral Flow Method)"
-    - "Biozek covid-19 Antigen Rapidtest BCOV-502"
-    - "COVID-19 Antigen Detection Kit"
-    - "SARS-CoV-2 Antigen Rapid Test"
-    - "Panbio COVID-19 Ag Test"
-    - "mö-screen Corona Antigen Testr"
+- **typeCode**: type of test
+  - Format: string. Possible static values:
+    - "LP6464-4" for "Nucleic acid amplification with probe detection" (PCR)
+    - "LP217198-3" for "Rapid immunoassay" (Antigen)
+- **manufacturerCode**: test manufacturer code. Field has to be filled only if typeCode="LP217198-3".
+  - Format: string. Possible static values:
 - **sampleDateTime**: date and time of the test sample collection. 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
