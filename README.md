@@ -102,7 +102,7 @@ Mandatory data:
 ### Test data
 
 Mandatory data:
-- testName: name of the test. Format: string. This data is linked to the type of test. Possible static values:
+- testName: name of the test. Format: string. Possible static values:
   - "PCR"
   - "Panbio COVID-19 Ag Test"
   - "AMP Rapid Test SARS-CoV-2 Ag"
