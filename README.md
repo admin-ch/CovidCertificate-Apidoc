@@ -35,11 +35,13 @@ The swiss covid certificate system is hosted and maintained by [FOITT](https://w
 - [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
 - [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
+## HOWTO use the covid certificate generation and revocation API ?
+
 ## Third party system integration
 
 ### Prerequisites
 
-1. Only authorized users (natural persons) can access the generation and revokation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
+1. Only authorized users (natural persons) can access the generation and revocation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
 2. Verification API is freely accessible.
 3. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and verification API.
 
@@ -49,10 +51,10 @@ The swiss covid certificate system is hosted and maintained by [FOITT](https://w
 
 ![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
 
-The use of the generation and revokation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
+The use of the generation and revocation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
 
 1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an OTP by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
-2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1)
+2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the OTP in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
 5. The OTP is transferred so that the authorized user can be identified, as header of the request.
@@ -215,7 +217,7 @@ There is a custom error body for the request if the server side parameter valida
 - `{470, "Invalid date of first positive test result"}`
 - `{471, "Invalid country of test"}`
 
-### Revokation API
+### Revocation API
 
 ### Verification API
 
