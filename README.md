@@ -80,9 +80,9 @@ The content transferred to the API is signed with the "SwissGov Regular CA 01" c
 
 ## Data
 
-### General covid certificate data
+### Personal data
 
-Mandatory data:
+Mandatory data appearing in all types of certificates:
 - familyName: family name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Federer"
 - givenName: first name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Roger"
 - dateOfBirth: birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "1991-08-08"
