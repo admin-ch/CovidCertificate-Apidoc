@@ -80,6 +80,8 @@ The content transferred to the REST API is signed with the "SwissGov Regular CA 
 
 ## Data
 
+3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all certificate. The other data are specific to the type of certificate. 
+
 ### Personal data
 
 Mandatory data appearing in all types of certificates:
