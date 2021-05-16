@@ -29,19 +29,19 @@
 
 The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
-The swiss covid certificate system is hosted and maintained by FOITT.
+The swiss covid certificate system is hosted and maintained by [FOITT](https://www.bit.admin.ch/bit/en/home.html).
 
 ### Links to EU digital green certificate
-- Specification of EU digital greeen certificate: https://ec.europa.eu/health/ehealth/covid-19_en
-- Code repository of EU digital greeen certificate: https://github.com/eu-digital-green-certificates
+- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
+- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
 ## Third party system integration
 
 ### Prerequisites
 
-1. Only authorized users (natural persons) can access the generation and revokation API. Authorized users are determined by the cantons or FOPH.
+1. Only authorized users (natural persons) can access the generation and revokation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
 2. Verification API is freely accessible.
-3. Third party systems have to sign an agreement with FOITT in order to access the generation and verification API.
+3. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and verification API.
 
 ### Integration achitecture
 
@@ -49,16 +49,16 @@ The swiss covid certificate system is hosted and maintained by FOITT.
 
 ![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
 
-The use of the API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST request. The OTP has a limited validity.
+The use of the generation and revokation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
 
-1. The authorized user previously registered and recognised by eIAM can obtain an OTP by logging on to the Web management UI page.
-2. When the authorized user accesses the Web management UI, its rights are verified by eIAM System
-3. The authorized user must insert this OTP in the primary system so that it is transmitted when calling the API.
+1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an OTP by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
+2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1)
+3. The authorized user must insert the OTP in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
 5. The OTP is transferred so that the authorized user can be identified, as header of the request.
-6. The content is hashed and signed with primary key of the "SwissGov Regular CA 01" certificate.
+6. The content is hashed and signed with primary key of the "SwissGov Regular CA 01" certificate distributed to the primary system.
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
-8. The Management Service REST Api checks the integrity of the data and signature received and the OTP. 
+8. The Management Service REST API checks the integrity of the data and signature received and the OTP. 
 
 #### API sequence diagram
 
@@ -68,7 +68,7 @@ The use of the API is done by using an OTP that has been loaded beforehand in th
 
 #### Authorized user
 
-The authorized users are onboarded in EIAM and can use a CHLogin or a HIN identity. They access the API by sending an OneTime password (a JSON Web Token - JWT) generated from the Web UI.
+The authorized users are onboarded in [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) and can use a [CHLogin](https://www.eiam.admin.ch/?c=f!chlfaq!pub&l=en) or a [HIN](https://www.hin.ch/hin-anschluss/elektronische-identitaeten/) identity. They access the API by sending an OneTime password (OTP as [JSON Web Token - JWT](https://jwt.io/)) generated from the [Web management UI](https://www.covidcertificate.admin.ch/).
 
 #### TLS tunnel
 
@@ -76,16 +76,22 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 #### Content signature
 
-The content transferred to the API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
+The content transferred to the REST API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
 
 ## Data
 
 ### Personal data
 
 Mandatory data appearing in all types of certificates:
-- **familyName**: family name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Federer"
-- **givenName**: first name of the covid certificate owner. Format: string, maxLength: 50 CHAR. Example: "Roger"
-- **dateOfBirth**: birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "1991-08-08"
+- **familyName**: family name of the covid certificate owner. 
+  - Format: string, maxLength: 50 CHAR. 
+  - Example: "Federer"
+- **givenName**: first name of the covid certificate owner. 
+  - Format: string, maxLength: 50 CHAR. 
+  - Example: "Roger"
+- **dateOfBirth**: birthdate of the covid certificate owner. 
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
+  - Example: "1991-08-08"
 
 ### Vaccination data
 
@@ -102,57 +108,71 @@ Mandatory data:
 ### Test data
 
 Mandatory data:
-- **testName**: name of the test. Format: string. Possible static values:
-  - "PCR"
-  - "Panbio COVID-19 Ag Test"
-  - "AMP Rapid Test SARS-CoV-2 Ag"
-  - "Veritor System Rapid Detection of SARS-CoV-2"
-  - "SARS-CoV-2 Antigen Rapid Test Kit"
-  - "Wantai SARS-CoV-2 Ag Rapid Test (FIA)"
-  - "NowCheck COVID-19 Ag Test"
-  - "BIOSYNEX COVID-19 Ag BSS"
-  - "CerTest SARS-CoV-2 Card test"
-  - "Genbody COVID-19 Ag Test"
-  - "COVID-19 Ag Test Kit"
-  - "Covid-19 Antigen Rapid Test Kit"
-  - "Coronavirus Ag Rapid Test Cassette"
-  - "COVID-19 Rapid Antigen Test (Colloidal Gold)"
-  - "LumiraDx SARS-CoV-2 Ag Test"
-  - "Rapid SARS-CoV-2 Antigen Test Card"
-  - "NADAL COVID-19 Ag Test"
-  - "ExDia COVID-19 Ag"
-  - "SARS-CoV-2 Antigen Rapid Test"
-  - "Sofia SARS Antigen FIA"
-  - "COVID-19 Antigen Rapid Test Kit (Swab)"
-  - "STANDARD F COVID-19 Ag FIA"
-  - "STANDARD Q COVID-19 Ag Test"
-  - "CLINITEST Rapid Covid-19 Antigen Test"
-  - "Rapid SARS-CoV-2 Antigen Test Card"
-  - "Coronavirus Ag Rapid Test Cassette (Swab)"
-  - "BIOSYNEX COVID-19 Ag+ BSS"
-  - "COVID-VIRO"
-  - "NOVA Test SARS-CoV-2 Antigen Rapid Test Kit (Colloidal Gold Immunochromatography)"
-  - "EBS SARS-CoV-2 Ag Rapid Test"
-  - "Willi Fox COVID-19 Antigen rapid test"
-  - "SARS-CoV-2 Spike Protein Test Kit (Fluorescence Immunoassay)"
-  - "COVID-19 Antigen Rapid Test"
-  - "Rapid SARS-CoV-2 Antigen Test Card"
-  - "Wondof 2019-nCoV Antigen Test (Lateral Flow Method)"
-  - "Biozek covid-19 Antigen Rapidtest BCOV-502"
-  - "COVID-19 Antigen Detection Kit"
-  - "SARS-CoV-2 Antigen Rapid Test"
-  - "Panbio COVID-19 Ag Test"
-  - "mö-screen Corona Antigen Testr"
-- **sampleDateTime**: date and time of the test sample collection. Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
-- **resultDateTime**: date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time. Example: "1972-09-24T17:29:41.063Z"
-- **testingCentreOrFacility**: name of centre or facility. Format: string, maxLength: 50 CHAR. Example: "Centre de test de Payerne"
-- **memberStateOfTest**: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **testName**: name of the test. 
+  - Format: string. 
+  - Possible static values:
+    - "PCR"
+    - "Panbio COVID-19 Ag Test"
+    - "AMP Rapid Test SARS-CoV-2 Ag"
+    - "Veritor System Rapid Detection of SARS-CoV-2"
+    - "SARS-CoV-2 Antigen Rapid Test Kit"
+    - "Wantai SARS-CoV-2 Ag Rapid Test (FIA)"
+    - "NowCheck COVID-19 Ag Test"
+    - "BIOSYNEX COVID-19 Ag BSS"
+    - "CerTest SARS-CoV-2 Card test"
+    - "Genbody COVID-19 Ag Test"
+    - "COVID-19 Ag Test Kit"
+    - "Covid-19 Antigen Rapid Test Kit"
+    - "Coronavirus Ag Rapid Test Cassette"
+    - "COVID-19 Rapid Antigen Test (Colloidal Gold)"
+    - "LumiraDx SARS-CoV-2 Ag Test"
+    - "Rapid SARS-CoV-2 Antigen Test Card"
+    - "NADAL COVID-19 Ag Test"
+    - "ExDia COVID-19 Ag"
+    - "SARS-CoV-2 Antigen Rapid Test"
+    - "Sofia SARS Antigen FIA"
+    - "COVID-19 Antigen Rapid Test Kit (Swab)"
+    - "STANDARD F COVID-19 Ag FIA"
+    - "STANDARD Q COVID-19 Ag Test"
+    - "CLINITEST Rapid Covid-19 Antigen Test"
+    - "Rapid SARS-CoV-2 Antigen Test Card"
+    - "Coronavirus Ag Rapid Test Cassette (Swab)"
+    - "BIOSYNEX COVID-19 Ag+ BSS"
+    - "COVID-VIRO"
+    - "NOVA Test SARS-CoV-2 Antigen Rapid Test Kit (Colloidal Gold Immunochromatography)"
+    - "EBS SARS-CoV-2 Ag Rapid Test"
+    - "Willi Fox COVID-19 Antigen rapid test"
+    - "SARS-CoV-2 Spike Protein Test Kit (Fluorescence Immunoassay)"
+    - "COVID-19 Antigen Rapid Test"
+    - "Rapid SARS-CoV-2 Antigen Test Card"
+    - "Wondof 2019-nCoV Antigen Test (Lateral Flow Method)"
+    - "Biozek covid-19 Antigen Rapidtest BCOV-502"
+    - "COVID-19 Antigen Detection Kit"
+    - "SARS-CoV-2 Antigen Rapid Test"
+    - "Panbio COVID-19 Ag Test"
+    - "mö-screen Corona Antigen Testr"
+- **sampleDateTime**: date and time of the test sample collection. 
+  - Format: ISO 8601 date incl. time. 
+  - Example: "1972-09-24T17:29:41.063Z"
+- **resultDateTime**: date and time of the test result production (optional for rapid antigen test). 
+  - Format: ISO 8601 date incl. time. 
+  - Example: "1972-09-24T17:29:41.063Z"
+- **testingCentreOrFacility**: name of centre or facility. 
+  - Format: string, maxLength: 50 CHAR. 
+  - Example: "Centre de test de Payerne"
+- **memberStateOfTest**: the country in which the covid certificate owner has been tested.
+  - Format: string (2 chars according to ISO 3166 Country Codes). 
+  - Example: "CH" (for switzerland).
 
 ### Recovery data
 
 Mandatory data:
-- **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-10-03"
-- **countryOfTest**: the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. 
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])".
+  - Example: "2021-10-03"
+- **countryOfTest**: the country in which the covid certificate owner has been tested. 
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "CH" (for switzerland).
 
 ## API doc
 
