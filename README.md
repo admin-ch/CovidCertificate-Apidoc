@@ -96,14 +96,21 @@ Mandatory data appearing in all types of certificates:
 ### Vaccination data
 
 Mandatory data:
-- **medicinalProduct**: name of the medicinal product as registered in the country. Format: string. Possible static values: 
-  - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
-  - "68225" represented by "Comirnaty" in the covide certificate
-  - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
-- **numberOfDoses**: number in a series of doses. Format: integer, range: from 1 to 9. 
-- **totalNumberOfDoses**: total series of doses. Format: integer, range: from 1 to 9. 
-- **vaccinationDate**: date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". Example: "2021-05-14"
-- **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes). Example: "CH" (for switzerland).
+- **medicinalProduct**: name of the medicinal product as registered in the country. 
+  - Format: string. Possible static values: 
+    - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
+    - "68225" represented by "Comirnaty" in the covide certificate
+    - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
+- **numberOfDoses**: number in a series of doses.
+  - Format: integer, range: from 1 to 9. 
+- **totalNumberOfDoses**: total series of doses.
+  - Format: integer, range: from 1 to 9. 
+- **vaccinationDate**: date of vaccination. 
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
+  - Example: "2021-05-14"
+- **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated.
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "CH" (for switzerland).
 
 ### Test data
 
