@@ -241,8 +241,4 @@ There is a custom error body for the request if the server side parameter valida
 - `{470, "Invalid date of first positive test result"}`
 - `{471, "Invalid country of test"}`
 
-### Revocation API
-
-### Verification API
-
 
