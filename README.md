@@ -20,9 +20,6 @@
     + [Recovery data](#recovery-data)
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
-      - [Error list](#error-list)
-    + [Revocation API](#revocation-api)
-    + [Verification API](#verification-api)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
