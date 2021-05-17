@@ -122,7 +122,6 @@ Mandatory data:
   - Format: string. Possible static values: 
     - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
     - "68225" represented by "Comirnaty" in the covide certificate
-    - "68235" represented by "COVID-19 Vaccine Janssen" in the covide certificate
 - **numberOfDoses**: number in a series of doses.
   - Format: integer, range: from 1 to 9. 
 - **totalNumberOfDoses**: total series of doses.
@@ -143,46 +142,39 @@ Mandatory data:
     - "LP217198-3" for "Rapid immunoassay" (Antigen)
 - **manufacturerCode**: test manufacturer code. Field has to be filled only if typeCode="LP217198-3".
   - Format: string. Possible static values:
-    - "1232" for "Abbott Rapid Diagnostics"
-    - "1304" for "AMEDA Labordiagnostik GmbH"
+    - "344" for "SD BIOSENSOR Inc"
     - "1065" for "Becton Dickinson"
-    - "1331" for "Beijing Lepu Medical Technology Co., Ltd"
-    - "1484" for "Beijing Wantai Biological Pharmacy Enterprise Co., Ltd"
-    - "1242" for "Bionote, Inc"
-    - "1223" for "BIOSYNEX SWISS SA"
-    - "1173" for "CerTest Biotec, S.L."
-    - "1244" for "GenBody, Inc"
-    - "1360" for "Guangdong Wesail Biotech Co., Ltd"
-    - "1363" for "Hangzhou Clongene Biotech Co., Ltd"
-    - "1767" for "Healgen Scientific Limited Liability Company"
-    - "1333" for "Joinstar Biomedical Technology Co., Ltd" 
-    - "1268" for "LumiraDX UK Ltd"
-    - "1180" for "MEDsan GmbH"
-    - "1481" for "MP Biomedicals Germany GmbH"
-    - "1162" for "Nal von minden GmbH"
-    - "1271" for "Precision Biosensor, Inc"
-    - "1341" for "Qingdao Hightop Biotech Co., Ltd"
     - "1097" for "Quidel Corporation"
-    - "1489" for "Safecare Biotech (Hangzhou) Co. Ltd"
-    - "344" for "SD BIOSENSOR Inc" (STANDARD F COVID-19 Ag FIA)
-    - "345" for "SD BIOSENSOR Inc" (STANDARD Q COVID-19 Ag Test)
+    - "1162" for "Nal von minden GmbH"
+    - "1180" for "MEDsan GmbH"
     - "1218" for "Siemens Healthineers"
+    - "1223" for "BIOSYNEX SWISS SA"
+    - "1228" for "Shenzhen Microprofit Biotech Co., Ltd"
+    - "1232" for "Abbott Rapid Diagnostics"
+    - "1232" for "Abbott Rapid Diagnostics"
+    - "1242" for "Bionote, Inc"
+    - "1244" for "GenBody, Inc"
+    - "1257" for "Hangzhou AllTest Biotech Co., Ltd"
+    - "1268" for "LumiraDX UK Ltd"
+    - "1271" for "Precision Biosensor, Inc"
+    - "1276" for "Willi Fox GmbH"
     - "1278" for "Xiamen Boson Biotech Co. Ltd"
+    - "1278" for "Xiamen Boson Biotech Co. Ltd."
+    - "1304" for "AMEDA Labordiagnostik GmbH"
+    - "1312" for "Guangzhou Wondfo Biotech Co., Ltd"
     - "1343" for "Zhejiang Orient Gene Biotech"
-    - "1494" for "BIOSYNEX SWISS SA, Fribourg (CH)"
-    - "1833" for "Boulogne Billancourt"
+    - "1363" for "Hangzhou Clongene Biotech Co., Ltd"
+    - "1481" for "MP Biomedicals Germany GmbH"
+    - "1494" for "BIOSYNEX SWISS SA"
+    - "1501" for "New Gene (Hangzhou) Bioengineering Co., Ltd"
+    - "1604" for "Roche (SD BIOSENSOR)"
+    - "1665" for "Inzek international trading bv"
+    - "1739" for "Eurobio Scientific"
+    - "1767" for "Healgen Scientific Limited Liability Company"
+    - "1779" for "möLab GmbH"
+    - "1833" for "AAZ-LMB"
     - "2010" for "Atlas Link Technology Co., Ltd., China"
-    - "1739" for "Eurobio Scientific, Les Ulis (F)"
-    - "1276" for "Willi Fox GmbH, Basel (CH)"
-    - "1228" for "Shenzhen Microprofit Biotech Co., Ltd., China"
-    - "1257" for "Hangzhou ALL Test Biotech Co. Ltd., China"
-    - "1278" for "Xiamen Boson Biotech Co., Ltd., China"
-    - "1312" for "Guangzhou Wondfo Biotech Co. Ltd., China"
-    - "1665" for "Inzek International Trading B.V, Apeldoorn (NL)"
-    - "1501" for "(Hangzhou) Bioengineering Co. Ltd., China"
-    - "1604" for "SD Biosensor, Inc.,Republic of Korea"
-    - "1232" for "Abbott Rapid Diagnostic GmbH, Jena (D)"
-    - "1779" for "möLab GmbH, Langenfeld (D)"
+    - "9999" for "LYSUN Covid 19 Antigen Rapid Test "
 - **sampleDateTime**: date and time of the test sample collection. 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
