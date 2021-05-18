@@ -137,11 +137,11 @@ Mandatory data:
 ### Test data
 
 Mandatory data:
-- **typeCode**: type of test
+- **typeCode**: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
   - Format: string. Possible static values:
     - "LP6464-4" for "Nucleic acid amplification with probe detection" (PCR)
     - "LP217198-3" for "Rapid immunoassay" (Antigen)
-- **manufacturerCode**: test manufacturer code. Field has to be filled only if typeCode="LP217198-3".
+- **manufacturerCode**: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
   - Format: string. Possible static values:
     - "344" for "SD BIOSENSOR Inc"
     - "1065" for "Becton Dickinson"
