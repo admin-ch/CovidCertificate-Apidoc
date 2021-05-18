@@ -126,6 +126,7 @@ Mandatory data:
   - Format: string. Possible static values: 
     - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
     - "68225" represented by "Comirnaty" in the covide certificate
+    - TBD
 - **numberOfDoses**: number in a series of doses.
   - Format: integer, range: from 1 to 9. 
 - **totalNumberOfDoses**: total series of doses.
