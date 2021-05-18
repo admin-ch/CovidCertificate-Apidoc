@@ -115,6 +115,9 @@ Mandatory data appearing in all types of certificates:
 - **dateOfBirth**: birthdate of the covid certificate owner. 
   - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
   - Example: "1981-08-08"
+- **language**: PDF language (together with the standard, which is english). Accepted languages are: de, it, fr, rm.
+  - Format: ISO 639-1  two-letter codes, one per language for ISO 639 macrolanguage. 
+  - Example: "de"
 
 ### Vaccination data
 
