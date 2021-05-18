@@ -1,6 +1,6 @@
-# Swiss Covid Certificate - API documentation - WIP
+# Swiss Covid Certificate - API documentation
 
-- [Swiss Covid Certificate - API documentation - WIP](#swiss-covid-certificate---api-documentation---wip)
+- [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
     + [Links to EU digital green certificate](#links-to-eu-digital-green-certificate)
   * [HOWTO use the covid certificate generation and revocation API ?](#howto-use-the-covid-certificate-generation-and-revocation-api--)
@@ -20,6 +20,7 @@
     + [Recovery data](#recovery-data)
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
+      - [Error list](#error-list)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -40,7 +41,7 @@ If you are a primary system integrator, you can follow the following steps in or
 1. Indicate your interest to Covid-Zertifikat@bag.admin.ch 
 2. Receive a test PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system integration can be developped and tested.
 3. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html). This is a condition for receiving a productive PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html).
-4. If test is ok, receive a production PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to generate official swiss covid certificates.
+4. If test is ok and agreement is signed, receive a production PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to generate official swiss covid certificates.
 5. REST API is free of charge. 
 6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with Covid-Zertifikat@bag.admin.ch 
 
