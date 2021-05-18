@@ -61,7 +61,7 @@ In order to generate and revoke covid certificates, two ways are possible:
 
 #### Integration with OneTime password
 
-![image](https://user-images.githubusercontent.com/319676/118224719-035c5e80-b484-11eb-8809-a90a7ea1548b.png)
+![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
 The use of the generation and revocation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
 
