@@ -2,8 +2,8 @@
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
-    + [Links to EU digital green certificate](#links-to-eu-digital-green-certificate)
-  * [HOWTO use API ?](#howto-use-api--)
+    + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
+  * [HOWTO use the API ?](#howto-use-the-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites](#prerequisites)
     + [Integration achitecture](#integration-achitecture)
