@@ -215,23 +215,24 @@ There is a custom error body for the request if the server side parameter valida
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
 - `{453, "Invalid dateOfBirth! Must be younger than 1900-01-01"}`
-- `{454, "Invalid vaccine prophylaxis"}`
-- `{455, "Invalid medicinal product"}`
-- `{456, "Invalid marketing authorization holder"}`
-- `{457, "Invalid number of doses"}`
-- `{458, "Invalid vaccination date! Date cannot be in the future"}`
-- `{459, "Invalid country of vaccination"}`
-- `{460, "Invalid given name! Must not exceed 50 chars"}`
-- `{461, "Invalid family name! Must not exceed 50 chars"}`
-- `{462, "No test data was specified"}`
-- `{463, "Invalid member state of test"}`
-- `{464, "Invalid type of test"}`
-- `{465, "Invalid test name"}`
-- `{466, "Invalid test manufacturer"}`
-- `{467, "Invalid testing center or facility"}`
-- `{468, "Invalid sample or result date time! Sample date must be before current date and before result date"}`
-- `{469, "No recovery data specified"}`
-- `{470, "Invalid date of first positive test result"}`
-- `{471, "Invalid country of test"}`
+- `{454, "Invalid medicinal product"}`
+- `{455, "Invalid number of doses"}`
+- `{456, "Invalid vaccination date! Date cannot be in the future"}`
+- `{457, "Invalid country of vaccination"}`
+- `{458, "Invalid given name! Must not exceed 50 chars"}`
+- `{459, "Invalid family name! Must not exceed 50 chars"}`
+- `{460, "No test data was specified"}`
+- `{461, "Invalid member state of test"}`
+- `{462, "Invalid type of test and manufacturer code combination! Must either be a PCR Test type and no manufacturer code or give a manufacturer code and the antigen test type code."}`
+- `{463, "Invalid testing center or facility"}`
+- `{464, "Invalid sample or result date time! Sample date must be before current date and before result date"}`
+- `{465, "No recovery data specified"}`
+- `{466, "Invalid date of first positive test result"}`
+- `{467, "Invalid country of test"}`
+- `{468, "Country short form can not be mapped"}`
+- `{469, "The given language does not match any of the supported languages: de, it, fr!"}`
+
+As well as when the integrity check fails:
+- `{"errorCode": 490, "errormessage": Integrity check failed. The body hash does not match the hash in the header.}`
 
 
