@@ -3,7 +3,7 @@
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
     + [Links to EU digital green certificate](#links-to-eu-digital-green-certificate)
-  * [HOWTO use the covid certificate generation and revocation API ?](#howto-use-the-covid-certificate-generation-and-revocation-api--)
+  * [HOWTO use API ?](#howto-use-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites](#prerequisites)
     + [Integration achitecture](#integration-achitecture)
@@ -34,7 +34,7 @@ The swiss covid certificate system is hosted and maintained by [FOITT](https://w
 - [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
 - [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
-## HOWTO use the covid certificate generation and revocation API ?
+## HOWTO use API ?
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
