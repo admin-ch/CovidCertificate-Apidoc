@@ -28,7 +28,7 @@
 
 The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
-The swiss covid certificate system is hosted and maintained by [FOITT](https://www.bit.admin.ch/bit/en/home.html).
+The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
 
 ### Links to EU digital green certificate documentation
 
