@@ -2,7 +2,7 @@
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
-  * [HOWTO become a system integrator using the API ?](#howto-become-a-system-intergrator-using-the-api--)
+  * [HOWTO become a system integrator using the API ?](#howto-become-a-system-integrator-using-the-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
     + [Integration achitecture](#integration-achitecture)
@@ -20,7 +20,8 @@
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
       - [Error list](#error-list)
-  * [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
+  * [References](#references)
+    + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
