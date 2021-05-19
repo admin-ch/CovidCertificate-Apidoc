@@ -10,25 +10,31 @@
   },
   "servers": [
     {
-      "url": "https://cc-api-gateway-service.dev.app.cfap02.atlantica.admin.ch/",
-      "description": "DEV"
-    },
-    {
-      "url": "https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch/",
-      "description": "ABN"
-    },
-    {
-      "url": "https://cc-api-gateway-service.app.cfap02.atlantica.admin.ch/",
-      "description": "PROD"
-    },
+      "url": "https://ws.covidcertificate-a.bag.admin.ch",
+      "description": "Generated server url"
+    }
   ],
   "paths": {
-    "/api/covidcertificate/v1/vaccination": {
+    "/api/v1/covidcertificate/vaccination": {
       "post": {
         "tags": [
           "covid-certification-generation-controller"
         ],
+        "summary": "Creates a vaccine certificate for the given data.",
+        "description": "Creates a vaccine certificate as an Aztec-Code and PDF. Performs an integrity check for each request based on headers and body.",
         "operationId": "createVaccinationCertificate",
+        "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "Base64 encoded SHA-256 hash of the body without whitespace (use this regex \"[\\\\n\\\\t ]\"), encrypted with X.509 private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Base64"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -40,22 +46,144 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Bad Request",
+          "200": {
+            "description": "OK",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateCertificateError"
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "400": {
+            "description": "Bad Request",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "NO_VACCINATION_DATA": {
+                    "description": "NO_VACCINATION_DATA",
+                    "value": "{\"errorCode\": 451, \"errorMessage\": No vaccination data was specified}"
+                  },
+                  "NO_PERSON_DATA": {
+                    "description": "NO_PERSON_DATA",
+                    "value": "{\"errorCode\": 452, \"errorMessage\": No person data was specified}"
+                  },
+                  "INVALID_DATE_OF_BIRTH": {
+                    "description": "INVALID_DATE_OF_BIRTH",
+                    "value": "{\"errorCode\": 453, \"errorMessage\": Invalid dateOfBirth! Must be younger than 1900-01-01}"
+                  },
+                  "INVALID_MEDICINAL_PRODUCT": {
+                    "description": "INVALID_MEDICINAL_PRODUCT",
+                    "value": "{\"errorCode\": 454, \"errorMessage\": Invalid medicinal product}"
+                  },
+                  "INVALID_DOSES": {
+                    "description": "INVALID_DOSES",
+                    "value": "{\"errorCode\": 455, \"errorMessage\": Invalid number of doses}"
+                  },
+                  "INVALID_VACCINATION_DATE": {
+                    "description": "INVALID_VACCINATION_DATE",
+                    "value": "{\"errorCode\": 456, \"errorMessage\": Invalid vaccination date! Date cannot be in the future}"
+                  },
+                  "INVALID_COUNTRY_OF_VACCINATION": {
+                    "description": "INVALID_COUNTRY_OF_VACCINATION",
+                    "value": "{\"errorCode\": 457, \"errorMessage\": Invalid country of vaccination}"
+                  },
+                  "INVALID_GIVEN_NAME": {
+                    "description": "INVALID_GIVEN_NAME",
+                    "value": "{\"errorCode\": 458, \"errorMessage\": Invalid given name! Must not exceed 50 chars}"
+                  },
+                  "INVALID_FAMILY_NAME": {
+                    "description": "INVALID_FAMILY_NAME",
+                    "value": "{\"errorCode\": 459, \"errorMessage\": Invalid family name! Must not exceed 50 chars}"
+                  },
+                  "INVALID_COUNTRY_SHORT_FORM": {
+                    "description": "INVALID_COUNTRY_SHORT_FORM",
+                    "value": "{\"errorCode\": 468, \"errorMessage\": Country short form can not be mapped}"
+                  },
+                  "INVALID_LANGUAGE": {
+                    "description": "INVALID_LANGUAGE",
+                    "value": "{\"errorCode\": 469, \"errorMessage\": The given language does not match any of the supported languages: de, it, fr!}"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
+                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
+                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
+                  },
+                  "CREATE_COSE_PAYLOAD_FAILED": {
+                    "description": "CREATE_COSE_PAYLOAD_FAILED",
+                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
+                  },
+                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
+                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
+                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
+                  },
+                  "CREATE_SIGNATURE_FAILED": {
+                    "description": "CREATE_SIGNATURE_FAILED",
+                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
+                  },
+                  "CREATE_COSE_SIGN1_FAILED": {
+                    "description": "CREATE_COSE_SIGN1_FAILED",
+                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
+                  },
+                  "CREATE_BARCODE_FAILED": {
+                    "description": "CREATE_BARCODE_FAILED",
+                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
+                  }
                 }
               }
             }
@@ -63,12 +191,26 @@
         }
       }
     },
-    "/api/covidcertificate/v1/recovery": {
+    "/api/v1/covidcertificate/recovery": {
       "post": {
         "tags": [
           "covid-certification-generation-controller"
         ],
+        "summary": "Creates a recovery certificate for the given data.",
+        "description": "Creates a recovery certificate as an Aztec-Code and PDF. Performs an integrity check for each request based on headers and body.",
         "operationId": "createRecoveryCertificate",
+        "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "Base64 encoded SHA-256 hash of the body without whitespace (use this regex \"[\\\\n\\\\t ]\"), encrypted with X.509 private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Base64"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -80,22 +222,136 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Bad Request",
+          "200": {
+            "description": "OK",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateCertificateError"
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "400": {
+            "description": "Bad Request",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "NO_PERSON_DATA": {
+                    "description": "NO_PERSON_DATA",
+                    "value": "{\"errorCode\": 452, \"errorMessage\": No person data was specified}"
+                  },
+                  "INVALID_DATE_OF_BIRTH": {
+                    "description": "INVALID_DATE_OF_BIRTH",
+                    "value": "{\"errorCode\": 453, \"errorMessage\": Invalid dateOfBirth! Must be younger than 1900-01-01}"
+                  },
+                  "INVALID_GIVEN_NAME": {
+                    "description": "INVALID_GIVEN_NAME",
+                    "value": "{\"errorCode\": 458, \"errorMessage\": Invalid given name! Must not exceed 50 chars}"
+                  },
+                  "INVALID_FAMILY_NAME": {
+                    "description": "INVALID_FAMILY_NAME",
+                    "value": "{\"errorCode\": 459, \"errorMessage\": Invalid family name! Must not exceed 50 chars}"
+                  },
+                  "NO_RECOVERY_DATA": {
+                    "description": "NO_RECOVERY_DATA",
+                    "value": "{\"errorCode\": 465, \"errorMessage\": No recovery data specified}"
+                  },
+                  "INVALID_DATE_OF_FIRST_POSITIVE_TEST_RESULT": {
+                    "description": "INVALID_DATE_OF_FIRST_POSITIVE_TEST_RESULT",
+                    "value": "{\"errorCode\": 466, \"errorMessage\": Invalid date of first positive test result}"
+                  },
+                  "INVALID_COUNTRY_OF_TEST": {
+                    "description": "INVALID_COUNTRY_OF_TEST",
+                    "value": "{\"errorCode\": 467, \"errorMessage\": Invalid country of test}"
+                  },
+                  "INVALID_COUNTRY_SHORT_FORM": {
+                    "description": "INVALID_COUNTRY_SHORT_FORM",
+                    "value": "{\"errorCode\": 468, \"errorMessage\": Country short form can not be mapped}"
+                  },
+                  "INVALID_LANGUAGE": {
+                    "description": "INVALID_LANGUAGE",
+                    "value": "{\"errorCode\": 469, \"errorMessage\": The given language does not match any of the supported languages: de, it, fr!}"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
+                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
+                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
+                  },
+                  "CREATE_COSE_PAYLOAD_FAILED": {
+                    "description": "CREATE_COSE_PAYLOAD_FAILED",
+                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
+                  },
+                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
+                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
+                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
+                  },
+                  "CREATE_SIGNATURE_FAILED": {
+                    "description": "CREATE_SIGNATURE_FAILED",
+                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
+                  },
+                  "CREATE_COSE_SIGN1_FAILED": {
+                    "description": "CREATE_COSE_SIGN1_FAILED",
+                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
+                  },
+                  "CREATE_BARCODE_FAILED": {
+                    "description": "CREATE_BARCODE_FAILED",
+                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
+                  }
                 }
               }
             }
@@ -103,12 +359,26 @@
         }
       }
     },
-    "/api/covidcertificate/v1/test": {
+    "/api/v1/covidcertificate/test": {
       "post": {
         "tags": [
           "covid-certification-generation-controller"
         ],
+        "summary": "Creates a test certificate for the given data.",
+        "description": "Creates a test certificate as an Aztec-Code and PDF. Performs an integrity check for each request based on headers and body.",
         "operationId": "createTestCertificate",
+        "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "Base64 encoded SHA-256 hash of the body without whitespace (use this regex \"[\\\\n\\\\t ]\"), encrypted with X.509 private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Base64"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -120,22 +390,144 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Bad Request",
+          "200": {
+            "description": "OK",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateCertificateError"
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
                 }
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "400": {
+            "description": "Bad Request",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "NO_PERSON_DATA": {
+                    "description": "NO_PERSON_DATA",
+                    "value": "{\"errorCode\": 452, \"errorMessage\": No person data was specified}"
+                  },
+                  "INVALID_DATE_OF_BIRTH": {
+                    "description": "INVALID_DATE_OF_BIRTH",
+                    "value": "{\"errorCode\": 453, \"errorMessage\": Invalid dateOfBirth! Must be younger than 1900-01-01}"
+                  },
+                  "INVALID_GIVEN_NAME": {
+                    "description": "INVALID_GIVEN_NAME",
+                    "value": "{\"errorCode\": 458, \"errorMessage\": Invalid given name! Must not exceed 50 chars}"
+                  },
+                  "INVALID_FAMILY_NAME": {
+                    "description": "INVALID_FAMILY_NAME",
+                    "value": "{\"errorCode\": 459, \"errorMessage\": Invalid family name! Must not exceed 50 chars}"
+                  },
+                  "NO_TEST_DATA": {
+                    "description": "NO_TEST_DATA",
+                    "value": "{\"errorCode\": 460, \"errorMessage\": No test data was specified}"
+                  },
+                  "INVALID_MEMBER_STATE_OF_TEST": {
+                    "description": "INVALID_MEMBER_STATE_OF_TEST",
+                    "value": "{\"errorCode\": 461, \"errorMessage\": Invalid member state of test}"
+                  },
+                  "INVALID_TYP_OF_TEST": {
+                    "description": "INVALID_TYP_OF_TEST",
+                    "value": "{\"errorCode\": 462, \"errorMessage\": Invalid type of test and manufacturer code combination! Must either be a PCR Test type and no manufacturer code or give a manufacturer code and the antigen test type code.}"
+                  },
+                  "INVALID_TEST_CENTER": {
+                    "description": "INVALID_TEST_CENTER",
+                    "value": "{\"errorCode\": 463, \"errorMessage\": Invalid testing center or facility}"
+                  },
+                  "INVALID_SAMPLE_OR_RESULT_DATE_TIME": {
+                    "description": "INVALID_SAMPLE_OR_RESULT_DATE_TIME",
+                    "value": "{\"errorCode\": 464, \"errorMessage\": Invalid sample or result date time! Sample date must be before current date and before result date}"
+                  },
+                  "INVALID_COUNTRY_SHORT_FORM": {
+                    "description": "INVALID_COUNTRY_SHORT_FORM",
+                    "value": "{\"errorCode\": 468, \"errorMessage\": Country short form can not be mapped}"
+                  },
+                  "INVALID_LANGUAGE": {
+                    "description": "INVALID_LANGUAGE",
+                    "value": "{\"errorCode\": 469, \"errorMessage\": The given language does not match any of the supported languages: de, it, fr!}"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
+                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
+                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
+                  },
+                  "CREATE_COSE_PAYLOAD_FAILED": {
+                    "description": "CREATE_COSE_PAYLOAD_FAILED",
+                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
+                  },
+                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
+                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
+                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
+                  },
+                  "CREATE_SIGNATURE_FAILED": {
+                    "description": "CREATE_SIGNATURE_FAILED",
+                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
+                  },
+                  "CREATE_COSE_SIGN1_FAILED": {
+                    "description": "CREATE_COSE_SIGN1_FAILED",
+                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
+                  },
+                  "CREATE_BARCODE_FAILED": {
+                    "description": "CREATE_BARCODE_FAILED",
+                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
+                  }
                 }
               }
             }
@@ -146,10 +538,10 @@
   },
   "components": {
     "schemas": {
-      "CreateCertificateError": {
+      "RestError": {
         "type": "object",
         "properties": {
-          "erroCode": {
+          "errorCode": {
             "type": "integer",
             "format": "int32"
           },
@@ -158,33 +550,18 @@
           }
         }
       },
-      "CovidCertificateCodeFieldDto": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          }
-        }
-      },
-      "CovidCertificateHealthProfessionalDto": {
-        "type": "object",
-        "properties": {
-          "sourceIdp": {
-            "type": "string"
-          },
-          "idpuuid": {
-            "type": "string"
-          }
-        }
-      },
       "CovidCertificatePersonNameDto": {
         "type": "object",
         "properties": {
           "familyName": {
-            "type": "string"
+            "type": "string",
+            "description": "family name of the covid certificate owner. Format: maxLength: 50 CHAR",
+            "example": "Federer"
           },
           "givenName": {
-            "type": "string"
+            "type": "string",
+            "description": "first name of the covid certificate owner. Format: maxLength: 50 CHAR",
+            "example": "Roger"
           }
         }
       },
@@ -192,52 +569,60 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
-            }
+            "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
           },
           "dateOfBirth": {
             "type": "string",
-            "format": "date"
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "format": "date",
+            "example": "1950-06-04"
+          },
+          "language": {
+            "type": "string",
+            "description": "language for the PDF (together with english). Accepted languages are: de, it, fr, rm",
+            "example": "de"
+          },
+          "otp": {
+            "type": "string"
           },
           "vaccinationInfo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/VaccinationCertificateDataDto"
             }
-          },
-          "healthProfessional": {
-            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
           }
         }
       },
       "VaccinationCertificateDataDto": {
         "type": "object",
         "properties": {
-          "vaccineProphylaxis": {
-            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
-          },
-          "medicinalProduct": {
-            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
-          },
-          "marketingAuthorizationHolder": {
-            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          "medicinalProductCode": {
+            "type": "string",
+            "description": "name of the medicinal product as registered in the country.",
+            "example": "68267"
           },
           "numberOfDoses": {
             "type": "integer",
-            "format": "int32"
+            "description": "number in a series of doses.",
+            "format": "int32",
+            "example": 2
           },
           "totalNumberOfDoses": {
             "type": "integer",
-            "format": "int32"
+            "description": "total series of doses.",
+            "format": "int32",
+            "example": 2
           },
           "vaccinationDate": {
             "type": "string",
-            "format": "date"
+            "description": "date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "format": "date",
+            "example": "2021-05-14"
           },
           "countryOfVaccination": {
-            "type": "string"
+            "type": "string",
+            "description": "the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes).",
+            "example": "CH"
           }
         }
       },
@@ -245,20 +630,14 @@
         "type": "object",
         "properties": {
           "pdf": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "byte"
-            }
+            "type": "string",
+            "format": "byte"
           },
           "qrCode": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "byte"
-            }
+            "type": "string",
+            "format": "byte"
           },
-          "qrCodeJson": {
+          "uvci": {
             "type": "string"
           }
         }
@@ -267,23 +646,27 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
-            }
+            "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
           },
           "dateOfBirth": {
             "type": "string",
-            "format": "date"
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "format": "date",
+            "example": "1950-06-04"
+          },
+          "language": {
+            "type": "string",
+            "description": "language for the PDF (together with english). Accepted languages are: de, it, fr, rm",
+            "example": "de"
+          },
+          "otp": {
+            "type": "string"
           },
           "recoveryInfo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecoveryCertificateDataDto"
             }
-          },
-          "healthProfessional": {
-            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
           }
         }
       },
@@ -292,10 +675,14 @@
         "properties": {
           "dateOfFirstPositiveTestResult": {
             "type": "string",
-            "format": "date"
+            "description": "date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "format": "date",
+            "example": "2021-10-03"
           },
           "countryOfTest": {
-            "type": "string"
+            "type": "string",
+            "description": "the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes).",
+            "example": "CH"
           }
         }
       },
@@ -303,54 +690,64 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
-            }
+            "$ref": "#/components/schemas/CovidCertificatePersonNameDto"
           },
           "dateOfBirth": {
             "type": "string",
-            "format": "date"
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "format": "date",
+            "example": "1950-06-04"
+          },
+          "language": {
+            "type": "string",
+            "description": "language for the PDF (together with english). Accepted languages are: de, it, fr, rm",
+            "example": "de"
+          },
+          "otp": {
+            "type": "string"
           },
           "testInfo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TestCertificateDataDto"
             }
-          },
-          "healthProfessional": {
-            "$ref": "#/components/schemas/CovidCertificateHealthProfessionalDto"
           }
         }
       },
       "TestCertificateDataDto": {
         "type": "object",
         "properties": {
-          "typeOfTest": {
-            "type": "string"
+          "typeCode": {
+            "type": "string",
+            "description": "type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.",
+            "example": "LP217198-3"
           },
-          "testName": {
-            "type": "string"
-          },
-          "testManufacturer": {
-            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+          "manufacturerCode": {
+            "type": "string",
+            "description": "test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.",
+            "example": "1065"
           },
           "sampleDateTime": {
             "type": "string",
-            "format": "date-time"
+            "description": "date and time of the test sample collection. Format: ISO 8601 date incl. time.",
+            "format": "date-time",
+            "example": "2020-09-24T17:29:41Z"
           },
           "resultDateTime": {
             "type": "string",
-            "format": "date-time"
-          },
-          "result": {
-            "$ref": "#/components/schemas/CovidCertificateCodeFieldDto"
+            "description": "date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time.",
+            "format": "date-time",
+            "example": "2020-09-28T13:40:12Z"
           },
           "testingCentreOrFacility": {
-            "type": "string"
+            "type": "string",
+            "description": "name of centre or facility. Format: string, maxLength: 50 CHAR.",
+            "example": "de"
           },
           "memberStateOfTest": {
-            "type": "string"
+            "type": "string",
+            "description": "the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes).",
+            "example": "CH"
           }
         }
       }
