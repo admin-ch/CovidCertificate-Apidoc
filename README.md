@@ -210,7 +210,7 @@ The generation API allows to create 3 types of covid certificate: vaccination, t
 See the [API doc](https://editor.swagger.io/?url=) to get technical information about the REST API.
 
 #### Error list
-There is a custom error body for the request if the server side parameter validation fails.
+There is a custom error body for the request if the server side parameter validation fails. The error is returned as a 400 BAD REQUEST.
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
 - `{453, "Invalid dateOfBirth! Must be younger than 1900-01-01"}`
@@ -231,8 +231,21 @@ There is a custom error body for the request if the server side parameter valida
 - `{468, "Country short form can not be mapped"}`
 - `{469, "The given language does not match any of the supported languages: de, it, fr!"}`
 
-As well as when the integrity check fails:
-- `{"errorCode": 490, "errormessage": Integrity check failed. The body hash does not match the hash in the header.}`
+If the integrity check fails, the following errors are returned as 403 FORBIDDEN:
+- `{490, "Integrity check failed. The body hash does not match the hash in the header."}`
+- `{491, "Signature could not be parsed."}`
+- `{492, "Invalid or missing bearer token."}`
+
+If the payload is too big, the errors are returned as 413 PAYLOAD TOO LARGE:
+- `{493, "Request payload too large, the maximum payload size is: 2048 bytes"}`
+
+If the server generates a known internal error, thes are returend as 500 INTERNAL SERVER ERROR:
+- `{550, "Creating COSE protected header failed."}`
+- `{551, "Creating COSE payload failed."}`
+- `{552, "Creating COSE signature data failed."}`
+- `{553, "Creating signature failed."}`
+- `{554, "Creating COSE_Sign1 failed."}`
+- `{555, "Creating barcode failed."}`
 
 ## References
 
