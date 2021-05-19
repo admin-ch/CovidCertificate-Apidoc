@@ -35,7 +35,7 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 - [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
 - [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
-## HOWTO use the API ?
+## HOWTO become a system intergrator using the API ?
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
@@ -52,19 +52,20 @@ In order to generate and revoke covid certificates, two ways are possible:
 1. Use the [Web management UI](https://www.covidcertificate.admin.ch/). Only authorized users determined by the cantons can use the Web management UI.
 2. Integrate the REST API within a primary system (system used by health professionals to manage vaccine, test and recovery information). Only authorized users determined by the cantons can use the REST API. Only primary systems determined by [FOITT](https://www.bit.admin.ch/bit/en/home.html) can access the REST API.
 
-### Prerequisites
+This documentation applies to the second use case presented above.
+
+### Prerequisites in order to access the API
 
 1. Only authorized users (natural persons) can access the generation and revocation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
-2. Verification API is freely accessible.
-3. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and verification API.
+2. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and revocation API.
 
 ### Integration achitecture
 
 #### Integration with one-time password
 
-![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
-
 The use of the generation and revocation API is done by using an one-time that has been loaded beforehand in the primary system and introduced in the REST API request. The one-time password has a limited validity.
+
+![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
 1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an one-time password by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
 2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
@@ -102,7 +103,7 @@ The process is the following:
 
 ## Certificate data
 
-3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all certificate. The other data are specific to the type of certificate. 
+3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all covid certificates. The other data are specific to the type of certificate.. 
 
 ### Personal data
 
@@ -120,7 +121,7 @@ Mandatory data appearing in all types of certificates:
   - Format: ISO 639-1  two-letter codes, one per language for ISO 639 macrolanguage. 
   - Example: "de"
 
-### Vaccination data
+###  Specific vaccination data
 
 Mandatory data:
 - **medicinalProductCode**: name of the medicinal product as registered in the country. 
@@ -139,7 +140,7 @@ Mandatory data:
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-### Test data
+### Specific test data
 
 Mandatory data:
 - **typeCode**: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
@@ -194,7 +195,7 @@ Mandatory data:
   - Format: string (2 chars according to ISO 3166 Country Codes). 
   - Example: "CH" (for switzerland).
 
-### Recovery data
+### Specific recovery data
 
 Mandatory data:
 - **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. 
