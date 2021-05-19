@@ -2,7 +2,7 @@
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
-  * [HOWTO become a system intergrator using the API ?](#howto-become-a-system-intergrator-using-the-api--)
+  * [HOWTO become a system integrator using the API ?](#howto-become-a-system-intergrator-using-the-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
     + [Integration achitecture](#integration-achitecture)
@@ -30,7 +30,7 @@ The swiss covid certificate system can be used by authorized third party systems
 
 The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
 
-## HOWTO become a system intergrator using the API ?
+## HOWTO become a system integrator using the API ?
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
