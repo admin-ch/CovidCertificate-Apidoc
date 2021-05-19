@@ -1,73 +1,61 @@
-# Swiss Covid Certificate - API documentation
 
-- [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
+# Swiss Covid Certificate-API documentation
+## Table of contents
   * [Introduction](#introduction)
-    + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
-  * [HOWTO use the API ?](#howto-use-the-api--)
+  * [Licensed entities](#licensed-entities)
   * [Third party system integration](#third-party-system-integration)
-    + [Prerequisites](#prerequisites)
     + [Integration achitecture](#integration-achitecture)
-      - [Integration with OneTime password](#integration-with-onetime-password)
-      - [API sequence diagram](#api-sequence-diagram)
+      - [Authentication with one-time password](#authentication-with-one-time-password)
+      - [Sequence diagram](#sequence-diagram)
     + [Security architecture](#security-architecture)
       - [Authorized user](#authorized-user)
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
-  * [Data](#data)
-    + [Personal data](#personal-data)
-    + [Vaccination data](#vaccination-data)
-    + [Test data](#test-data)
-    + [Recovery data](#recovery-data)
-  * [API doc](#api-doc)
+  * [Certificate data](#certificate-data)
+    + [Personal data (always present)](#personal-data--always-present-)
+    + [Type specific data (one of, depending o)](#type-specific-data--one-of--depending-o-)
+      - [Type: Vaccin](#type--vaccin)
+      - [Type: Test](#type--test)
+      - [Type: Recovery](#type--recovery)
+  * [Technical specification](#technical-specification)
     + [Generation API](#generation-api)
-      - [Error list](#error-list)
+      - [Error codes](#error-codes)
+    + [Revocation API](#revocation-api)
+    + [Verification API](#verification-api)
+  * [What's next?](#what-s-next-)
+    + [... say hello](#-say-hello)
+    + [... start the integration](#start-the-integration)
+    + [... go live](#-go-live)
+    + [... furthermore](#-furthermore)
+  * [Miscellaneous](#miscellaneous)
+    + [EU digital green certificate](#eu-digital-green-certificate)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## Introduction
 
-The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
+In the global context of COVID-19 pandemic, questions of certifications have arisen regarding the attestations of vaccine, negative test and immunitie.
+It is in order to respond to this situation related to the certification of attestations, that the project **Swiss Covid Certificate** (abbr. *SCC*) was developed under a mandate from the [**Federal Office of Public Health**](https://www.bag.admin.ch/bag/en/home.html) (abbr. *FOPH*). This project provides a digital certification service aimed at licensed health professionals as well as the various licensed stakeholders which in collaboration with health professionals, store and manage informations related to Covid attestations. Beside the certification service, the *SCC* also provide a certificate revocation service and a certificate verification service.
+A public mobile application has been developed to save these personal certificates in digital formats and another mobile application has also been developed to verifiy the validity of these certificates.
 
-The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
+This certification is compatible with the [EU digital green certification](#links-to-eu-digital-green-certificate).
 
-### Links to EU digital green certificate documentation
+The *SCC* project is developed, hosted and maintained by the The[ **Federal Office of Information Technology, Systems and Telecommunication**](https://www.bit.admin.ch/bit/en/home.html) (abbr. *FOITT*)
 
-- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
-- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
+This documentation is intended for integrators of third party systems who wish to integrate the *SCC* digital certification service to their system.
 
-## HOWTO use the API ?
-
-If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
-
-1. Indicate your interest to Covid-Zertifikat@bag.admin.ch 
-2. Receive a test PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system integration can be developped and tested.
-3. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html). This is a condition for receiving a productive PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html).
-4. If test is ok and agreement is signed, receive a production PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to generate official swiss covid certificates.
-5. REST API is free of charge. 
-6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with Covid-Zertifikat@bag.admin.ch 
+## Licensed entities
+- Natural persons which have been licensed by their cantonal authorities or by the *FOPH*. They can use the service through a [Web management UI](https://www.covidcertificate.admin.ch/). In this documentation, those persons will be identified as **authorized users**.
+- Third party systems which have been licensed by the *FOITT* (see [what's next?](#what-s-next-) to request an integration license).
 
 ## Third party system integration
-
-In order to generate and revoke covid certificates, two ways are possible:
-1. Use the [Web management UI](https://www.covidcertificate.admin.ch/). Only authorized users determined by the cantons can use the Web management UI.
-2. Integrate the REST API within a primary system (system used by health professionals to manage vaccine, test and recovery information). Only authorized users determined by the cantons can use the REST API. Only primary systems determined by [FOITT](https://www.bit.admin.ch/bit/en/home.html) can access the REST API.
-
-### Prerequisites
-
-1. Only authorized users (natural persons) can access the generation and revocation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
-2. Verification API is freely accessible.
-3. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and verification API.
-
 ### Integration achitecture
-
-#### Integration with OneTime password
-
+#### Authentication with one-time password
+A one-time password (abbr. OTP) is required to authenticate to the service *API*. This *OTP* is provided to the authorized user through the [Web management UI](https://www.covidcertificate.admin.ch). The *OTP* must be stored in the primary system and used in the *REST API* request. The *OTP* has a limited validity.
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
-The use of the generation and revocation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
-
 1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an OTP by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
-2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
+2. When the authorized user access the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the OTP in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
 5. The OTP is transferred so that the authorized user can be identified, as header of the request.
@@ -75,7 +63,7 @@ The use of the generation and revocation API is done by using an OTP that has be
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
 8. The Management Service REST API checks the integrity of the data and signature received and the OTP. 
 
-#### API sequence diagram
+#### Sequence diagram
 
 ![image](https://user-images.githubusercontent.com/319676/118361751-0db64f80-b58d-11eb-8f5a-fc7e193a1a00.png)
 
@@ -100,53 +88,48 @@ The process is the following:
 3. Primary system places the JSON data and the signed hash in the payload and sends the message to generation REST API or to revocation REST API. 
 4. TODO Add JWT in HEADER ?
 
-## Data
+## Certificate data
+A Covid certificate will always contain the covid certificate owner [personal data](#personal-data) plus a set of [type specific data](#type-specific-data]) (types: vaccination, test or recovery). 
 
-3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all certificate. The other data are specific to the type of certificate. 
-
-### Personal data
-
-Mandatory data appearing in all types of certificates:
-- **familyName**: family name of the covid certificate owner. 
+[*: mandatory]
+### Personal data (always present)
+- **familyName***: family name of the covid certificate owner. 
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Federer"
-- **givenName**: first name of the covid certificate owner. 
+- **givenName***: first name of the covid certificate owner. 
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Roger"
-- **dateOfBirth**: birthdate of the covid certificate owner. 
+- **dateOfBirth***: birthdate of the covid certificate owner. 
   - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
   - Example: "1981-08-08"
-- **language**: PDF language (together with the standard, which is english). Accepted languages are: de, it, fr, rm.
+- **language***: PDF language (together with the standard, which is english). Accepted languages are: de, it, fr, rm.
   - Format: ISO 639-1  two-letter codes, one per language for ISO 639 macrolanguage. 
   - Example: "de"
+### Type specific data (one of, depending o)
 
-### Vaccination data
-
-Mandatory data:
-- **medicinalProductCode**: name of the medicinal product as registered in the country. 
+#### Type: Vaccin
+- **medicinalProductCode***: name of the medicinal product as registered in the country. 
   - Format: string. Possible static values: 
     - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
     - "68225" represented by "Comirnaty" in the covide certificate
-    - TBD
-- **numberOfDoses**: number in a series of doses.
+- **numberOfDoses***: number in a series of doses.
   - Format: integer, range: from 1 to 9. 
-- **totalNumberOfDoses**: total series of doses.
+- **totalNumberOfDoses***: total series of doses.
   - Format: integer, range: from 1 to 9. 
-- **vaccinationDate**: date of vaccination. 
+- **vaccinationDate***: date of vaccination. 
   - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
   - Example: "2021-05-14"
-- **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated.
+- **countryOfVaccination***: the country in which the covid certificate owner has been vaccinated.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-### Test data
 
-Mandatory data:
-- **typeCode**: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
+#### Type: Test
+- **typeCode***: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
   - Format: string. Possible static values:
     - "LP6464-4" for "Nucleic acid amplification with probe detection" (PCR)
     - "LP217198-3" for "Rapid immunoassay" (Antigen)
-- **manufacturerCode**: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
+- **manufacturerCode***: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
   - Format: string. Possible static values:
     - "344" for "SD BIOSENSOR Inc"
     - "1065" for "Becton Dickinson"
@@ -181,38 +164,39 @@ Mandatory data:
     - "1833" for "AAZ-LMB"
     - "2010" for "Atlas Link Technology Co., Ltd., China"
     - "9999" for "LYSUN Covid 19 Antigen Rapid Test "
-- **sampleDateTime**: date and time of the test sample collection. 
+- **sampleDateTime***: date and time of the test sample collection. 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
-- **resultDateTime**: date and time of the test result production (optional for rapid antigen test). 
+- **resultDateTime***: date and time of the test result production (optional for rapid antigen test). 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
-- **testingCentreOrFacility**: name of centre or facility. 
+- **testingCentreOrFacility***: name of centre or facility. 
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Centre de test de Payerne"
-- **memberStateOfTest**: the country in which the covid certificate owner has been tested.
+- **memberStateOfTest***: the country in which the covid certificate owner has been tested.
   - Format: string (2 chars according to ISO 3166 Country Codes). 
   - Example: "CH" (for switzerland).
 
-### Recovery data
 
-Mandatory data:
-- **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. 
+#### Type: Recovery
+- **dateOfFirstPositiveTestResult***: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. 
   - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])".
   - Example: "2021-10-03"
-- **countryOfTest**: the country in which the covid certificate owner has been tested. 
+- **countryOfTest***: the country in which the covid certificate owner has been tested. 
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-## API doc
+## Technical specification
 
 ### Generation API
 
-The generation API allows to create 3 types of covid certificate: vaccination, test and recovery.
+Three types of covid certificate can be requested through the generation API:
+- vaccination
+- test
+- recovery.
 
-See the [API doc](https://editor.swagger.io/?url=) to get technical information about the REST API.
-
-#### Error list
+See the [API specifications](https://editor.swagger.io/?url=) for further informations.
+#### Error codes
 There is a custom error body for the request if the server side parameter validation fails.
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
@@ -237,4 +221,29 @@ There is a custom error body for the request if the server side parameter valida
 As well as when the integrity check fails:
 - `{"errorCode": 490, "errormessage": Integrity check failed. The body hash does not match the hash in the header.}`
 
+### Revocation API
+???TBD???
 
+### Verification API
+???TBD???
+
+## What's next?
+### ... say hello
+ - Address to covid-zertifikat@bag.admin.ch your interest to integrate the service.
+### ... start the integration
+- A test PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) will be provided so that the primary system can access our test environment.
+### ... go live
+ - The integration with the test environnement must be successful.
+ - The General Terms and Conditions from the **FOITT** are accepted. 
+	 - A productive PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) will be provided so that the primary system can access the productive environment and generate official certificates.
+
+### ... furthermore
+ - Revocations of certificates is also possible through the service.
+ - The verification service is open.
+ - The use of the service is free of charge. 
+ - Certificate generation rate has to be limited to 2 certifications per second.
+
+## Miscellaneous
+### EU digital green certificate
+- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
+- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
