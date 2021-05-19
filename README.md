@@ -60,22 +60,22 @@ In order to generate and revoke covid certificates, two ways are possible:
 
 ### Integration achitecture
 
-#### Integration with OneTime password
+#### Integration with one-time password
 
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
-The use of the generation and revocation API is done by using an OTP that has been loaded beforehand in the primary system and introduced in the REST API request. The OTP has a limited validity.
+The use of the generation and revocation API is done by using an one-time that has been loaded beforehand in the primary system and introduced in the REST API request. The one-time password has a limited validity.
 
-1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an OTP by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
+1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an one-time password by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
 2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
-3. The authorized user must insert the OTP in the primary system so that it is transmitted when calling the REST API.
+3. The authorized user must insert the one-time password in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
-5. The OTP is transferred so that the authorized user can be identified, as header of the request.
+5. The one-time password is transferred so that the authorized user can be identified, as header of the request.
 6. The content is hashed and signed with primary key of the "SwissGov Regular CA 01" certificate distributed to the primary system.
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
-8. The Management Service REST API checks the integrity of the data and signature received and the OTP. 
+8. The Management Service REST API checks the integrity of the data and signature received and the one-time password. 
 
-#### API sequence diagram
+#### Sequence diagram
 
 ![image](https://user-images.githubusercontent.com/319676/118361751-0db64f80-b58d-11eb-8f5a-fc7e193a1a00.png)
 
@@ -100,7 +100,7 @@ The process is the following:
 3. Primary system places the JSON data and the signed hash in the payload and sends the message to generation REST API or to revocation REST API. 
 4. TODO Add JWT in HEADER ?
 
-## Data
+## Certificate data
 
 3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all certificate. The other data are specific to the type of certificate. 
 
