@@ -3,21 +3,21 @@
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
     + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
-  * [HOWTO use the API ?](#howto-use-the-api--)
+  * [HOWTO become a system intergrator using the API ?](#howto-become-a-system-intergrator-using-the-api--)
   * [Third party system integration](#third-party-system-integration)
-    + [Prerequisites](#prerequisites)
+    + [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
     + [Integration achitecture](#integration-achitecture)
-      - [Integration with OneTime password](#integration-with-onetime-password)
-      - [API sequence diagram](#api-sequence-diagram)
+      - [Integration with one-time password](#integration-with-one-time-password)
+      - [Sequence diagram](#sequence-diagram)
     + [Security architecture](#security-architecture)
       - [Authorized user](#authorized-user)
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
-  * [Data](#data)
+  * [Certificate data](#certificate-data)
     + [Personal data](#personal-data)
-    + [Vaccination data](#vaccination-data)
-    + [Test data](#test-data)
-    + [Recovery data](#recovery-data)
+    + [Specific vaccination data](#specific-vaccination-data)
+    + [Specific test data](#specific-test-data)
+    + [Specific recovery data](#specific-recovery-data)
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
       - [Error list](#error-list)
@@ -29,11 +29,6 @@
 The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
 The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
-
-### Links to EU digital green certificate documentation
-
-- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
-- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
 ## HOWTO become a system intergrator using the API ?
 
@@ -238,4 +233,8 @@ There is a custom error body for the request if the server side parameter valida
 As well as when the integrity check fails:
 - `{"errorCode": 490, "errormessage": Integrity check failed. The body hash does not match the hash in the header.}`
 
+## Links to EU digital green certificate documentation
+
+- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
+- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
 
