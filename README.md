@@ -95,10 +95,10 @@ The content transferred to the REST API is signed with the "SwissGov Regular CA 
 
 The process is the following:
 
-1. Primary system creates a hash of the message to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data)
-2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself.
-3. Primary system places the JSON data and the signed hash in the payload and sends the message to generation REST API or to revocation REST API. 
-4. TODO Add JWT in HEADER ?
+1. Primary system creates a hash of the payload to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data).
+2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself. "SHA256withRSA" is the used algorithm. It corresponds with "RSASSA-PKCS1-v1_5" from the [RFC](https://datatracker.ietf.org/doc/html/rfc3447). 
+3. The signed hash is placed in the request header.
+4. Primary system places the JSON data (inclusive the one-time password) in the payload and sends the message to generation REST API or to revocation REST API. 
 
 ## Certificate data
 
