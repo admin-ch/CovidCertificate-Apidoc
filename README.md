@@ -233,7 +233,9 @@ There is a custom error body for the request if the server side parameter valida
 As well as when the integrity check fails:
 - `{"errorCode": 490, "errormessage": Integrity check failed. The body hash does not match the hash in the header.}`
 
-## Links to EU digital green certificate documentation
+## References
+
+### Links to EU digital green certificate documentation
 
 - [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
 - [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
