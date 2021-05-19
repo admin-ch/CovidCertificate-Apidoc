@@ -35,16 +35,16 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
-1. Indicate your interest to Covid-Zertifikat@bag.admin.ch 
-2. Receive a test PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system integration can be developped and tested.
-3. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html). This is a condition for receiving a productive PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html).
-4. If test is ok and agreement is signed, receive a production PKI certificate of type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to generate official swiss covid certificates.
+1. Indicate your interest to [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
+2. Receive a test PKI certificate of the type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) so that the primary system integration can be developed and tested.
+3. Sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html). This is a condition for receiving a production PKI certificate of the type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html).
+4. If the test is successful and an agreement is signed, receive a production PKI certificate of the type ["SwissGov Regular CA 01"](https://www.bit.admin.ch/bit/en/home/subsites/allgemeines-zur-swiss-government-pki/rootzertifikate/swiss-government-root-ca-ii.html) from [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to generate official swiss covid certificates.
 5. REST API is free of charge. 
-6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with Covid-Zertifikat@bag.admin.ch 
+6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
 
 ## Third party system integration
 
-In order to generate and revoke covid certificates, two ways are possible:
+There are two methods to generate and revoke covid certificates:
 1. Use the [Web management UI](https://www.covidcertificate.admin.ch/). Only authorized users determined by the cantons can use the Web management UI.
 2. Integrate the REST API within a primary system (system used by health professionals to manage vaccine, test and recovery information). Only authorized users determined by the cantons can use the REST API. Only primary systems determined by [FOITT](https://www.bit.admin.ch/bit/en/home.html) can access the REST API.
 
@@ -59,18 +59,18 @@ This documentation applies to the second use case presented above.
 
 #### Integration with one-time password
 
-The use of the generation and revocation API is done by using an one-time that has been loaded beforehand in the primary system and introduced in the REST API request. The one-time password has a limited validity.
+To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI. This one-time password needs to be included in every REST API request and has a limited validity. After expiry a new one-time password has to be generated.
 
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
-1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain an one-time password by logging to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
-2. When the authorized user accesses the [Web management UI](https://www.covidcertificate.admin.ch/), its rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
+1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain a one-time password by signing in to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
+2. Upon signing in to the [Web management UI](https://www.covidcertificate.admin.ch/), the authorized users rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the one-time password in the primary system so that it is transmitted when calling the REST API.
-4. One-way authentication is used to create the TLS tunnel to protect the data transfer.
-5. The one-time password is transferred so that the authorized user can be identified, as header of the request.
-6. The content is hashed and signed with primary key of the "SwissGov Regular CA 01" certificate distributed to the primary system.
+4. One-way authentication is used to create the TLS tunnel and therefor protect the data transfer.
+5. The one-time password is transferred in the requests JSON payload. [See: API doc](https://editor.swagger.io/?url=)
+6. The content is hashed and signed with the primary key of the "SwissGov Regular CA 01" certificate distributed to the primary system. [See: Content signature](#content-signature).
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
-8. The Management Service REST API checks the integrity of the data and signature received and the one-time password. 
+8. The Management Service REST API checks the integrity of the data with the received signature and verifies the the one-time password. 
 
 #### Sequence diagram
 
@@ -88,18 +88,18 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 #### Content signature
 
-The content transferred to the REST API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate has not to be added to the API request.
+The content transferred to the REST API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate should not be added to the API request.
 
-The process is the following:
+The process is as follows:
 
-1. Primary system creates a hash of the payload to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data).
-2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself. "SHA256withRSA" is the used algorithm. It corresponds with "RSASSA-PKCS1-v1_5" from the [RFC](https://datatracker.ietf.org/doc/html/rfc3447). 
-3. The signed hash is placed in the request header.
-4. Primary system places the JSON data (inclusive the one-time password) in the payload and sends the message to generation REST API or to revocation REST API. 
+1. Primary system creates a hash of the payload to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data). This also includes the one-time password.
+2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself. "SHA256withRSA" is used as the signature algorithm. It corresponds with "RSASSA-PKCS1-v1_5" from the [RFC](https://datatracker.ietf.org/doc/html/rfc3447). 
+3. The signed hash is placed in the request header as `X-Signature`.
+4. Primary system places the JSON data (including the one-time password) in the payload and sends the message to generation REST API or to revocation REST API. 
 
 ## Certificate data
 
-3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data are common to all covid certificates. The other data are specific to the type of certificate.. 
+3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data section is the same for all covid certificates. The other data is specific to the type of certificate.
 
 ### Personal data
 
@@ -234,6 +234,8 @@ There is a custom error body for the request if the server side parameter valida
 If the integrity check fails, the following errors are returned as 403 FORBIDDEN:
 - `{490, "Integrity check failed. The body hash does not match the hash in the header."}`
 - `{491, "Signature could not be parsed."}`
+
+If the otp validation fails, the following errors are returned as 403 FORBIDDEN:
 - `{492, "Invalid or missing bearer token."}`
 
 If the payload is too big, the errors are returned as 413 PAYLOAD TOO LARGE:
