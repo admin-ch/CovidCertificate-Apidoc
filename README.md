@@ -228,10 +228,7 @@ There is a custom error body for the request if the server side parameter valida
 - `{462, "Invalid type of test and manufacturer code combination! Must either be a PCR Test type and no manufacturer code or give a manufacturer code and the antigen test type code."}`
 - `{463, "Invalid testing center or facility"}`
 - `{464, "Invalid sample or result date time! Sample date must be before current date and before result date"}`
-- `{465, "No recovery data specified"}`
-- `{466, "Invalid date of first positive test result"}`
-- `{467, "Invalid country of test"}`
-- `{468, "Country short form can not be mapped"}`
+- `{465, "No recorm can not be mapped"}`
 - `{469, "The given language does not match any of the supported languages: de, it, fr!"}`
 
 As well as when the integrity check fails:
