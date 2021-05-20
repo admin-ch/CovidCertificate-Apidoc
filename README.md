@@ -13,7 +13,7 @@
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
   * [Certificate data](#certificate-data)
-    + [Configuration data](#certificate-data-1)
+    + [Configuration data](#configuration-data)
     + [Personal data](#personal-data)
     + [Specific vaccination data](#specific-vaccination-data)
     + [Specific test data](#specific-test-data)
