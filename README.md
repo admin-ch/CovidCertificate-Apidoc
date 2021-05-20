@@ -185,7 +185,7 @@ The generation API allows to create 3 types of covid certificate: vaccination, t
 See the [API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json) to get technical information about the REST API.
 
 #### Error list
-There is a custom error body for the request if the server side parameter validation fails. The error is returned as a 400 BAD REQUEST.
+There is a custom error body for the request if the server side parameter validation fails. The error is returned as a 400 BAD REQUEST:
 - `{451, "No vaccination data was specified"}`
 - `{452, "No person data was specified"}`
 - `{453, "Invalid dateOfBirth! Must be younger than 1900-01-01"}`
