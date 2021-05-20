@@ -46,7 +46,7 @@ If you are a primary system integrator, you can follow the following steps in or
 ## Third party system integration
 
 There are two methods to generate and revoke covid certificates:
-1. Use the [Web management UI](https://www.covidcertificate.admin.ch/). Only authorized users determined by the cantons can use the Web management UI.
+1. Use the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)). Only authorized users determined by the cantons can use the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)).
 2. Integrate the REST API within a primary system (system used by health professionals to manage vaccine, test and recovery information). Only authorized users determined by the cantons can use the REST API. Only primary systems determined by [FOITT](https://www.bit.admin.ch/bit/en/home.html) can access the REST API.
 
 This documentation applies to the second use case presented above.
@@ -60,12 +60,12 @@ This documentation applies to the second use case presented above.
 
 #### Integration with one-time password
 
-To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI. This one-time password needs to be included in every REST API request and has a limited validity. After expiry a new one-time password has to be generated.
+To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)). This one-time password needs to be included in every REST API request and has a limited validity. After expiry a new one-time password has to be generated.
 
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
-1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain a one-time password by signing in to the [Web management UI](https://www.covidcertificate.admin.ch/) page.
-2. Upon signing in to the [Web management UI](https://www.covidcertificate.admin.ch/), the authorized users rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
+1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain a one-time password by signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)) page.
+2. Upon signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)), the authorized users rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the one-time password in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel and therefor protect the data transfer.
 5. The one-time password is transferred in the requests JSON payload. [See: API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json)
@@ -81,7 +81,7 @@ To use the generation and revocation API a one-time password is required that ca
 
 #### Authorized user
 
-The authorized users are onboarded in [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) and can use a [CHLogin](https://www.eiam.admin.ch/?c=f!chlfaq!pub&l=en) or a [HIN](https://www.hin.ch/hin-anschluss/elektronische-identitaeten/) identity. They access the API by sending an OneTime password (OTP as [JSON Web Token - JWT](https://jwt.io/)) generated from the [Web management UI](https://www.covidcertificate.admin.ch/).
+The authorized users are onboarded in [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) and can use a [CHLogin](https://www.eiam.admin.ch/?c=f!chlfaq!pub&l=en) or a [HIN](https://www.hin.ch/hin-anschluss/elektronische-identitaeten/) identity. They access the API by sending an OneTime password (OTP as [JSON Web Token - JWT](https://jwt.io/)) generated from the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)).
 
 #### TLS tunnel
 
