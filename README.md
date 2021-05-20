@@ -111,7 +111,7 @@ Mandatory data necessary for all types of certificates:
     - "FR"
     - "IT"
     - "RM"   
-- **otp**: the one time password which has to be generated in the [Web management UI (test environment](https://www.covidcertificate-a.admin.ch/).
+- **otp**: the one time password which has to be generated in the [Web management UI (test environment)](https://www.covidcertificate-a.admin.ch/).
   - Format: string
 
 ### Personal data
@@ -134,10 +134,8 @@ Mandatory data appearing in all types of certificates:
 
 Mandatory data:
 - **medicinalProductCode**: name of the medicinal product as registered in the country. 
-  - Format: string. Possible static values: 
-    - "68267" represented by "COVID-19 Vaccine Moderna" in the covide certificate
-    - "68225" represented by "Comirnaty" in the covide certificate
-    - TBD
+  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/valuesets/vaccine-medicinal-product.json). The value of the code has to be sent to the API
+  - Example: "EU/1/20/1507" for a "COVID-19 Vaccine Moderna" vaccine
 - **numberOfDoses**: number in a series of doses.
   - Format: integer, range: from 1 to 9. 
 - **totalNumberOfDoses**: total series of doses.
@@ -152,45 +150,12 @@ Mandatory data:
 ### Specific test data
 
 Mandatory data:
-- **typeCode**: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
-  - Format: string. Possible static values:
-    - "LP6464-4" for "Nucleic acid amplification with probe detection" (PCR)
-    - "LP217198-3" for "Rapid immunoassay" (Antigen)
+- **typeCode**: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST. 
+  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/valuesets/test-type.json). The value of the code has to be sent to the API
+  - Example: "LP6464-4" for a "Nucleic acid amplification with probe detection" type of test
 - **manufacturerCode**: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
-  - Format: string. Possible static values:
-    - "344" for "SD BIOSENSOR Inc"
-    - "1065" for "Becton Dickinson"
-    - "1097" for "Quidel Corporation"
-    - "1162" for "Nal von minden GmbH"
-    - "1180" for "MEDsan GmbH"
-    - "1218" for "Siemens Healthineers"
-    - "1223" for "BIOSYNEX SWISS SA"
-    - "1228" for "Shenzhen Microprofit Biotech Co., Ltd"
-    - "1232" for "Abbott Rapid Diagnostics"
-    - "1232" for "Abbott Rapid Diagnostics"
-    - "1242" for "Bionote, Inc"
-    - "1244" for "GenBody, Inc"
-    - "1257" for "Hangzhou AllTest Biotech Co., Ltd"
-    - "1268" for "LumiraDX UK Ltd"
-    - "1271" for "Precision Biosensor, Inc"
-    - "1276" for "Willi Fox GmbH"
-    - "1278" for "Xiamen Boson Biotech Co. Ltd"
-    - "1278" for "Xiamen Boson Biotech Co. Ltd."
-    - "1304" for "AMEDA Labordiagnostik GmbH"
-    - "1312" for "Guangzhou Wondfo Biotech Co., Ltd"
-    - "1343" for "Zhejiang Orient Gene Biotech"
-    - "1363" for "Hangzhou Clongene Biotech Co., Ltd"
-    - "1481" for "MP Biomedicals Germany GmbH"
-    - "1494" for "BIOSYNEX SWISS SA"
-    - "1501" for "New Gene (Hangzhou) Bioengineering Co., Ltd"
-    - "1604" for "Roche (SD BIOSENSOR)"
-    - "1665" for "Inzek international trading bv"
-    - "1739" for "Eurobio Scientific"
-    - "1767" for "Healgen Scientific Limited Liability Company"
-    - "1779" for "möLab GmbH"
-    - "1833" for "AAZ-LMB"
-    - "2010" for "Atlas Link Technology Co., Ltd., China"
-    - "9999" for "LYSUN Covid 19 Antigen Rapid Test "
+  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/valuesets/test-manufacturer.json). The value of the code has to be sent to the API
+  - Example: "1232" for a "Abbott Rapid Diagnostics" manufacturer
 - **sampleDateTime**: date and time of the test sample collection. 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
