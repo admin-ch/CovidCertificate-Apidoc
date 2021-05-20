@@ -111,7 +111,7 @@ Mandatory data necessary for all types of certificates:
     - "FR"
     - "IT"
     - "RM"   
-- **otp**: the one time password which has to be generated in the Web Management UI (Test environment).
+- **otp**: the one time password which has to be generated in the [Web management UI (test environment](https://www.covidcertificate-a.admin.ch/).
   - Format: string
 
 ### Personal data
