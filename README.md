@@ -13,6 +13,7 @@
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
   * [Certificate data](#certificate-data)
+    + [Certificate data](#certificate-data-1)
     + [Personal data](#personal-data)
     + [Specific vaccination data](#specific-vaccination-data)
     + [Specific test data](#specific-test-data)
@@ -99,7 +100,19 @@ The process is as follows:
 
 ## Certificate data
 
-3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The personal data section is the same for all covid certificates. The other data is specific to the type of certificate.
+3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The certificate and personal data sections are the same for all covid certificates. The other data sections are specific to the type of certificate.
+
+### Certificate data
+
+Mandatory data necessary for all types of certificates:
+- **language**: the national language of the covid certificate. Possible values:
+  - Format: string. Possible static values: 
+    - "DE"
+    - "FR"
+    - "IT"
+    - "RM"   
+- **otp**: the one time password which has to be generated in the Web Management UI (Test environment).
+  - Format: string
 
 ### Personal data
 
