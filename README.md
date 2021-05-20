@@ -99,6 +99,37 @@ Given the JSON payload to be sent (data used to create the covid certificate or 
 4. Primary system encodes the signature as base64 string.
 5. Primary system places the base64 encoded signature in the request header `X-Signature`.
 
+Java signature sample
+```java
+// load the key
+PrivateKey privateKey = this.getCertificate();
+// canonicalize
+String normalizedJson = payload.replaceAll("[\\n\\t ]", "");
+byte[] bytes = normalizedJson.getBytes(StandardCharsets.UTF_8);
+// sign
+Signature signature = Signature.getInstance("SHA256withRSA");
+signature.initSign(privateKey);
+signature.update();
+String signatureString = Base64.getEncoder().encodeToString(signature.sign());
+```
+
+Node.js / TypeScript sample
+```typescript
+// load the key
+const pemEncodedKey = fs.readFileSync(privateKeyFile)
+const privateKeyObject = crypto.createPrivateKey(pemEncodedKey)
+// canonicalize
+const regex = /[\n\t ]/gm
+const canonicalPayload = payload.replace(regex, '')
+const bytes = Buffer.from(canonicalMessage, 'utf8')
+// sign
+const sign = crypto.createSign('RSA-SHA256')
+sign.update(bytes)
+const signature = sign.sign(privateKeyObject)
+const base64encodedSignature = signature.toString('base64')
+// set request header
+headers['X-Signature'] = base64encodedSignature
+```
 
 ## Certificate data
 
