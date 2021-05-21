@@ -104,7 +104,7 @@ Java signature sample
 // load the key
 PrivateKey privateKey = this.getCertificate();
 // canonicalize
-String normalizedJson = payload.replaceAll("[\\n\\t ]", "");
+String normalizedJson = payload.replaceAll("[\\n\\r\\t ]", "");
 byte[] bytes = normalizedJson.getBytes(StandardCharsets.UTF_8);
 // sign
 Signature signature = Signature.getInstance("SHA256withRSA");
@@ -119,7 +119,7 @@ Node.js / TypeScript sample
 const pemEncodedKey = fs.readFileSync(privateKeyFile)
 const privateKeyObject = crypto.createPrivateKey(pemEncodedKey)
 // canonicalize
-const regex = /[\n\t ]/gm
+const regex = /[\n\r\t ]/gm
 const canonicalPayload = payload.replace(regex, '')
 const bytes = Buffer.from(canonicalMessage, 'utf8')
 // sign
