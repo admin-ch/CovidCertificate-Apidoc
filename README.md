@@ -93,7 +93,7 @@ The content transferred to the REST API is signed with the private key of the ce
 
 Given the JSON payload to be sent (data used to create the covid certificate or revocation data including the one-time passord)), the process is as follows:
 
-1. Primary system create a canonicalized text representation by removing all spaces, tabs and newlinesfrom the payload. The regex `/[\n\t ]/gm` can be used.
+1. Primary system create a canonicalized text representation by removing all spaces, tabs, carriage returns and newlines from the payload. The regex `/[\n\r\t ]/gm` can be used.
 2. Primary system encodes gets a UTF8 byte representation of that canonicalized text.
 3. Primary system signs that byte representation using the algorithm "RSASSA-PKCS1-v1_5" from [RFC](https://datatracker.ietf.org/doc/html/rfc3447). Most implementations name the algorithm `SHA256withRSA`.
 4. Primary system encodes the signature as base64 string.
