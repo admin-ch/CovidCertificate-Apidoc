@@ -89,14 +89,47 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 #### Content signature
 
-The content transferred to the REST API is signed with the "SwissGov Regular CA 01" certificate. The public key of the "SwissGov Regular CA 01" certificate should not be added to the API request.
+The content transferred to the REST API is signed with the private key of the certificate issued by "SwissGov Regular CA 01". 
 
-The process is as follows:
+Given the JSON payload to be sent (data used to create the covid certificate or revocation data including the one-time passord)), the process is as follows:
 
-1. Primary system creates a hash of the payload to be sent = data used to create the covid certificate (JSON data) or revocation data (JSON data). This also includes the one-time password.
-2. Primary system encrypts this hash using the private key of the "SwissGov Regular CA 01" certificate used to authenticate itself. "SHA256withRSA" is used as the signature algorithm. It corresponds with "RSASSA-PKCS1-v1_5" from the [RFC](https://datatracker.ietf.org/doc/html/rfc3447). 
-3. The signed hash is placed in the request header as `X-Signature`.
-4. Primary system places the JSON data (including the one-time password) in the payload and sends the message to generation REST API or to revocation REST API. 
+1. Primary system create a canonicalized text representation by removing all spaces, tabs and newlinesfrom the payload. The regex `/[\n\t ]/gm` can be used.
+2. Primary system encodes gets a UTF8 byte representation of that canonicalized text.
+3. Primary system signs that byte representation using the algorithm "RSASSA-PKCS1-v1_5" from [RFC](https://datatracker.ietf.org/doc/html/rfc3447). Most implementations name the algorithm `SHA256withRSA`.
+4. Primary system encodes the signature as base64 string.
+5. Primary system places the base64 encoded signature in the request header `X-Signature`.
+
+Java signature sample
+```java
+// load the key
+PrivateKey privateKey = this.getCertificate();
+// canonicalize
+String normalizedJson = payload.replaceAll("[\\n\\t ]", "");
+byte[] bytes = normalizedJson.getBytes(StandardCharsets.UTF_8);
+// sign
+Signature signature = Signature.getInstance("SHA256withRSA");
+signature.initSign(privateKey);
+signature.update();
+String signatureString = Base64.getEncoder().encodeToString(signature.sign());
+```
+
+Node.js / TypeScript sample
+```typescript
+// load the key
+const pemEncodedKey = fs.readFileSync(privateKeyFile)
+const privateKeyObject = crypto.createPrivateKey(pemEncodedKey)
+// canonicalize
+const regex = /[\n\t ]/gm
+const canonicalPayload = payload.replace(regex, '')
+const bytes = Buffer.from(canonicalMessage, 'utf8')
+// sign
+const sign = crypto.createSign('RSA-SHA256')
+sign.update(bytes)
+const signature = sign.sign(privateKeyObject)
+const base64encodedSignature = signature.toString('base64')
+// set request header
+headers['X-Signature'] = base64encodedSignature
+```
 
 ## Certificate data
 
