@@ -110,7 +110,7 @@ byte[] bytes = normalizedJson.getBytes(StandardCharsets.UTF_8);
 // sign
 Signature signature = Signature.getInstance("SHA256withRSA");
 signature.initSign(privateKey);
-signature.update();
+signature.update(bytes);
 String signatureString = Base64.getEncoder().encodeToString(signature.sign());
 ```
 
