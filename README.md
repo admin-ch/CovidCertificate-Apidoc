@@ -12,12 +12,13 @@
       - [Authorized user](#authorized-user)
       - [TLS tunnel](#tls-tunnel)
       - [Content signature](#content-signature)
-  * [Certificate data](#certificate-data)
+  * [Request - Certificate data](#request---certificate-data)
     + [Configuration data](#configuration-data)
     + [Personal data](#personal-data)
     + [Specific vaccination data](#specific-vaccination-data)
     + [Specific test data](#specific-test-data)
     + [Specific recovery data](#specific-recovery-data)
+  * [Response - Covid certificate](#response---covid-certificate)
   * [API doc](#api-doc)
     + [Generation API](#generation-api)
       - [Error list](#error-list)
@@ -131,7 +132,7 @@ const base64encodedSignature = signature.toString('base64')
 headers['X-Signature'] = base64encodedSignature
 ```
 
-## Certificate data
+## Request - Certificate data
 
 3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The configuration and personal data sections are the same for all covid certificates. The other data sections are specific to the type of certificate.
 
@@ -208,6 +209,14 @@ Mandatory data:
 - **countryOfTest**: the country in which the covid certificate owner has been tested. 
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
+
+## Response - Covid certificate
+
+The response delivered by the API contains 3 fields:
+
+- **pdf**: the pdf encoded with base64
+- **qrCode**: the tamper-proof signed QRCode as PNG image encoded with base64
+- **uvci**: the unique identifier of the certificate as string.
 
 ## API doc
 
