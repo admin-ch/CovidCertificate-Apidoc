@@ -258,14 +258,6 @@ If the otp validation fails, the following errors are returned as 403 FORBIDDEN:
 If the payload is too big, the errors are returned as 413 PAYLOAD TOO LARGE:
 - `{493, "Request payload too large, the maximum payload size is: 2048 bytes"}`
 
-If the server generates a known internal error, thes are returend as 500 INTERNAL SERVER ERROR:
-- `{550, "Creating COSE protected header failed."}`
-- `{551, "Creating COSE payload failed."}`
-- `{552, "Creating COSE signature data failed."}`
-- `{553, "Creating signature failed."}`
-- `{554, "Creating COSE_Sign1 failed."}`
-- `{555, "Creating barcode failed."}`
-
 ## References
 
 ### Links to EU digital green certificate documentation
