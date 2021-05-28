@@ -18,7 +18,7 @@
     "/api/v1/covidcertificate/vaccination": {
       "post": {
         "tags": [
-          "covid-certification-generation-controller"
+          "covid-certificate-generation-controller"
         ],
         "summary": "Creates a vaccine certificate for the given data.",
         "description": "Creates a vaccine certificate as an QR-Code and PDF. Performs an integrity check for each request based on headers and body.",
@@ -46,78 +46,12 @@
           "required": true
         },
         "responses": {
-          "413": {
-            "description": "Payload Too Large",
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
-                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
-                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
-                  },
-                  "CREATE_COSE_PAYLOAD_FAILED": {
-                    "description": "CREATE_COSE_PAYLOAD_FAILED",
-                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
-                  },
-                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
-                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
-                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
-                  },
-                  "CREATE_SIGNATURE_FAILED": {
-                    "description": "CREATE_SIGNATURE_FAILED",
-                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
-                  },
-                  "CREATE_COSE_SIGN1_FAILED": {
-                    "description": "CREATE_COSE_SIGN1_FAILED",
-                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
-                  },
-                  "CREATE_BARCODE_FAILED": {
-                    "description": "CREATE_BARCODE_FAILED",
-                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
-                  }
+                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
                 }
               }
             }
@@ -178,12 +112,42 @@
               }
             }
           },
-          "200": {
-            "description": "OK",
+          "403": {
+            "description": "Forbidden",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CovidCertificateCreateResponseDto"
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
                 }
               }
             }
@@ -194,7 +158,7 @@
     "/api/v1/covidcertificate/recovery": {
       "post": {
         "tags": [
-          "covid-certification-generation-controller"
+          "covid-certificate-generation-controller"
         ],
         "summary": "Creates a recovery certificate for the given data.",
         "description": "Creates a recovery certificate as an QR-Code and PDF. Performs an integrity check for each request based on headers and body.",
@@ -222,82 +186,6 @@
           "required": true
         },
         "responses": {
-          "413": {
-            "description": "Payload Too Large",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
-                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
-                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
-                  },
-                  "CREATE_COSE_PAYLOAD_FAILED": {
-                    "description": "CREATE_COSE_PAYLOAD_FAILED",
-                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
-                  },
-                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
-                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
-                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
-                  },
-                  "CREATE_SIGNATURE_FAILED": {
-                    "description": "CREATE_SIGNATURE_FAILED",
-                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
-                  },
-                  "CREATE_COSE_SIGN1_FAILED": {
-                    "description": "CREATE_COSE_SIGN1_FAILED",
-                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
-                  },
-                  "CREATE_BARCODE_FAILED": {
-                    "description": "CREATE_BARCODE_FAILED",
-                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -355,6 +243,46 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -362,7 +290,7 @@
     "/api/v1/covidcertificate/test": {
       "post": {
         "tags": [
-          "covid-certification-generation-controller"
+          "covid-certificate-generation-controller"
         ],
         "summary": "Creates a test certificate for the given data.",
         "description": "Creates a test certificate as an QR-Code and PDF. Performs an integrity check for each request based on headers and body.",
@@ -390,82 +318,6 @@
           "required": true
         },
         "responses": {
-          "413": {
-            "description": "Payload Too Large",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "CREATE_COSE_PROTECTED_HEADER_FAILED": {
-                    "description": "CREATE_COSE_PROTECTED_HEADER_FAILED",
-                    "value": "{\"errorCode\": 550, \"errorMessage\": Creating COSE protected header failed.}"
-                  },
-                  "CREATE_COSE_PAYLOAD_FAILED": {
-                    "description": "CREATE_COSE_PAYLOAD_FAILED",
-                    "value": "{\"errorCode\": 551, \"errorMessage\": Creating COSE payload failed.}"
-                  },
-                  "CREATE_COSE_SIGNATURE_DATA_FAILED": {
-                    "description": "CREATE_COSE_SIGNATURE_DATA_FAILED",
-                    "value": "{\"errorCode\": 552, \"errorMessage\": Creating COSE signature data failed.}"
-                  },
-                  "CREATE_SIGNATURE_FAILED": {
-                    "description": "CREATE_SIGNATURE_FAILED",
-                    "value": "{\"errorCode\": 553, \"errorMessage\": Creating signature failed.}"
-                  },
-                  "CREATE_COSE_SIGN1_FAILED": {
-                    "description": "CREATE_COSE_SIGN1_FAILED",
-                    "value": "{\"errorCode\": 554, \"errorMessage\": Creating COSE_Sign1 failed.}"
-                  },
-                  "CREATE_BARCODE_FAILED": {
-                    "description": "CREATE_BARCODE_FAILED",
-                    "value": "{\"errorCode\": 555, \"errorMessage\": Creating barcode failed.}"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -527,6 +379,155 @@
                   "INVALID_LANGUAGE": {
                     "description": "INVALID_LANGUAGE",
                     "value": "{\"errorCode\": 469, \"errorMessage\": The given language does not match any of the supported languages: de, it, fr!}"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/covidcertificate/revoke": {
+      "post": {
+        "tags": [
+          "covid-certificate-revocation-controller"
+        ],
+        "summary": "Revokes the certificate for the given UVCI.",
+        "description": "Revokes a Covid certificate with a given UVCI. Performs an integrity check for each request based on headers and body.",
+        "operationId": "revokeCertificate",
+        "parameters": [
+          {
+            "name": "X-Signature",
+            "in": "header",
+            "description": "Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by \"SwissGov Regular CA 01\". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "Base64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_UVCI": {
+                    "description": "INVALID_UVCI",
+                    "value": "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "DUPLICATE_UVCI": {
+                    "description": "DUPLICATE_UVCI",
+                    "value": "{\"errorCode\": 480, \"errorMessage\": Duplicate UVCI.}"
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "PAYLOAD_TOO_LARGE": {
+                    "description": "PAYLOAD_TOO_LARGE",
+                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
                   }
                 }
               }
@@ -733,12 +734,6 @@
             "format": "date-time",
             "example": "2020-09-24T17:29:41Z"
           },
-          "resultDateTime": {
-            "type": "string",
-            "description": "date and time of the test result production (optional for rapid antigen test). Format: ISO 8601 date incl. time.",
-            "format": "date-time",
-            "example": "2020-09-28T13:40:12Z"
-          },
           "testingCentreOrFacility": {
             "type": "string",
             "description": "name of centre or facility. Format: string, maxLength: 50 CHAR.",
@@ -748,6 +743,19 @@
             "type": "string",
             "description": "the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes).",
             "example": "CH"
+          }
+        }
+      },
+      "RevocationDto": {
+        "type": "object",
+        "properties": {
+          "uvci": {
+            "type": "string",
+            "description": "UVCI of certificate to be revoked.",
+            "example": "urn:uvci:01:CH:97DAB5E31B589AF3CAE2F53F"
+          },
+          "otp": {
+            "type": "string"
           }
         }
       }
