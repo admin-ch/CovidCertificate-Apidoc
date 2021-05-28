@@ -190,9 +190,6 @@ Mandatory data:
 - **sampleDateTime**: date and time of the test sample collection. 
   - Format: ISO 8601 date incl. time. 
   - Example: "1972-09-24T17:29:41.063Z"
-- **resultDateTime**: date and time of the test result production (optional for rapid antigen test). 
-  - Format: ISO 8601 date incl. time. 
-  - Example: "1972-09-24T17:29:41.063Z"
 - **testingCentreOrFacility**: name of centre or facility. 
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Centre de test de Payerne"
@@ -224,39 +221,7 @@ The response delivered by the API contains 3 fields:
 
 The generation API allows to create 3 types of covid certificate: vaccination, test and recovery.
 
-See the [API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json) to get technical information about the REST API.
-
-#### Error list
-There is a custom error body for the request if the server side parameter validation fails. The error is returned as a 400 BAD REQUEST:
-- `{451, "No vaccination data was specified"}`
-- `{452, "No person data was specified"}`
-- `{453, "Invalid dateOfBirth! Must be younger than 1900-01-01"}`
-- `{454, "Invalid medicinal product"}`
-- `{455, "Invalid number of doses"}`
-- `{456, "Invalid vaccination date! Date cannot be in the future"}`
-- `{457, "Invalid country of vaccination"}`
-- `{458, "Invalid given name! Must not exceed 50 chars"}`
-- `{459, "Invalid family name! Must not exceed 50 chars"}`
-- `{460, "No test data was specified"}`
-- `{461, "Invalid member state of test"}`
-- `{462, "Invalid type of test and manufacturer code combination! Must either be a PCR Test type and no manufacturer code or give a manufacturer code and the antigen test type code."}`
-- `{463, "Invalid testing center or facility"}`
-- `{464, "Invalid sample or result date time! Sample date must be before current date and before result date"}`
-- `{465, "No recovery data specified"}`
-- `{466, "Invalid date of first positive test result"}`
-- `{467, "Invalid country of test"}`
-- `{468, "Country short form can not be mapped"}`
-- `{469, "The given language does not match any of the supported languages: de, it, fr!"}`
-
-If the integrity check fails, the following errors are returned as 403 FORBIDDEN:
-- `{490, "Integrity check failed. The body hash does not match the hash in the header."}`
-- `{491, "Signature could not be parsed."}`
-
-If the otp validation fails, the following errors are returned as 403 FORBIDDEN:
-- `{492, "Invalid or missing bearer token."}`
-
-If the payload is too big, the errors are returned as 413 PAYLOAD TOO LARGE:
-- `{493, "Request payload too large, the maximum payload size is: 2048 bytes"}`
+See the [API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json) to get technical information about the REST API and the error list.
 
 ## References
 
