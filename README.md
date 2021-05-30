@@ -136,6 +136,8 @@ headers['X-Signature'] = base64encodedSignature
 
 3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type. The configuration and personal data sections are the same for all covid certificates. The other data sections are specific to the type of certificate.
 
+One generation request generates always one single covid certificate.
+
 ### Configuration data
 
 Mandatory data necessary for all types of certificates:
