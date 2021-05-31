@@ -160,7 +160,7 @@ Mandatory data appearing in all types of certificates:
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Hans"
 - **dateOfBirth**: birthdate of the covid certificate owner. 
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: `(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[01])` (the regexp does not address invalid month/date combinations like 02-30).
   - Example: "1981-08-09"
 
 ###  Specific vaccination data
@@ -174,7 +174,7 @@ Mandatory data:
 - **totalNumberOfDoses**: total series of doses.
   - Format: integer, range: from 1 to 9. 
 - **vaccinationDate**: date of vaccination. 
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])". 
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: `(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[01])` (the regexp does not address invalid month/date combinations like 02-30).
   - Example: "2021-05-14"
 - **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated.
   - Format: string (2 chars according to ISO 3166 Country Codes).
@@ -203,7 +203,7 @@ Mandatory data:
 
 Mandatory data:
 - **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. 
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: "[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])".
+  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: `(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[01])` (the regexp does not address invalid month/date combinations like 02-30).
   - Example: "2021-10-03"
 - **countryOfTest**: the country in which the covid certificate owner has been tested. 
   - Format: string (2 chars according to ISO 3166 Country Codes).
