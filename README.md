@@ -5,7 +5,7 @@
   * [HOWTO become a system integrator using the API ?](#howto-become-a-system-integrator-using-the-api--)
   * [Third party system integration](#third-party-system-integration)
     + [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
-    + [Integration achitecture](#integration-achitecture)
+    + [Integration architecture](#integration-architecture)
       - [Integration with one-time password](#integration-with-one-time-password)
       - [Sequence diagram](#sequence-diagram)
     + [Security architecture](#security-architecture)
@@ -57,7 +57,7 @@ This documentation applies to the second use case presented above.
 1. Only authorized users (natural persons) can access the generation and revocation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
 2. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and revocation API.
 
-### Integration achitecture
+### Integration architecture
 
 #### Integration with one-time password
 
@@ -65,7 +65,7 @@ To use the generation and revocation API a one-time password is required that ca
 
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
-1. The authorized user previously registered and recognised by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain a one-time password by signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)) page.
+1. The authorized user previously registered and recognized by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) can obtain a one-time password by signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)) page.
 2. Upon signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)), the authorized users rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the one-time password in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel and therefor protect the data transfer.
@@ -92,7 +92,7 @@ A TLS tunnel (single way authentication) is made between the primary system and 
 
 The content transferred to the REST API is signed with the private key of the certificate issued by "SwissGov Regular CA 01". 
 
-Given the JSON payload to be sent (data used to create the covid certificate or revocation data including the one-time passord)), the process is as follows:
+Given the JSON payload to be sent (data used to create the covid certificate or revocation data including the one-time password)), the process is as follows:
 
 1. Primary system create a canonicalized text representation by removing all spaces, tabs, carriage returns and newlines from the payload. The regex `/[\n\r\t ]/gm` can be used.
 2. Primary system encodes gets a UTF8 byte representation of that canonicalized text.
@@ -159,7 +159,7 @@ Mandatory data appearing in all types of certificates:
 - **givenName**: first name of the covid certificate owner. 
   - Format: string, maxLength: 50 CHAR. 
   - Example: "Hans"
-- **dateOfBirth**: birthdate of the covid certificate owner. 
+- **dateOfBirth**: date of birth of the covid certificate owner. 
   - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.
   - Example: "1981-08-09"
 
@@ -233,6 +233,5 @@ The revocation API allows to revoke covid certificate based on the unique identi
 
 ### Links to EU digital green certificate documentation
 
-- [Specification of EU digital greeen certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
-- [Code repository of EU digital greeen certificate](https://github.com/eu-digital-green-certificates)
-
+- [Specification of EU digital green certificate](https://ec.europa.eu/health/ehealth/covid-19_en)
+- [Code repository of EU digital green certificate](https://github.com/eu-digital-green-certificates)
