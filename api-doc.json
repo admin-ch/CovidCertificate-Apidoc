@@ -46,6 +46,30 @@
           "required": true
         },
         "responses": {
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
           "200": {
             "description": "OK",
             "content": {
@@ -111,46 +135,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "413": {
-            "description": "Payload Too Large",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -186,6 +170,30 @@
           "required": true
         },
         "responses": {
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
           "200": {
             "description": "OK",
             "content": {
@@ -243,46 +251,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "413": {
-            "description": "Payload Too Large",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -318,6 +286,30 @@
           "required": true
         },
         "responses": {
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
+          },
           "200": {
             "description": "OK",
             "content": {
@@ -383,46 +375,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
-          "413": {
-            "description": "Payload Too Large",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -458,25 +410,6 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "CREATED"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_UVCI": {
-                    "description": "INVALID_UVCI",
-                    "value": "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
-                  }
-                }
-              }
-            }
-          },
           "403": {
             "description": "Forbidden",
             "content": {
@@ -501,6 +434,9 @@
               }
             }
           },
+          "201": {
+            "description": "CREATED"
+          },
           "409": {
             "description": "Conflict",
             "content": {
@@ -517,17 +453,17 @@
               }
             }
           },
-          "413": {
-            "description": "Payload Too Large",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RestError"
                 },
                 "examples": {
-                  "PAYLOAD_TOO_LARGE": {
-                    "description": "PAYLOAD_TOO_LARGE",
-                    "value": "{\"errorCode\": 493, \"errorMessage\": Request payload too large, the maximum payload size is: 2048 bytes}"
+                  "INVALID_UVCI": {
+                    "description": "INVALID_UVCI",
+                    "value": "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
                   }
                 }
               }
@@ -574,7 +510,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.",
             "format": "date",
             "example": "1950-06-04"
           },
@@ -616,7 +552,7 @@
           },
           "vaccinationDate": {
             "type": "string",
-            "description": "date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "description": "date of vaccination. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.",
             "format": "date",
             "example": "2021-05-14"
           },
@@ -651,7 +587,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.",
             "format": "date",
             "example": "1950-06-04"
           },
@@ -676,7 +612,7 @@
         "properties": {
           "dateOfFirstPositiveTestResult": {
             "type": "string",
-            "description": "date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "description": "date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.",
             "format": "date",
             "example": "2021-10-03"
           },
@@ -695,7 +631,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31. Regexp: \"[19|20][0-9][0-9]-(0[1-9]|1[0-2])-([0-2][1-9]|3[0|1])\".",
+            "description": "birthdate of the covid certificate owner. Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.",
             "format": "date",
             "example": "1950-06-04"
           },
