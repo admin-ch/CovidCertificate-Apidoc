@@ -125,10 +125,10 @@ Regex normalizedJsonReplaceRegex = new Regex("[\\n\\r\\t ]");
 string normalizedJson = normalizedJsonReplaceRegex.Replace(payload, string.Empty);
 
 // sign
-byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(cleanJsonString), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(normalizedJson), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
 
-// convert signature to Base54 string
-string signatureString = Convert.ToBase64String(signedBytes);
+// convert signature to Base64 string
+string signatureString = Convert.ToBase64String(signatureBytes);
 ```
 
 Node.js / TypeScript sample
