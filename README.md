@@ -114,6 +114,23 @@ signature.update(bytes);
 String signatureString = Base64.getEncoder().encodeToString(signature.sign());
 ```
 
+.NET c# sample
+```c#
+// create RSA from certificate
+X509Certificate2 cert = GetCertificate();
+RSA rsaSignature = cert.GetRSAPrivateKey();
+
+// normalize json
+Regex normalizedJsonReplaceRegex = new Regex("[\\n\\r\\t ]");
+string normalizedJson = normalizedJsonReplaceRegex.Replace(payload, string.Empty);
+
+// sign
+byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(cleanJsonString), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+
+// convert signature to Base54 string
+string signatureString = Convert.ToBase64String(signedBytes);
+```
+
 Node.js / TypeScript sample
 ```typescript
 // load the key
