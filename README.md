@@ -168,12 +168,6 @@ One generation request generates always one single covid certificate.
 
 Mandatory data necessary for all types of certificates:
 
-- **language**: the national language of the covid certificate. Possible values:
-  - Format: ISO 639-1  two-letter codes, one per language for ISO 639 macrolanguage. Possible static values:
-    - "DE"
-    - "FR"
-    - "IT"
-    - "RM"
 - **otp**: the one time password which has to be generated in the [Web management UI (test environment)](https://www.covidcertificate-a.admin.ch/).
   - Format: string
 
@@ -190,6 +184,9 @@ Mandatory data appearing in all types of certificates:
 - **dateOfBirth**: date of birth of the covid certificate owner.
   - Format: ISO 8601 date without time.
   - Example: "1981-08-09"
+- **language**: the national language used to create the covid certificate PDF.
+  The PDF always contains English translations.
+  - Accepted languages are: `de`, `it`, `fr`, `rm`.
 
 ### Specific vaccination data
 
