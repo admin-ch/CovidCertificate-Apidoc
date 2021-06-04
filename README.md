@@ -177,13 +177,13 @@ Mandatory data appearing in all types of certificates:
 
 - **familyName**: family name of the covid certificate owner.
   - Format: string, maxLength: 50 CHAR.
-  - Example: "Muster"
+  - Example: "Rochat"
 - **givenName**: first name of the covid certificate owner.
   - Format: string, maxLength: 50 CHAR.
-  - Example: "Hans"
+  - Example: "Céline"
 - **dateOfBirth**: date of birth of the covid certificate owner.
   - Format: ISO 8601 date without time.
-  - Example: "1981-08-09"
+  - Example: "1964-03-14"
 - **language**: the national language used to create the covid certificate PDF.
   The PDF always contains English translations.
   - Accepted languages are: `de`, `it`, `fr`, `rm`.
