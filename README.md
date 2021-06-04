@@ -190,7 +190,14 @@ Mandatory data appearing in all types of certificates:
 
 ### Specific vaccination data
 
-Mandatory data:
+#### **vaccinationInfo**
+
+array containing the vaccination certificate data.
+  There must be exactly one element containing the data of the latest vaccination.
+
+#### **vaccination certificate data**
+
+object containing the following fields. All fields are mandatory.
 
 - **medicinalProductCode**: name of the medicinal product as registered in the country.
   - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/cumulated/covid-19-vaccines_1.0.0.json).
@@ -209,7 +216,14 @@ Mandatory data:
 
 ### Specific test data
 
-Mandatory data:
+#### **testInfo**
+
+array containing the test certificate data.
+  There must be exactly one element containing the data of the latest test.
+
+#### **testCertificateData**
+
+object containing the following fields. All fields are mandatory if not noted otherwise.
 
 - **typeCode**: type of test. This field is only mandatory when it is a PCR test.
   If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
@@ -234,7 +248,14 @@ Mandatory data:
 
 ### Specific recovery data
 
-Mandatory data:
+#### **recoveryInfo**
+
+array containing the recovery certificate data.
+  There must be exactly one element containing the data of first positive test.
+
+#### **recovery certificate data**
+
+object containing the following fields. All fields are mandatory.
 
 - **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority.
   - Format: ISO 8601 date without time.
