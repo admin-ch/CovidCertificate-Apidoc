@@ -100,7 +100,8 @@ Given the JSON payload to be sent (data used to create the covid certificate or 
 4. Primary system encodes the signature as base64 string.
 5. Primary system places the base64 encoded signature in the request header `X-Signature`.
 
-Java signature sample
+##### Java signature sample
+
 ```java
 // load the key
 PrivateKey privateKey = this.getCertificate();
@@ -114,7 +115,8 @@ signature.update(bytes);
 String signatureString = Base64.getEncoder().encodeToString(signature.sign());
 ```
 
-.NET c# sample
+##### .NET C# signature sample
+
 ```c#
 // create RSA from certificate
 X509Certificate2 cert = GetCertificate();
@@ -131,7 +133,8 @@ byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(normalizedJ
 string signatureString = Convert.ToBase64String(signatureBytes);
 ```
 
-Node.js / TypeScript sample
+##### Node.js / TypeScript signature sample
+
 ```typescript
 // load the key
 const pemEncodedKey = fs.readFileSync(privateKeyFile)
@@ -148,6 +151,10 @@ const base64encodedSignature = signature.toString('base64')
 // set request header
 headers['X-Signature'] = base64encodedSignature
 ```
+
+##### More samples
+
+There are samples scripts at <https://github.com/admin-ch/CovidCertificate-Api-Scripts>.
 
 ## Request - Certificate data
 
