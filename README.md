@@ -188,7 +188,7 @@ Mandatory data appearing in all types of certificates:
   - Format: string, maxLength: 50 CHAR.
   - Example: "Hans"
 - **dateOfBirth**: date of birth of the covid certificate owner.
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.
+  - Format: ISO 8601 date without time.
   - Example: "1981-08-09"
 
 ### Specific vaccination data
@@ -204,7 +204,7 @@ Mandatory data:
 - **totalNumberOfDoses**: total series of doses.
   - Format: integer, range: from 1 to 9.
 - **vaccinationDate**: date of vaccination.
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.
+  - Format: ISO 8601 date without time.
   - Example: "2021-05-14"
 - **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated.
   - Format: string (2 chars according to ISO 3166 Country Codes).
@@ -227,7 +227,7 @@ Mandatory data:
   - Example: "1232" for a "Abbott Rapid Diagnostics" manufacturer
 - **sampleDateTime**: date and time of the test sample collection.
   - Format: ISO 8601 date incl. time.
-  - Example: "1972-09-24T17:29:41.063Z"
+  - Example: "2020-09-24T17:29:41Z"
 - **testingCentreOrFacility**: name of centre or facility.
   - Format: string, maxLength: 50 CHAR.
   - Example: "Centre de test de Payerne"
@@ -240,7 +240,7 @@ Mandatory data:
 Mandatory data:
 
 - **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority.
-  - Format: ISO 8601 date without time. Range: can be between 1900-01-01 and 2099-12-31.
+  - Format: ISO 8601 date without time.
   - Example: "2021-10-03"
 - **countryOfTest**: the country in which the covid certificate owner has been tested.
   - Format: string (2 chars according to ISO 3166 Country Codes).
