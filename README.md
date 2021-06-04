@@ -241,7 +241,7 @@ object containing the following fields. All fields are mandatory if not noted ot
   - Example: "2020-09-24T17:29:41Z"
 - **testingCentreOrFacility**: name of centre or facility.
   - Format: string, maxLength: 50 CHAR.
-  - Example: "Centre de test de Payerne"
+  - Example: "Walk-in-Lyss AG"
 - **memberStateOfTest**: the country in which the covid certificate owner has been tested.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
