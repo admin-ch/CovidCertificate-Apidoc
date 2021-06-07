@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://ws.covidcertificate-a.bag.admin.ch",
+      "url": "http://ws.covidcertificate.bag.admin.ch",
       "description": "Generated server url"
     }
   ],
@@ -46,30 +46,6 @@
           "required": true
         },
         "responses": {
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -135,6 +111,30 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -170,30 +170,6 @@
           "required": true
         },
         "responses": {
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -251,6 +227,30 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -286,30 +286,6 @@
           "required": true
         },
         "responses": {
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_BEARER": {
-                    "description": "INVALID_BEARER",
-                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
-                  },
-                  "INVALID_SIGNATURE": {
-                    "description": "INVALID_SIGNATURE",
-                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
-                  },
-                  "SIGNATURE_PARSE_ERROR": {
-                    "description": "SIGNATURE_PARSE_ERROR",
-                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "OK",
             "content": {
@@ -375,6 +351,30 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_BEARER": {
+                    "description": "INVALID_BEARER",
+                    "value": "{\"errorCode\": 492, \"errorMessage\": Invalid or missing bearer token}"
+                  },
+                  "INVALID_SIGNATURE": {
+                    "description": "INVALID_SIGNATURE",
+                    "value": "{\"errorCode\": 490, \"errorMessage\": Integrity check failed, the body hash does not match the hash in the header}"
+                  },
+                  "SIGNATURE_PARSE_ERROR": {
+                    "description": "SIGNATURE_PARSE_ERROR",
+                    "value": "{\"errorCode\": 491, \"errorMessage\": Signature could not be parsed}"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -410,6 +410,25 @@
           "required": true
         },
         "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestError"
+                },
+                "examples": {
+                  "INVALID_UVCI": {
+                    "description": "INVALID_UVCI",
+                    "value": "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "content": {
@@ -434,9 +453,6 @@
               }
             }
           },
-          "201": {
-            "description": "CREATED"
-          },
           "409": {
             "description": "Conflict",
             "content": {
@@ -448,22 +464,6 @@
                   "DUPLICATE_UVCI": {
                     "description": "DUPLICATE_UVCI",
                     "value": "{\"errorCode\": 480, \"errorMessage\": Duplicate UVCI.}"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RestError"
-                },
-                "examples": {
-                  "INVALID_UVCI": {
-                    "description": "INVALID_UVCI",
-                    "value": "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
                   }
                 }
               }
