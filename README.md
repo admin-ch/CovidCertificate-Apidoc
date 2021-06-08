@@ -15,6 +15,7 @@
   - [Request - Certificate data](#request---certificate-data)
     - [Configuration data](#configuration-data)
     - [Personal data](#personal-data)
+    - [Address data](#address-data)
     - [Specific vaccination data](#specific-vaccination-data)
     - [Specific test data](#specific-test-data)
     - [Specific recovery data](#specific-recovery-data)
@@ -189,6 +190,23 @@ Mandatory data appearing in all types of certificates:
 - **language**: the national language used to create the covid certificate PDF.
   The PDF always contains English translations.
   - Accepted languages are: `de`, `it`, `fr`, `rm`.
+
+### Address data
+
+Optional data for paper-based delivery of the certificate. If this data is passed a printout of the certificate will be sent to the specified address. The first line of the address is derived from the personal data, therefor the attributes givenName and familyName are concatenated to build this line.
+
+- **streetAndNr**: street and house number of the recipient.  
+  - Format: string.
+  - Example: "Musterweg 4b"
+- **zipCode**: zip code of the recipient.
+  - Format: integer, maxLength: 4 CHAR, minLength: 4 CHAR.
+  - Example: 3000
+- **city**: city the recipient lives in.
+  - Format: string.
+  - Example: "Bern"
+- **cantonCodeSender**: abbreviation of the canton *issuing* the certificate. This can be different than the canton the recipient of the certificiate lives in. The abbreviation is mapped to a predefined address and used as the sender of the letter when sending the printout by mail.  
+  - Format: string.
+  - Example: "BE"
 
 ### Specific vaccination data
 
