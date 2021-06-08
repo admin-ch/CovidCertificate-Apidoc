@@ -62,7 +62,9 @@ This documentation applies to the second use case presented above.
 
 #### Integration with one-time password
 
-To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)). This one-time password needs to be included in every REST API request and has a limited validity. After expiry a new one-time password has to be generated.
+To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)).
+This one-time password needs to be included in every REST API request. It is valid for 12 hours.
+After expiry a new one-time password has to be generated.
 
 ![image](https://user-images.githubusercontent.com/319676/118590161-32374500-b7a2-11eb-8cb6-9395aacfa9de.png)
 
