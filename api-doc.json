@@ -99,10 +99,6 @@
                   "INVALID_RECOVERY_INFO": {
                     "description": "INVALID_RECOVERY_INFO",
                     "value": "{\"errorCode\": 473, \"errorMessage\": Invalid recovery info! Exactly one element is expected in the array.}"
-                  },
-                  "INVALID_ADDRESS": {
-                    "description": "INVALID_ADDRESS",
-                    "value": "{\"errorCode\": 474, \"errorMessage\": Paper-based delivery requires a valid address.}"
                   }
                 }
               }
@@ -239,10 +235,6 @@
                   "INVALID_TEST_INFO": {
                     "description": "INVALID_TEST_INFO",
                     "value": "{\"errorCode\": 472, \"errorMessage\": Invalid test info! Exactly one element is expected in the array.}"
-                  },
-                  "INVALID_ADDRESS": {
-                    "description": "INVALID_ADDRESS",
-                    "value": "{\"errorCode\": 474, \"errorMessage\": Paper-based delivery requires a valid address.}"
                   }
                 }
               }
@@ -375,10 +367,6 @@
                   "INVALID_VACCINATION_INFO": {
                     "description": "INVALID_VACCINATION_INFO",
                     "value": "{\"errorCode\": 471, \"errorMessage\": Invalid vaccination info! Exactly one element is expected in the array.}"
-                  },
-                  "INVALID_ADDRESS": {
-                    "description": "INVALID_ADDRESS",
-                    "value": "{\"errorCode\": 474, \"errorMessage\": Paper-based delivery requires a valid address.}"
                   }
                 }
               }
@@ -543,39 +531,6 @@
           }
         }
       },
-      "CovidCertificateAddressDto": {
-        "required": [
-          "cantonCodeSender",
-          "city",
-          "streetAndNr",
-          "zipCode"
-        ],
-        "type": "object",
-        "properties": {
-          "streetAndNr": {
-            "type": "string",
-            "description": "Street and number of the certificate holder.",
-            "example": "Musterweg 4b"
-          },
-          "zipCode": {
-            "maxLength": 4,
-            "minLength": 4,
-            "type": "integer",
-            "format": "int32",
-            "example": 3000
-          },
-          "city": {
-            "type": "string",
-            "example": "Bern"
-          },
-          "cantonCodeSender": {
-            "type": "string",
-            "description": "Abbreviation of the canton issuing the certificate. This will be used as the sender of the paper based delivery.",
-            "example": "BE"
-          }
-        },
-        "description": "Address of the recipient. A printout of the certificate will be sent to the certificate holder if this parameter is passed. The first line of the address is automatically filled with the givenName and familyName from the name attribute."
-      },
       "CovidCertificatePersonNameDto": {
         "type": "object",
         "properties": {
@@ -621,9 +576,6 @@
           },
           "otp": {
             "type": "string"
-          },
-          "address": {
-            "$ref": "#/components/schemas/CovidCertificateAddressDto"
           },
           "identity": {
             "$ref": "#/components/schemas/IdentityDto"
@@ -688,9 +640,6 @@
           "otp": {
             "type": "string"
           },
-          "address": {
-            "$ref": "#/components/schemas/CovidCertificateAddressDto"
-          },
           "identity": {
             "$ref": "#/components/schemas/IdentityDto"
           },
@@ -752,9 +701,6 @@
           },
           "otp": {
             "type": "string"
-          },
-          "address": {
-            "$ref": "#/components/schemas/CovidCertificateAddressDto"
           },
           "identity": {
             "$ref": "#/components/schemas/IdentityDto"
