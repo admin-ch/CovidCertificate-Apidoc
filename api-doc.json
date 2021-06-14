@@ -127,14 +127,6 @@
                   "INVALID_AUTHORIZATION_COMBINATION": {
                     "description": "INVALID_AUTHORIZATION_COMBINATION",
                     "value": "{\"errorCode\": 493, \"errorMessage\": Invalid authorization combination of OTP and identity}"
-                  },
-                  "INVALID_IDENTITY_USER": {
-                    "description": "INVALID_IDENTITY_USER",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user}"
-                  },
-                  "INVALID_IDENTITY_USER_ROLE": {
-                    "description": "INVALID_IDENTITY_USER_ROLE",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user role}"
                   }
                 }
               }
@@ -263,14 +255,6 @@
                   "INVALID_AUTHORIZATION_COMBINATION": {
                     "description": "INVALID_AUTHORIZATION_COMBINATION",
                     "value": "{\"errorCode\": 493, \"errorMessage\": Invalid authorization combination of OTP and identity}"
-                  },
-                  "INVALID_IDENTITY_USER": {
-                    "description": "INVALID_IDENTITY_USER",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user}"
-                  },
-                  "INVALID_IDENTITY_USER_ROLE": {
-                    "description": "INVALID_IDENTITY_USER_ROLE",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user role}"
                   }
                 }
               }
@@ -395,14 +379,6 @@
                   "INVALID_AUTHORIZATION_COMBINATION": {
                     "description": "INVALID_AUTHORIZATION_COMBINATION",
                     "value": "{\"errorCode\": 493, \"errorMessage\": Invalid authorization combination of OTP and identity}"
-                  },
-                  "INVALID_IDENTITY_USER": {
-                    "description": "INVALID_IDENTITY_USER",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user}"
-                  },
-                  "INVALID_IDENTITY_USER_ROLE": {
-                    "description": "INVALID_IDENTITY_USER_ROLE",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user role}"
                   }
                 }
               }
@@ -484,14 +460,6 @@
                   "INVALID_AUTHORIZATION_COMBINATION": {
                     "description": "INVALID_AUTHORIZATION_COMBINATION",
                     "value": "{\"errorCode\": 493, \"errorMessage\": Invalid authorization combination of OTP and identity}"
-                  },
-                  "INVALID_IDENTITY_USER": {
-                    "description": "INVALID_IDENTITY_USER",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user}"
-                  },
-                  "INVALID_IDENTITY_USER_ROLE": {
-                    "description": "INVALID_IDENTITY_USER_ROLE",
-                    "value": "{\"errorCode\": 494, \"errorMessage\": Invalid identity user role}"
                   }
                 }
               }
@@ -546,17 +514,6 @@
           }
         }
       },
-      "IdentityDto": {
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string"
-          },
-          "idpSource": {
-            "type": "string"
-          }
-        }
-      },
       "RecoveryCertificateCreateDto": {
         "type": "object",
         "properties": {
@@ -576,9 +533,6 @@
           },
           "otp": {
             "type": "string"
-          },
-          "identity": {
-            "$ref": "#/components/schemas/IdentityDto"
           },
           "recoveryInfo": {
             "type": "array",
@@ -640,9 +594,6 @@
           "otp": {
             "type": "string"
           },
-          "identity": {
-            "$ref": "#/components/schemas/IdentityDto"
-          },
           "testInfo": {
             "type": "array",
             "items": {
@@ -702,9 +653,6 @@
           "otp": {
             "type": "string"
           },
-          "identity": {
-            "$ref": "#/components/schemas/IdentityDto"
-          },
           "vaccinationInfo": {
             "type": "array",
             "items": {
@@ -756,9 +704,6 @@
           },
           "otp": {
             "type": "string"
-          },
-          "identity": {
-            "$ref": "#/components/schemas/IdentityDto"
           }
         }
       }
