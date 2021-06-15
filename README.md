@@ -193,7 +193,10 @@ Mandatory data appearing in all types of certificates:
 
 ### Address data
 
-Optional data for paper-based delivery of the certificate. If this data is passed a printout of the certificate will be sent to the specified address. The first line of the address is derived from the personal data, therefor the attributes givenName and familyName are concatenated to build this line.
+Optional data for paper-based delivery of the certificate.
+If this data is passed, a printout of the certificate will be sent to the specified address.
+The first line of the address is derived from the personal data.
+Therefore, the attributes givenName and familyName are concatenated to build this line.
 
 - **streetAndNr**: street and house number of the recipient.  
   - Format: string.
@@ -204,7 +207,8 @@ Optional data for paper-based delivery of the certificate. If this data is passe
 - **city**: city the recipient lives in.
   - Format: string.
   - Example: "Bern"
-- **cantonCodeSender**: abbreviation of the canton *issuing* the certificate. This can be different than the canton the recipient of the certificiate lives in. The abbreviation is mapped to a predefined address and used as the sender of the letter when sending the printout by mail.  
+- **cantonCodeSender**: abbreviation of the canton *issuing* the certificate. 
+  This can be different from the canton the recipient of the certificiate lives in. The abbreviation is mapped to a predefined address and used as the sender of the letter when sending the printout by mail.  
   - Format: string.
   - Example: "BE"
 
