@@ -251,7 +251,7 @@ object containing the following fields. All fields are mandatory if not noted ot
 
 - **typeCode**: type of test. This field is only mandatory when it is a PCR test.
   If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
-  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/valuesets/test-type.json).
+  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/cumulated/covid-19-tests_1.0.0.json).
   The value of the code has to be sent to the API
   - Example: "LP6464-4" for a "Nucleic acid amplification with probe detection" type of test
 - **manufacturerCode**: test manufacturer code.
