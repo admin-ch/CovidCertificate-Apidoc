@@ -1,0 +1,293 @@
+---
+openapi: 3.0.0
+info:
+  title: CH Covidcertificate Verifier API
+  description: CH Covidcertificate Verifier API
+  version: 1.1.0
+servers:
+- url: https://www.cc-d.bit.admin.ch
+  description: dev
+- url: https://www.cc-a.bit.admin.ch
+  description: abn
+- url: https://www.cc.bit.admin.ch
+  description: prod
+paths:
+  /trust/v1/keys/:
+    get:
+      summary: hello
+      description: Echo endpoint
+      responses:
+        "200":
+          description: Hello from CH Covidcertificate Verifier WS
+          content:
+            application/json:
+              schema:
+                type: string
+  /trust/v1/keys/updates:
+    get:
+      summary: getSignerCerts
+      description: get signer certificates
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'api authentication. format: ''Bearer <api_token>'''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer ABC123
+      - name: since
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: long
+      - name: certFormat
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.cert.CertFormat'
+      responses:
+        "200":
+          description: next certificate batch after `since`. keep requesting until empty certs list is returned
+          headers:
+            X-Next-Since:
+              description: '`since` to set for next request'
+              style: simple
+              explode: false
+              schema:
+                type: string
+            up-to-date:
+              description: set to 'true' when no more certs to fetch
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.cert.CertsResponse'
+  /trust/v1/keys/list:
+    get:
+      summary: getActiveSignerCertKeyIds
+      description: get all key IDs of active signer certs
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'api authentication. format: ''Bearer <api_token>'''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer ABC123
+      - name: If-None-Match
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list of Key IDs of all active signer certs
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.cert.ActiveCertsResponse'
+        "304":
+          description: no changes since last request
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+  /trust/v1/revocationList:
+    get:
+      summary: getCerts
+      description: get list of revoked certificates
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'api authentication. format: ''Bearer <api_token>'''
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer ABC123
+      - name: If-None-Match
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: full list of revoked certificates
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.RevocationResponse'
+        "304":
+          description: no changes since last request
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+  /trust/v1/verificationRules:
+    get:
+      summary: getVerificationRules
+      description: get list of verification rules
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'api authentication. format: ''Bearer <api_token>'''
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: Bearer ABC123
+      - name: If-None-Match
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: list of verification rules
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: string
+        "304":
+          description: no changes since last request
+          headers:
+            ETag:
+              description: etag to set for next request
+              style: simple
+              explode: false
+              schema:
+                type: string
+components:
+  schemas:
+    ch.admin.bag.covidcertificate.backend.verifier.model.RevocationResponse:
+      type: object
+      properties:
+        revokedCerts:
+          type: array
+          description: list of revoked covidcerts
+          example:
+          - urn:uvci:01:CH:F0FDABC1708A81BB1A843891
+          items:
+            type: string
+        validDuration:
+          type: number
+          description: describes how long the list response is valid for in ms
+          format: long
+          example: 172800000
+    ch.admin.bag.covidcertificate.backend.verifier.model.cert.ActiveCertsResponse:
+      type: object
+      properties:
+        activeKeyIds:
+          type: array
+          description: list of active key ids
+          items:
+            type: string
+        validDuration:
+          type: number
+          description: describes how long the list response is valid for in ms
+          format: long
+          example: 172800000
+    ch.admin.bag.covidcertificate.backend.verifier.model.cert.Algorithm:
+      type: string
+      enum:
+      - ES256
+      - RS256
+    ch.admin.bag.covidcertificate.backend.verifier.model.cert.CertFormat:
+      type: string
+      enum:
+      - IOS
+      - ANDROID
+    ch.admin.bag.covidcertificate.backend.verifier.model.cert.CertsResponse:
+      type: object
+      properties:
+        certs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.cert.ClientCert'
+    ch.admin.bag.covidcertificate.backend.verifier.model.cert.ClientCert:
+      type: object
+      properties:
+        keyId:
+          type: string
+          description: base64 encoded. shasum of x509
+          example: ""
+        use:
+          type: string
+          description: 'either ''sig'' (all) or one or more of: ''r'' (recovery), ''t'' (test), ''v'' (vaccine)'
+          example: sig
+        alg:
+          allOf:
+          - $ref: '#/components/schemas/ch.admin.bag.covidcertificate.backend.verifier.model.cert.Algorithm'
+          - description: ES256 or RS256. key type can be derived from algorithm
+          - example: ES256
+        n:
+          type: string
+          description: base64 encoded. RSA only (android)
+          example: ""
+        e:
+          type: string
+          description: base64 encoded. RSA only (android)
+          example: ""
+        subjectPublicKeyInfo:
+          type: string
+          description: base64 encoded. RSA only (ios)
+          example: ""
+        crv:
+          type: string
+          description: EC only. only 'P-256' is supported at this time
+          example: P-256
+        x:
+          type: string
+          description: base64 encoded. EC only
+          example: ""
+        y:
+          type: string
+          description: base64 encoded. EC only
+          example: ""

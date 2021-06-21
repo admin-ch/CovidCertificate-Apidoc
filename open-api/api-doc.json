@@ -10,8 +10,12 @@
   },
   "servers": [
     {
-      "url": "https://www.covidcertificate.admin.ch",
-      "description": "Generated server url"
+      "url": "https://ws.covidcertificate-a.bag.admin.ch/",
+      "description": "TEST environment"
+    },
+    {
+      "url": "https://ws.covidcertificate.bag.admin.ch/",
+      "description": "PROD environment"
     }
   ],
   "paths": {

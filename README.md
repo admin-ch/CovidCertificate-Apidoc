@@ -2,6 +2,7 @@
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   - [Introduction](#introduction)
+  - [OpenApi docs](#openapi-docs)
   - [HOWTO become a system integrator using the API ?](#howto-become-a-system-integrator-using-the-api--)
   - [Third party system integration](#third-party-system-integration)
     - [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
@@ -20,9 +21,6 @@
     - [Specific test data](#specific-test-data)
     - [Specific recovery data](#specific-recovery-data)
   - [Response - Covid certificate](#response---covid-certificate)
-  - [API doc](#api-doc)
-    - [Generation API](#generation-api)
-    - [Revocation API](#revocation-api)
   - [References](#references)
     - [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
@@ -33,6 +31,16 @@
 The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
 
 The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
+
+## OpenApi docs
+
+- Generation and Revokation
+  - [Open API File](open-api/api-doc.json)
+  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.json)
+
+- Verifier
+  - [Open API File](open-api/verifier.yaml)
+  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/verifier.yaml)
 
 ## HOWTO become a system integrator using the API ?
 
@@ -295,18 +303,6 @@ The response delivered by the API contains 3 fields:
 - **pdf**: the pdf encoded with base64
 - **qrCode**: the tamper-proof signed QRCode as PNG image encoded with base64
 - **uvci**: the unique identifier of the certificate as string.
-
-## API doc
-
-See the [API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json) to get technical information about the REST API and the error list.
-
-### Generation API
-
-The generation API allows to create 3 types of covid certificate: vaccination, test and recovery.
-
-### Revocation API
-
-The revocation API allows to revoke covid certificate based on the unique identifier UVCI.
 
 ## References
 
