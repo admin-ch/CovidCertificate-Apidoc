@@ -3,28 +3,42 @@
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   - [Introduction](#introduction)
   - [OpenApi docs](#openapi-docs)
-  - [HOWTO become a system integrator using the API ?](#howto-become-a-system-integrator-using-the-api--)
-  - [Third party system integration](#third-party-system-integration)
-    - [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
-    - [Integration architecture](#integration-architecture)
-      - [Integration with one-time password](#integration-with-one-time-password)
-      - [Sequence diagram](#sequence-diagram)
-    - [Security architecture](#security-architecture)
-      - [Authorized user](#authorized-user)
-      - [TLS tunnel](#tls-tunnel)
-      - [Content signature](#content-signature)
-  - [Request - Certificate data](#request---certificate-data)
-    - [Configuration data](#configuration-data)
-    - [Personal data](#personal-data)
-    - [Address data](#address-data)
+  - [Certificate Generation and Revokation API](#certificate-generation-and-revokation-api)
+    - [HOWTO become a system integrator using the API?](#howto-become-a-system-integrator-using-the-api-)
+    - [Third party system integration](#third-party-system-integration)
+      - [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
+      - [Integration architecture](#integration-architecture)
+        - [Integration with one-time password](#integration-with-one-time-password)
+        - [Sequence diagram](#sequence-diagram)
+      - [Security architecture](#security-architecture)
+        - [Authorized user](#authorized-user)
+        - [TLS tunnel](#tls-tunnel)
+        - [Content signature](#content-signature)
+          - [Java signature sample](#java-signature-sample)
+          - [.NET C# signature sample](#net-c--signature-sample)
+          - [Node.js / TypeScript signature sample](#nodejs---typescript-signature-sample)
+          - [More samples](#more-samples)
+    - [Request - Certificate data](#request---certificate-data)
+      - [Configuration data](#configuration-data)
+      - [Personal data](#personal-data)
+      - [Address data](#address-data)
     - [Specific vaccination data](#specific-vaccination-data)
-    - [Specific test data](#specific-test-data)
-    - [Specific recovery data](#specific-recovery-data)
-  - [Response - Covid certificate](#response---covid-certificate)
+      - [**vaccinationInfo**](#--vaccinationinfo--)
+      - [**vaccination certificate data**](#--vaccination-certificate-data--)
+      - [Specific test data](#specific-test-data)
+        - [**testInfo**](#--testinfo--)
+        - [**testCertificateData**](#--testcertificatedata--)
+      - [Specific recovery data](#specific-recovery-data)
+        - [**recoveryInfo**](#--recoveryinfo--)
+        - [**recovery certificate data**](#--recovery-certificate-data--)
+    - [Response - Covid certificate](#response---covid-certificate)
+  - [Verifier API](#verifier-api)
   - [References](#references)
     - [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
+<!--- 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+ --->
 
 ## Introduction
 
@@ -42,7 +56,9 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
   - [Open API File](open-api/verifier.yaml)
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/verifier.yaml)
 
-## HOWTO become a system integrator using the API ?
+## Certificate Generation and Revokation API
+
+### HOWTO become a system integrator using the API?
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
@@ -53,7 +69,7 @@ If you are a primary system integrator, you can follow the following steps in or
 5. REST API is free of charge.
 6. Batch processing is possible, but please avoid to request more than 2 covid certificates per second. In case of doubts, contact us with [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
 
-## Third party system integration
+### Third party system integration
 
 There are two methods to generate and revoke covid certificates:
 
@@ -62,14 +78,14 @@ There are two methods to generate and revoke covid certificates:
 
 This documentation applies to the second use case presented above.
 
-### Prerequisites in order to access the API
+#### Prerequisites in order to access the API
 
 1. Only authorized users (natural persons) can access the generation and revocation API. Authorized users are determined by the swiss cantons or [FOPH](https://www.bag.admin.ch/bag/en/home.html).
 2. Third party systems have to sign an agreement with [FOITT](https://www.bit.admin.ch/bit/en/home.html) in order to access the generation and revocation API.
 
-### Integration architecture
+#### Integration architecture
 
-#### Integration with one-time password
+##### Integration with one-time password
 
 To use the generation and revocation API a one-time password is required that can be obtained form the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)).
 This one-time password needs to be included in every REST API request. It is valid for 12 hours.
@@ -86,21 +102,21 @@ After expiry a new one-time password has to be generated.
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
 8. The Management Service REST API checks the integrity of the data with the received signature and verifies the the one-time password.
 
-#### Sequence diagram
+##### Sequence diagram
 
 ![image](https://user-images.githubusercontent.com/319676/118361751-0db64f80-b58d-11eb-8f5a-fc7e193a1a00.png)
 
-### Security architecture
+#### Security architecture
 
-#### Authorized user
+##### Authorized user
 
 The authorized users are onboarded in [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1) and can use a [CHLogin](https://www.eiam.admin.ch/?c=f!chlfaq!pub&l=en) or a [HIN](https://www.hin.ch/hin-anschluss/elektronische-identitaeten/) identity. They access the API by sending an OneTime password (OTP as [JSON Web Token - JWT](https://jwt.io/)) generated from the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)).
 
-#### TLS tunnel
+##### TLS tunnel
 
 A TLS tunnel (single way authentication) is made between the primary system and the API gateway. One "SwissGov Regular CA 01" certificate is delivered to each primary system for this purpose.
 
-#### Content signature
+##### Content signature
 
 The content transferred to the REST API is signed with the private key of the certificate issued by "SwissGov Regular CA 01".
 
@@ -112,7 +128,7 @@ Given the JSON payload to be sent (data used to create the covid certificate or 
 4. Primary system encodes the signature as base64 string.
 5. Primary system places the base64 encoded signature in the request header `X-Signature`.
 
-##### Java signature sample
+###### Java signature sample
 
 ```java
 // load the key
@@ -127,7 +143,7 @@ signature.update(bytes);
 String signatureString = Base64.getEncoder().encodeToString(signature.sign());
 ```
 
-##### .NET C# signature sample
+###### .NET C# signature sample
 
 ```c#
 // create RSA from certificate
@@ -145,7 +161,7 @@ byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(normalizedJ
 string signatureString = Convert.ToBase64String(signatureBytes);
 ```
 
-##### Node.js / TypeScript signature sample
+###### Node.js / TypeScript signature sample
 
 ```typescript
 // load the key
@@ -164,25 +180,25 @@ const base64encodedSignature = signature.toString('base64')
 headers['X-Signature'] = base64encodedSignature
 ```
 
-##### More samples
+###### More samples
 
 There are samples scripts at <https://github.com/admin-ch/CovidCertificate-Api-Scripts>.
 
-## Request - Certificate data
+### Request - Certificate data
 
 3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type.
 The configuration and personal data sections are the same for all covid certificates. The other data sections are specific to the type of certificate.
 
 One generation request generates always one single covid certificate.
 
-### Configuration data
+#### Configuration data
 
 Mandatory data necessary for all types of certificates:
 
 - **otp**: the one time password which has to be generated in the [Web management UI (test environment)](https://www.covidcertificate-a.admin.ch/).
   - Format: string
 
-### Personal data
+#### Personal data
 
 Mandatory data appearing in all types of certificates:
 
@@ -199,7 +215,7 @@ Mandatory data appearing in all types of certificates:
   The PDF always contains English translations.
   - Accepted languages are: `de`, `it`, `fr`, `rm`.
 
-### Address data
+#### Address data
 
 Optional data for paper-based delivery of the certificate.
 If this data is passed, a printout of the certificate will be sent to the specified address.
@@ -215,7 +231,7 @@ Therefore, the attributes givenName and familyName are concatenated to build thi
 - **city**: city the recipient lives in.
   - Format: string.
   - Example: "Bern"
-- **cantonCodeSender**: abbreviation of the canton *issuing* the certificate. 
+- **cantonCodeSender**: abbreviation of the canton *issuing* the certificate.
   This can be different from the canton the recipient of the certificiate lives in. The abbreviation is mapped to a predefined address and used as the sender of the letter when sending the printout by mail.  
   - Format: string.
   - Example: "BE"
@@ -246,14 +262,14 @@ object containing the following fields. All fields are mandatory.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-### Specific test data
+#### Specific test data
 
-#### **testInfo**
+##### **testInfo**
 
 array containing the test certificate data.
   There must be exactly one element containing the data of the latest test.
 
-#### **testCertificateData**
+##### **testCertificateData**
 
 object containing the following fields. All fields are mandatory if not noted otherwise.
 
@@ -278,14 +294,14 @@ object containing the following fields. All fields are mandatory if not noted ot
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-### Specific recovery data
+#### Specific recovery data
 
-#### **recoveryInfo**
+##### **recoveryInfo**
 
 array containing the recovery certificate data.
   There must be exactly one element containing the data of first positive test.
 
-#### **recovery certificate data**
+##### **recovery certificate data**
 
 object containing the following fields. All fields are mandatory.
 
@@ -296,13 +312,17 @@ object containing the following fields. All fields are mandatory.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
-## Response - Covid certificate
+### Response - Covid certificate
 
 The response delivered by the API contains 3 fields:
 
 - **pdf**: the pdf encoded with base64
 - **qrCode**: the tamper-proof signed QRCode as PNG image encoded with base64
 - **uvci**: the unique identifier of the certificate as string.
+
+## Verifier API
+
+You need an API token to access the verifier API. Please contact us at [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
 
 ## References
 
