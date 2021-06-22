@@ -1,45 +1,43 @@
 # Swiss Covid Certificate - API documentation
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
-  - [Introduction](#introduction)
-  - [OpenApi docs](#openapi-docs)
-  - [Certificate Generation and Revokation API](#certificate-generation-and-revokation-api)
-    - [HOWTO become a system integrator using the API?](#howto-become-a-system-integrator-using-the-api-)
-    - [Third party system integration](#third-party-system-integration)
+  * [Introduction](#introduction)
+  * [Api docs](#api-docs)
+  * [Certificate Generation and Revocation API](#certificate-generation-and-revocation-api)
+    + [HOWTO become a system integrator using the API](#howto-become-a-system-integrator-using-the-api)
+    + [Third party system integration](#third-party-system-integration)
       - [Prerequisites in order to access the API](#prerequisites-in-order-to-access-the-api)
       - [Integration architecture](#integration-architecture)
-        - [Integration with one-time password](#integration-with-one-time-password)
-        - [Sequence diagram](#sequence-diagram)
+        * [Integration with one-time password](#integration-with-one-time-password)
+        * [Sequence diagram](#sequence-diagram)
       - [Security architecture](#security-architecture)
-        - [Authorized user](#authorized-user)
-        - [TLS tunnel](#tls-tunnel)
-        - [Content signature](#content-signature)
-          - [Java signature sample](#java-signature-sample)
-          - [.NET C# signature sample](#net-c--signature-sample)
-          - [Node.js / TypeScript signature sample](#nodejs---typescript-signature-sample)
-          - [More samples](#more-samples)
-    - [Request - Certificate data](#request---certificate-data)
+        * [Authorized user](#authorized-user)
+        * [TLS tunnel](#tls-tunnel)
+        * [Content signature](#content-signature)
+          + [Java signature sample](#java-signature-sample)
+          + [.NET signature sample](#net-signature-sample)
+          + [Node.js TypeScript signature sample](#nodejs-typescript-signature-sample)
+          + [More samples](#more-samples)
+    + [Request - Certificate data](#request---certificate-data)
       - [Configuration data](#configuration-data)
       - [Personal data](#personal-data)
       - [Address data](#address-data)
-      - [Transfer codes for InApp Delivery](#transfer-codes-for-inapp-delivery)
-    - [Specific vaccination data](#specific-vaccination-data)
-      - [**vaccinationInfo**](#--vaccinationinfo--)
-      - [**vaccination certificate data**](#--vaccination-certificate-data--)
+      - [Transfer code for InApp Delivery](#transfer-code-for-inapp-delivery)
+    + [Specific vaccination data](#specific-vaccination-data)
+      - [vaccinationInfo](#vaccinationinfo)
+      - [vaccination certificate data](#vaccination-certificate-data)
       - [Specific test data](#specific-test-data)
-        - [**testInfo**](#--testinfo--)
-        - [**testCertificateData**](#--testcertificatedata--)
+        * [testInfo](#testinfo)
+        * [testCertificateData](#testcertificatedata)
       - [Specific recovery data](#specific-recovery-data)
-        - [**recoveryInfo**](#--recoveryinfo--)
-        - [**recovery certificate data**](#--recovery-certificate-data--)
-    - [Response - Covid certificate](#response---covid-certificate)
-  - [Verifier API](#verifier-api)
-  - [References](#references)
-    - [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
+        * [recoveryInfo](#recoveryinfo)
+        * [recovery certificate data](#recovery-certificate-data)
+    + [Response - Covid certificate](#response---covid-certificate)
+  * [Verifier API](#verifier-api)
+  * [References](#references)
+    + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
-<!--- 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
- --->
 
 ## Introduction
 
@@ -47,9 +45,9 @@ The swiss covid certificate system can be used by authorized third party systems
 
 The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
 
-## OpenApi docs
+## Api docs
 
-- Generation and Revokation
+- Generation and Revocation
   - [Open API File](open-api/api-doc.json)
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.json)
 
@@ -57,9 +55,9 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
   - [Open API File](open-api/verifier.yaml)
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/verifier.yaml)
 
-## Certificate Generation and Revokation API
+## Certificate Generation and Revocation API
 
-### HOWTO become a system integrator using the API?
+### HOWTO become a system integrator using the API
 
 If you are a primary system integrator, you can follow the following steps in order to use the generation and revocation API:
 
@@ -144,7 +142,7 @@ signature.update(bytes);
 String signatureString = Base64.getEncoder().encodeToString(signature.sign());
 ```
 
-###### .NET C# signature sample
+###### .NET signature sample
 
 ```c#
 // create RSA from certificate
@@ -162,7 +160,7 @@ byte[] signatureBytes = rsaSignature.SignData(Encoding.UTF8.GetBytes(normalizedJ
 string signatureString = Convert.ToBase64String(signatureBytes);
 ```
 
-###### Node.js / TypeScript signature sample
+###### Node.js TypeScript signature sample
 
 ```typescript
 // load the key
@@ -237,9 +235,9 @@ Therefore, the attributes givenName and familyName are concatenated to build thi
   - Format: string.
   - Example: "BE"
 
-#### Transfer codes for InApp Delivery
+#### Transfer code for InApp Delivery
 
-**NOTE: The API does not yet support this feature.**
+**NOTE: The API will suport this feature on 28.06.2021.**
 
 A transfer code consists of 9 characters.
 
@@ -290,12 +288,12 @@ $%(*(!@#$_!@*#
 
 ### Specific vaccination data
 
-#### **vaccinationInfo**
+#### vaccinationInfo
 
 array containing the vaccination certificate data.
   There must be exactly one element containing the data of the latest vaccination.
 
-#### **vaccination certificate data**
+#### vaccination certificate data
 
 object containing the following fields. All fields are mandatory.
 
@@ -316,12 +314,12 @@ object containing the following fields. All fields are mandatory.
 
 #### Specific test data
 
-##### **testInfo**
+##### testInfo
 
 array containing the test certificate data.
   There must be exactly one element containing the data of the latest test.
 
-##### **testCertificateData**
+##### testCertificateData
 
 object containing the following fields. All fields are mandatory if not noted otherwise.
 
@@ -348,12 +346,12 @@ object containing the following fields. All fields are mandatory if not noted ot
 
 #### Specific recovery data
 
-##### **recoveryInfo**
+##### recoveryInfo
 
 array containing the recovery certificate data.
   There must be exactly one element containing the data of first positive test.
 
-##### **recovery certificate data**
+##### recovery certificate data
 
 object containing the following fields. All fields are mandatory.
 
