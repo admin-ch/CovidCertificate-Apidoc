@@ -23,9 +23,9 @@
       - [Personal data](#personal-data)
       - [Address data](#address-data)
       - [Transfer code for InApp Delivery](#transfer-code-for-inapp-delivery)
-    + [Specific vaccination data](#specific-vaccination-data)
-      - [vaccinationInfo](#vaccinationinfo)
-      - [vaccination certificate data](#vaccination-certificate-data)
+      - [Specific vaccination data](#specific-vaccination-data)
+        * [vaccinationInfo](#vaccinationinfo)
+        * [vaccination certificate data](#vaccination-certificate-data)
       - [Specific test data](#specific-test-data)
         * [testInfo](#testinfo)
         * [testCertificateData](#testcertificatedata)
@@ -38,6 +38,7 @@
     + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 ## Introduction
 
@@ -286,14 +287,14 @@ SY7M864WA
 $%(*(!@#$_!@*#
 ```
 
-### Specific vaccination data
+#### Specific vaccination data
 
-#### vaccinationInfo
+##### vaccinationInfo
 
 array containing the vaccination certificate data.
   There must be exactly one element containing the data of the latest vaccination.
 
-#### vaccination certificate data
+##### vaccination certificate data
 
 object containing the following fields. All fields are mandatory.
 
