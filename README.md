@@ -356,7 +356,7 @@ array containing the recovery certificate data.
 
 object containing the following fields. All fields are mandatory.
 
-- **dateOfFirstPositiveTestResult**: date when the sample for the test was collected that led to positive test obtained through a procedure established by a public health authority.
+- **dateOfFirstPositiveTestResult**: date when test result was known that led to positive test obtained through a procedure established by a public health authority.
   - Format: ISO 8601 date without time.
   - Example: "2021-10-03"
 - **countryOfTest**: the country in which the covid certificate owner has been tested.
