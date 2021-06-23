@@ -49,8 +49,8 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 ## Api docs
 
 - Generation and revocation
-  - [API File](open-api/api-doc.json)
-  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.json)
+  - [API File](open-api/api-doc.yaml)
+  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.yaml)
 
 - Verification
   - [API File](open-api/verifier.yaml)
@@ -97,7 +97,7 @@ After expiry a new one-time password has to be generated.
 2. Upon signing in to the Web management UI ([prod](https://www.covidcertificate.admin.ch/) - [test](https://www.covidcertificate-a.admin.ch/)), the authorized users rights are verified by [eIAM](https://www.eiam.admin.ch/pages/eiam_en.html?c=eiam&l=en&ll=1).
 3. The authorized user must insert the one-time password in the primary system so that it is transmitted when calling the REST API.
 4. One-way authentication is used to create the TLS tunnel and therefor protect the data transfer.
-5. The one-time password is transferred in the requests JSON payload. [See: API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.json)
+5. The one-time password is transferred in the requests JSON payload. [See: API doc](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/api-doc.yaml)
 6. The content is hashed and signed with the primary key of the "SwissGov Regular CA 01" certificate distributed to the primary system. [See: Content signature](#content-signature).
 7. The dataset structured as JSON Schema is created and transported within the secured TLS tunnel.
 8. The Management Service REST API checks the integrity of the data with the received signature and verifies the the one-time password.
