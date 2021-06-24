@@ -3,6 +3,8 @@
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
   * [Api docs](#api-docs)
+    + [Generation and revocation API doc](#generation-and-revocation-api-doc)
+    + [Verification API doc](#verification-api-doc)
   * [Certificate Generation and Revocation API](#certificate-generation-and-revocation-api)
     + [HOWTO become a system integrator using the API](#howto-become-a-system-integrator-using-the-api)
     + [Third party system integration](#third-party-system-integration)
@@ -39,6 +41,7 @@
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+
 ## Introduction
 
 The swiss covid certificate system can be used by authorized third party systems in order to generate, revoke and verify covid certificates compatible with the EU digital green certificate. This repository contains technical information about how to integrate third party systems.
@@ -47,11 +50,11 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 
 ## Api docs
 
-- Generation and revocation API doc
+### Generation and revocation API doc
   - [API File](open-api/api-doc.yaml)
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.yaml)
 
-- Verification API doc
+### Verification API doc
   - [API File](open-api/verifier.yaml)
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/verifier.yaml)
 
