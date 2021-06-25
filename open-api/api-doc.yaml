@@ -83,9 +83,9 @@ paths:
                 DUPLICATE_DELIVERY_METHOD:
                   description: DUPLICATE_DELIVERY_METHOD
                   value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
-                INVALID_IN_APP_CODE:
-                  description: INVALID_IN_APP_CODE
-                  value: '{"errorCode": 476, "errorMessage": InApp-Code is invalid.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -114,6 +114,19 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                PRINTING_FAILED:
+                  description: PRINTING_FAILED
+                  value: '{"errorCode": 556, "errorMessage": Printing failed due to a technical error.}'
+                WRITING_RETURN_CSV_FAILED:
+                  description: WRITING_RETURN_CSV_FAILED
+                  value: '{"errorCode": 557, "errorMessage": Writing CSV failed.}'
   /api/v1/covidcertificate/test:
     post:
       tags:
@@ -191,9 +204,9 @@ paths:
                 DUPLICATE_DELIVERY_METHOD:
                   description: DUPLICATE_DELIVERY_METHOD
                   value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
-                INVALID_IN_APP_CODE:
-                  description: INVALID_IN_APP_CODE
-                  value: '{"errorCode": 476, "errorMessage": InApp-Code is invalid.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -222,6 +235,19 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                PRINTING_FAILED:
+                  description: PRINTING_FAILED
+                  value: '{"errorCode": 556, "errorMessage": Printing failed due to a technical error.}'
+                WRITING_RETURN_CSV_FAILED:
+                  description: WRITING_RETURN_CSV_FAILED
+                  value: '{"errorCode": 557, "errorMessage": Writing CSV failed.}'
   /api/v1/covidcertificate/revoke:
     post:
       tags:
@@ -365,9 +391,9 @@ paths:
                 DUPLICATE_DELIVERY_METHOD:
                   description: DUPLICATE_DELIVERY_METHOD
                   value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
-                INVALID_IN_APP_CODE:
-                  description: INVALID_IN_APP_CODE
-                  value: '{"errorCode": 476, "errorMessage": InApp-Code is invalid.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -396,6 +422,19 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                PRINTING_FAILED:
+                  description: PRINTING_FAILED
+                  value: '{"errorCode": 556, "errorMessage": Printing failed due to a technical error.}'
+                WRITING_RETURN_CSV_FAILED:
+                  description: WRITING_RETURN_CSV_FAILED
+                  value: '{"errorCode": 557, "errorMessage": Writing CSV failed.}'
 components:
   schemas:
     RestError:
@@ -511,6 +550,8 @@ components:
           format: byte
         uvci:
           type: string
+        appDeliveryError:
+          $ref: '#/components/schemas/RestError'
     TestCertificateCreateDto:
       type: object
       properties:
