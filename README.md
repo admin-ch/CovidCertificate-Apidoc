@@ -240,8 +240,7 @@ Only one delivery method can be used in an API request: address data can't used 
 
 #### Transfer data
 
-Transfer data are used to use the InApp delivery targeting to transfer securely the covid certificate directly to the app.
-Only one delivery method can be used in an API request: transfer data can't used together with address data.
+Transfer data can be used to securely deliver a certificate directly to a mobile app. Only one delivery method can be used in an API request: transfer data can't used together with address data. In case an error occurs when transfering the certificate, the system will still send a pdf and qrCode back but the response does also include an error object notifying the requester that the transfer failed.
 
 **NOTE: The PROD API will suport this feature on 28.06.2021.**
 
@@ -374,11 +373,15 @@ object containing the following fields. All fields are mandatory.
 
 ### Response - Covid certificate
 
-The response delivered by the API contains 3 fields:
+The response delivered by the API contains 3 or 4 fields:
 
 - **pdf**: the pdf encoded with base64
 - **qrCode**: the tamper-proof signed QRCode as PNG image encoded with base64
 - **uvci**: the unique identifier of the certificate as string.
+- **appDeliveryError**: error object, only sent if an error occurs while delivering a certificte to an app with a [transfer code](#transfer-data). If no error occured this attribute is missing. Format: `{
+    "errorCode": int,
+    "errorMessage": "string"
+  }` 
 
 ## Verifier API
 
