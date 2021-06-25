@@ -4,7 +4,7 @@ info:
   description: Rest API for Covid Certificate API Gateway Service.
   license:
     name: Apache 2.0
-  version: 2.0.2
+  version: 2.0.0
 servers:
   - url: 'https://ws.covidcertificate-a.bag.admin.ch'
     description: Generated server url
@@ -64,16 +64,28 @@ paths:
                   value: '{"errorCode": 457, "errorMessage": Invalid country of vaccination}'
                 INVALID_GIVEN_NAME:
                   description: INVALID_GIVEN_NAME
-                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_GIVEN_NAME:
+                  description: INVALID_STANDARDISED_GIVEN_NAME
+                  value: '{"errorCode": 477, "errorMessage": Invalid given name! The standardised given name exceeds 80 chars}'
                 INVALID_FAMILY_NAME:
                   description: INVALID_FAMILY_NAME
-                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_FAMILY_NAME:
+                  description: INVALID_STANDARDISED_FAMILY_NAME
+                  value: '{"errorCode": 478, "errorMessage": Invalid family name! The standardised family name exceeds 80 chars}'
                 INVALID_VACCINATION_INFO:
                   description: INVALID_VACCINATION_INFO
                   value: '{"errorCode": 451, "errorMessage": Invalid vaccination info! Exactly one element is expected in the array.}'
                 INVALID_ADDRESS:
                   description: INVALID_ADDRESS
                   value: '{"errorCode": 474, "errorMessage": Paper-based delivery requires a valid address.}'
+                DUPLICATE_DELIVERY_METHOD:
+                  description: DUPLICATE_DELIVERY_METHOD
+                  value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -145,10 +157,16 @@ paths:
                   value: '{"errorCode": 453, "errorMessage": Invalid dateOfBirth! Must be younger than 1900-01-01}'
                 INVALID_GIVEN_NAME:
                   description: INVALID_GIVEN_NAME
-                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_GIVEN_NAME:
+                  description: INVALID_STANDARDISED_GIVEN_NAME
+                  value: '{"errorCode": 477, "errorMessage": Invalid given name! The standardised given name exceeds 80 chars}'
                 INVALID_FAMILY_NAME:
                   description: INVALID_FAMILY_NAME
-                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_FAMILY_NAME:
+                  description: INVALID_STANDARDISED_FAMILY_NAME
+                  value: '{"errorCode": 478, "errorMessage": Invalid family name! The standardised family name exceeds 80 chars}'
                 INVALID_MEMBER_STATE_OF_TEST:
                   description: INVALID_MEMBER_STATE_OF_TEST
                   value: '{"errorCode": 461, "errorMessage": Invalid member state of test}'
@@ -170,6 +188,12 @@ paths:
                 INVALID_ADDRESS:
                   description: INVALID_ADDRESS
                   value: '{"errorCode": 474, "errorMessage": Paper-based delivery requires a valid address.}'
+                DUPLICATE_DELIVERY_METHOD:
+                  description: DUPLICATE_DELIVERY_METHOD
+                  value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -313,10 +337,16 @@ paths:
                   value: '{"errorCode": 453, "errorMessage": Invalid dateOfBirth! Must be younger than 1900-01-01}'
                 INVALID_GIVEN_NAME:
                   description: INVALID_GIVEN_NAME
-                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 458, "errorMessage": Invalid given name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_GIVEN_NAME:
+                  description: INVALID_STANDARDISED_GIVEN_NAME
+                  value: '{"errorCode": 477, "errorMessage": Invalid given name! The standardised given name exceeds 80 chars}'
                 INVALID_FAMILY_NAME:
                   description: INVALID_FAMILY_NAME
-                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 50 chars}'
+                  value: '{"errorCode": 459, "errorMessage": Invalid family name! Must not exceed 80 chars}'
+                INVALID_STANDARDISED_FAMILY_NAME:
+                  description: INVALID_STANDARDISED_FAMILY_NAME
+                  value: '{"errorCode": 478, "errorMessage": Invalid family name! The standardised family name exceeds 80 chars}'
                 INVALID_DATE_OF_FIRST_POSITIVE_TEST_RESULT:
                   description: INVALID_DATE_OF_FIRST_POSITIVE_TEST_RESULT
                   value: '{"errorCode": 466, "errorMessage": Invalid date of first positive test result}'
@@ -332,6 +362,12 @@ paths:
                 INVALID_ADDRESS:
                   description: INVALID_ADDRESS
                   value: '{"errorCode": 474, "errorMessage": Paper-based delivery requires a valid address.}'
+                DUPLICATE_DELIVERY_METHOD:
+                  description: DUPLICATE_DELIVERY_METHOD
+                  value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
+                INVALID_APP_CODE:
+                  description: INVALID_APP_CODE
+                  value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
         '403':
           description: Forbidden
           content:
@@ -399,17 +435,17 @@ components:
           type: string
           description: Abbreviation of the canton issuing the certificate. This will be used as the sender of the paper based delivery.
           example: BE
-      description: Address of the recipient. A printout of the certificate will be sent to the certificate holder if this parameter is passed. The first line of the address is automatically filled with the givenName and familyName from the name attribute.
+      description: Address of the recipient. A printout of the certificate will be sent to the certificate holder if this parameter is passed. The first line of the address is automatically filled with the givenName and familyName from the name attribute. Can not be combined with inAppDeliveryCode.
     CovidCertificatePersonNameDto:
       type: object
       properties:
         familyName:
           type: string
-          description: 'family name of the covid certificate owner. Format: maxLength: 50 CHAR'
+          description: 'family name of the covid certificate owner. Format: maxLength: 80 CHAR'
           example: Rochat
         givenName:
           type: string
-          description: 'first name of the covid certificate owner. Format: maxLength: 50 CHAR'
+          description: 'first name of the covid certificate owner. Format: maxLength: 80 CHAR'
           example: Céline
     VaccinationCertificateCreateDto:
       type: object
@@ -429,6 +465,11 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/CovidCertificateAddressDto'
+        appCode:
+          maxLength: 9
+          minLength: 9
+          type: string
+          description: Code to deliver the certificate directly to the app. Can not be combined with address.
         vaccinationInfo:
           type: array
           items:
@@ -470,6 +511,8 @@ components:
           format: byte
         uvci:
           type: string
+        appDeliveryError:
+          $ref: '#/components/schemas/RestError'
     TestCertificateCreateDto:
       type: object
       properties:
@@ -488,6 +531,11 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/CovidCertificateAddressDto'
+        appCode:
+          maxLength: 9
+          minLength: 9
+          type: string
+          description: Code to deliver the certificate directly to the app. Can not be combined with address.
         testInfo:
           type: array
           items:
@@ -510,7 +558,7 @@ components:
           example: '2020-09-24T17:29:41Z'
         testingCentreOrFacility:
           type: string
-          description: 'name of centre or facility. Format: string, maxLength: 50 CHAR.'
+          description: 'name of centre or facility. Format: string, maxLength: 80 CHAR.'
           example: Walk-in-Lyss AG
         memberStateOfTest:
           type: string
@@ -552,6 +600,11 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/CovidCertificateAddressDto'
+        appCode:
+          maxLength: 9
+          minLength: 9
+          type: string
+          description: Code to deliver the certificate directly to the app. Can not be combined with address.
         recoveryInfo:
           type: array
           items:
