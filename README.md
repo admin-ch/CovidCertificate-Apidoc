@@ -383,9 +383,9 @@ The response delivered by the API contains 3 fields:
 - **qrCode**: the tamper-proof signed QRCode as PNG image encoded with base64
 - **uvci**: the unique identifier of the certificate as string.
 
-## Verifier API
+## Verification API
 
-You need an API token to access the verifier API. Please contact us at [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
+You need an API token to access the verification API. Please contact us at [Covid-Zertifikat@bag.admin.ch](mailto:Covid-Zertifikat@bag.admin.ch).
 
 ## References
 
