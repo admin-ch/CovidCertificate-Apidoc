@@ -205,10 +205,10 @@ Mandatory data necessary for all types of certificates:
 Mandatory data appearing in all types of certificates:
 
 - **familyName**: family name of the covid certificate owner.
-  - Format: string, maxLength: 50 CHAR.
+  - Format: string, maxLength: 80 CHAR.
   - Example: "Rochat"
 - **givenName**: first name of the covid certificate owner.
-  - Format: string, maxLength: 50 CHAR.
+  - Format: string, maxLength: 80 CHAR.
   - Example: "Céline"
 - **dateOfBirth**: date of birth of the covid certificate owner.
   - Format: ISO 8601 date without time.
