@@ -24,7 +24,8 @@
       - [Configuration data](#configuration-data)
       - [Personal data](#personal-data)
       - [Address data](#address-data)
-      - [Transfer data](#transfer-data)
+      - [Transfer data - appCode](#transfer-data---appcode)
+        * [Transfer code validation](#transfer-code-validation)
       - [Specific vaccination data](#specific-vaccination-data)
         * [vaccinationInfo](#vaccinationinfo)
         * [vaccination certificate data](#vaccination-certificate-data)
@@ -35,7 +36,7 @@
         * [recoveryInfo](#recoveryinfo)
         * [recovery certificate data](#recovery-certificate-data)
     + [Response - Covid certificate](#response---covid-certificate)
-  * [Verifier API](#verifier-api)
+  * [Verification API](#verification-api)
   * [References](#references)
     + [Links to EU digital green certificate documentation](#links-to-eu-digital-green-certificate-documentation)
 
@@ -238,7 +239,7 @@ Only one delivery method can be used in an API request: address data can't used 
   - Format: string.
   - Example: "BE"
 
-#### Transfer data / appCode
+#### Transfer data - appCode
 
 Transfer data is used to securely deliver the covid certificate into the Covid Cert app via the InApp delivery mechanism.
 Only one delivery method can be used in an API request: transfer data cannot be combined with address data.
