@@ -4,7 +4,7 @@ info:
   description: Rest API for Covid Certificate API Gateway Service.
   license:
     name: Apache 2.0
-  version: 2.0.0
+  version: 2.1.0
 servers:
   - url: 'https://ws.covidcertificate.bag.admin.ch'
     description: Generated server url
@@ -564,13 +564,6 @@ components:
           type: string
           description: 'the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes).'
           example: CH
-    IdentityDto:
-      type: object
-      properties:
-        uuid:
-          type: string
-        idpSource:
-          type: string
     RevocationDto:
       type: object
       properties:
@@ -580,8 +573,6 @@ components:
           example: 'urn:uvci:01:CH:97DAB5E31B589AF3CAE2F53F'
         otp:
           type: string
-        identity:
-          $ref: '#/components/schemas/IdentityDto'
     RecoveryCertificateCreateDto:
       type: object
       properties:
