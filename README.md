@@ -359,7 +359,7 @@ object containing the following fields. All fields are mandatory if not noted ot
   - Example: "1232" for a "Abbott Rapid Diagnostics" manufacturer
 - **sampleDateTime**: date and time of the test sample collection.
   - Format: ISO 8601 date incl. time.
-  - Example: "2020-09-24T17:29:41Z"
+  - Example: "2020-09-24T17:29:41Z". "Z" means that the time is defined in the UTC timezone.
 - **testingCentreOrFacility**: name of centre or facility.
   - Format: string, maxLength: 50 CHAR.
   - Example: "Walk-in-Lyss AG"
