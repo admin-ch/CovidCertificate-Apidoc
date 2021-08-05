@@ -4,9 +4,9 @@ info:
   description: Rest API for Covid Certificate API Gateway Service.
   license:
     name: Apache 2.0
-  version: 2.1.0
+  version: 2.3.0
 servers:
-  - url: 'https://ws.covidcertificate.bag.admin.ch'
+  - url: 'https://ws.covidcertificate-a.bag.admin.ch'
     description: Generated server url
 paths:
   /api/v1/covidcertificate/vaccination:
@@ -185,15 +185,15 @@ paths:
                 INVALID_TEST_INFO:
                   description: INVALID_TEST_INFO
                   value: '{"errorCode": 460, "errorMessage": Invalid test info! Exactly one element is expected in the array.}'
-                INVALID_ADDRESS:
-                  description: INVALID_ADDRESS
-                  value: '{"errorCode": 474, "errorMessage": Paper-based delivery requires a valid address.}'
                 DUPLICATE_DELIVERY_METHOD:
                   description: DUPLICATE_DELIVERY_METHOD
                   value: '{"errorCode": 475, "errorMessage": Delivery method can either be InApp or Mail, but not both.}'
                 INVALID_APP_CODE:
                   description: INVALID_APP_CODE
                   value: '{"errorCode": 479, "errorMessage": App code is in an invalid format.}'
+                INVALID_PRINT_FOR_TEST:
+                  description: INVALID_PRINT_FOR_TEST
+                  value: '{"errorCode": 488, "errorMessage": Print is not available for test certificates}'
         '403':
           description: Forbidden
           content:
@@ -529,8 +529,6 @@ components:
           example: de
         otp:
           type: string
-        address:
-          $ref: '#/components/schemas/CovidCertificateAddressDto'
         appCode:
           maxLength: 9
           minLength: 9
