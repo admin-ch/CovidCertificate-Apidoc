@@ -4,7 +4,7 @@ info:
   description: Rest API for Covid Certificate API Gateway Service.
   license:
     name: Apache 2.0
-  version: 2.3.0
+  version: 2.4.0
 servers:
   - url: 'https://ws.covidcertificate.bag.admin.ch'
     description: Generated server url
@@ -19,7 +19,7 @@ paths:
       parameters:
         - name: X-Signature
           in: header
-          description: 'Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.'
+          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
           required: true
           schema:
             type: string
@@ -124,7 +124,7 @@ paths:
       parameters:
         - name: X-Signature
           in: header
-          description: 'Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.'
+          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
           required: true
           schema:
             type: string
@@ -232,7 +232,7 @@ paths:
       parameters:
         - name: X-Signature
           in: header
-          description: 'Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.'
+          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
           required: true
           schema:
             type: string
@@ -304,7 +304,7 @@ paths:
       parameters:
         - name: X-Signature
           in: header
-          description: 'Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.'
+          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
           required: true
           schema:
             type: string
@@ -543,11 +543,11 @@ components:
       properties:
         typeCode:
           type: string
-          description: 'type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.'
+          description: type of test. This field is only mandatory when it is a PCR test. If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
           example: LP217198-3
         manufacturerCode:
           type: string
-          description: 'test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.'
+          description: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
           example: '1065'
         sampleDateTime:
           type: string
@@ -568,7 +568,7 @@ components:
         uvci:
           type: string
           description: UVCI of certificate to be revoked.
-          example: 'urn:uvci:01:CH:97DAB5E31B589AF3CAE2F53F'
+          example: urn:uvci:01:CH:97DAB5E31B589AF3CAE2F53F
         otp:
           type: string
     RecoveryCertificateCreateDto:
