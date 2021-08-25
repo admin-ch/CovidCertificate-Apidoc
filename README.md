@@ -321,7 +321,7 @@ array containing the vaccination certificate data.
 object containing the following fields. All fields are mandatory.
 
 - **medicinalProductCode**: name of the medicinal product as registered in the country.
-  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/cumulated/covid-19-vaccines_1.0.0.json).
+  - Format: string. Use the defined [endpoint](#generation-and-revocation-api-doc) for the value set.
     The value of the code has to be sent to the API
   - Example: "EU/1/20/1507" for a "COVID-19 Vaccine Moderna" vaccine
 - **numberOfDoses**: number in a series of doses.
@@ -348,13 +348,13 @@ object containing the following fields. All fields are mandatory if not noted ot
 
 - **typeCode**: type of test. This field is only mandatory when it is a PCR test.
   If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
-  - Format: string. The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/cumulated/covid-19-tests_1.0.0.json).
+  - Format: string. Use the defined [endpoint](#generation-and-revocation-api-doc) for the value set.
   The value of the code has to be sent to the API
   - Example: "LP6464-4" for a "Nucleic acid amplification with probe detection" type of test
 - **manufacturerCode**: test manufacturer code.
   This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
   - Format: string.
-    The value set is defined [here](https://github.com/admin-ch/CovidCertificate-Examples/blob/main/cumulated/covid-19-tests_1.0.0.json).
+    Use the defined [endpoint](#generation-and-revocation-api-doc) for the value set.
     The value of the code has to be sent to the API
   - Example: "1232" for a "Abbott Rapid Diagnostics" manufacturer
 - **sampleDateTime**: date and time of the test sample collection.
