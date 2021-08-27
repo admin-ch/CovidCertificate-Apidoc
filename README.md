@@ -348,15 +348,16 @@ object containing the following fields. All fields are mandatory if not noted ot
 
 - **typeCode**: type of test. This field is only mandatory when it is a PCR test.
   If given with manufacturerCode as well, they must match otherwise there will be a 400 BAD REQUEST.
-  - Format: string. Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
+  - Format: string.
   The value of the code has to be sent to the API
-  - Example: "LP6464-4" for a "Nucleic acid amplification with probe detection" type of test
+  - Accepted: "LP217198-3" for a "Rapid immunoassay" type of test
+  - Accepted: "LP6464-4" for a "Nucleic acid amplification with probe detection" (PCR) type of test
 - **manufacturerCode**: test manufacturer code.
   This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
   - Format: string.
     Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
     The value of the code has to be sent to the API
-  - Example: "1232" for a "Abbott Rapid Diagnostics" manufacturer
+  - Example: "1232" for a "Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test" manufacturer and name
 - **sampleDateTime**: date and time of the test sample collection.
   - Format: ISO 8601 date incl. time.
   - Example: "2020-09-24T17:29:41Z". "Z" means that the time is defined in the UTC timezone. "2021-07-12T16:00:00+02:00" can be used for the swiss timezone in summer.
