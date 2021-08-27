@@ -9,238 +9,6 @@ servers:
   - url: 'https://ws.covidcertificate.bag.admin.ch'
     description: Generated server url
 paths:
-  /api/v1/valuesets/vaccines:
-    post:
-      tags:
-        - value-sets-controller
-      summary: Gets a list of all vaccines. *Only available for testing on ABN.
-      description: Gets a list of all vaccines based on the official list of the EU. Performs an integrity check for each request based on headers and body.
-      operationId: getVaccines
-      parameters:
-        - name: X-Signature
-          in: header
-          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
-          required: true
-          schema:
-            type: string
-            format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ValueSetsDto'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VaccineDto'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: '{"errorCode": 492, "errorMessage": Invalid OTP}'
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: '{"errorCode": 493, "errorMessage": Missing OTP}'
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: '{"errorCode": 490, "errorMessage": Integrity check failed, the body hash does not match the hash in the header}'
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: '{"errorCode": 491, "errorMessage": Signature could not be parsed}'
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: '{"errorCode": 494, "errorMessage": Invalid identity user}'
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: '{"errorCode": 495, "errorMessage": Invalid identity user role}'
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
-  /api/v1/valuesets/rapid-tests:
-    post:
-      tags:
-        - value-sets-controller
-      summary: Gets a list of all rapid tests. *Only available for testing on ABN.
-      description: Gets a list of all rapid tests based on the official list of the EU. Performs an integrity check for each request based on headers and body.
-      operationId: getRapidTests
-      parameters:
-        - name: X-Signature
-          in: header
-          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
-          required: true
-          schema:
-            type: string
-            format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ValueSetsDto'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RapidTestDto'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: '{"errorCode": 492, "errorMessage": Invalid OTP}'
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: '{"errorCode": 493, "errorMessage": Missing OTP}'
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: '{"errorCode": 490, "errorMessage": Integrity check failed, the body hash does not match the hash in the header}'
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: '{"errorCode": 491, "errorMessage": Signature could not be parsed}'
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: '{"errorCode": 494, "errorMessage": Invalid identity user}'
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: '{"errorCode": 495, "errorMessage": Invalid identity user role}'
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
-  /api/v1/valuesets/issuable-vaccines:
-    post:
-      tags:
-        - value-sets-controller
-      summary: Gets a list of all issuable vaccines. *Only available for testing on ABN.
-      description: Gets a list of all issuable vaccines defined by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
-      operationId: getIssuableVaccines
-      parameters:
-        - name: X-Signature
-          in: header
-          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
-          required: true
-          schema:
-            type: string
-            format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ValueSetsDto'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/IssuableVaccineDto'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: '{"errorCode": 492, "errorMessage": Invalid OTP}'
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: '{"errorCode": 493, "errorMessage": Missing OTP}'
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: '{"errorCode": 490, "errorMessage": Integrity check failed, the body hash does not match the hash in the header}'
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: '{"errorCode": 491, "errorMessage": Signature could not be parsed}'
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: '{"errorCode": 494, "errorMessage": Invalid identity user}'
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: '{"errorCode": 495, "errorMessage": Invalid identity user role}'
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
-  /api/v1/valuesets/issuable-rapid-tests:
-    post:
-      tags:
-        - value-sets-controller
-      summary: Gets a list of all issuable rapid tests. *Only available for testing on ABN.
-      description: Gets a list of all issuable rapid tests defined by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
-      operationId: getIssuableRapidTests
-      parameters:
-        - name: X-Signature
-          in: header
-          description: Base64 encoded hash of the canonicalized body, generated with the `SHA256withRSA` algorithm signed with the private key of the certificate issued by "SwissGov Regular CA 01". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature) on Github.
-          required: true
-          schema:
-            type: string
-            format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ValueSetsDto'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/IssuableRapidTestDto'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: '{"errorCode": 492, "errorMessage": Invalid OTP}'
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: '{"errorCode": 493, "errorMessage": Missing OTP}'
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: '{"errorCode": 490, "errorMessage": Integrity check failed, the body hash does not match the hash in the header}'
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: '{"errorCode": 491, "errorMessage": Signature could not be parsed}'
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: '{"errorCode": 494, "errorMessage": Invalid identity user}'
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: '{"errorCode": 495, "errorMessage": Invalid identity user role}'
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
   /api/v1/covidcertificate/vaccination:
     post:
       tags:
@@ -628,69 +396,72 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: '{"errorCode": 496, "errorMessage": Invalid OTP length}'
+  /api/v1/valuesets/vaccines:
+    get:
+      tags:
+        - value-sets-controller
+      summary: Gets a list of all vaccines. *Only available for testing on ABN.
+      description: Gets a list of all vaccines based on the official list of the EU. Performs an integrity check for each request based on headers and body.
+      operationId: vaccines
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaccineDto'
+  /api/v1/valuesets/rapid-tests:
+    get:
+      tags:
+        - value-sets-controller
+      summary: Gets a list of all rapid tests. *Only available for testing on ABN.
+      description: Gets a list of all rapid tests based on the official list of the EU. Performs an integrity check for each request based on headers and body.
+      operationId: rapidTests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RapidTestDto'
+  /api/v1/valuesets/issuable-vaccines:
+    get:
+      tags:
+        - value-sets-controller
+      summary: Gets a list of all issuable vaccines. *Only available for testing on ABN.
+      description: Gets a list of all issuable vaccines accepted by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
+      operationId: issuableVaccines
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IssuableVaccineDto'
+  /api/v1/valuesets/issuable-rapid-tests:
+    get:
+      tags:
+        - value-sets-controller
+      summary: Gets a list of all issuable rapid tests. *Only available for testing on ABN.
+      description: Gets a list of all issuable rapid tests accepted by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
+      operationId: issuableRapidTests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IssuableRapidTestDto'
 components:
   schemas:
-    RestError:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          format: int32
-        errorMessage:
-          type: string
-    ValueSetsDto:
-      type: object
-      properties:
-        otp:
-          type: string
-    VaccineDto:
-      type: object
-      properties:
-        productCode:
-          type: string
-        productDisplay:
-          type: string
-        prophylaxisCode:
-          type: string
-        prophylaxisDisplay:
-          type: string
-        authHolderCode:
-          type: string
-        authHolderDisplay:
-          type: string
-        active:
-          type: boolean
-    RapidTestDto:
-      type: object
-      properties:
-        code:
-          type: string
-        display:
-          type: string
-        active:
-          type: boolean
-    IssuableVaccineDto:
-      type: object
-      properties:
-        productCode:
-          type: string
-        productDisplay:
-          type: string
-        prophylaxisCode:
-          type: string
-        prophylaxisDisplay:
-          type: string
-        authHolderCode:
-          type: string
-        authHolderDisplay:
-          type: string
-    IssuableRapidTestDto:
-      type: object
-      properties:
-        code:
-          type: string
-        display:
-          type: string
     CovidCertificateAddressDto:
       required:
         - cantonCodeSender
@@ -765,7 +536,7 @@ components:
         medicinalProductCode:
           type: string
           description: name of the medicinal product as registered in the country.
-          example: '68267'
+          example: EU/1/20/1507
         numberOfDoses:
           type: integer
           description: number in a series of doses.
@@ -785,6 +556,14 @@ components:
           type: string
           description: 'the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes).'
           example: CH
+    RestError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          format: int32
+        errorMessage:
+          type: string
     CovidCertificateCreateResponseDto:
       type: object
       properties:
@@ -833,7 +612,7 @@ components:
         manufacturerCode:
           type: string
           description: test manufacturer code. This should only be sent when it is not a PCR test, otherwise there will be a 400 BAD REQUEST.
-          example: '1065'
+          example: '1232'
         sampleDateTime:
           type: string
           description: 'date and time of the test sample collection. Format: ISO 8601 date incl. time.'
@@ -895,3 +674,87 @@ components:
           type: string
           description: 'the country in which the covid certificate owner has been tested. Format: string (2 chars according to ISO 3166 Country Codes).'
           example: CH
+    VaccineDto:
+      type: object
+      properties:
+        productCode:
+          type: string
+          description: Code of vaccination as string.
+          example: EU/1/20/1507
+        productDisplay:
+          type: string
+          description: Display name of vaccination as string.
+          example: Spikevax (previously COVID-19 Vaccine Moderna)
+        prophylaxisCode:
+          type: string
+          description: Code of prophylaxis type as string.
+          example: '1119349007'
+        prophylaxisDisplay:
+          type: string
+          description: Display name of prophylaxis type as string.
+          example: SARS-CoV-2 mRNA vaccine
+        authHolderCode:
+          type: string
+          description: Code of authorization holder as string.
+          example: ORG-100031184
+        authHolderDisplay:
+          type: string
+          description: Display name of authorization holder as string.
+          example: Moderna Biotech Spain S.L.
+        active:
+          type: boolean
+          description: If vaccination is accepted by the BAG and the EU.
+          example: true
+    RapidTestDto:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code of rapid test as string.
+          example: '1232'
+        display:
+          type: string
+          description: Manufacturer and display name of rapid test as string.
+          example: Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test
+        active:
+          type: boolean
+          description: If rapid test is accepted by the BAG and the EU.
+          example: true
+    IssuableVaccineDto:
+      type: object
+      properties:
+        productCode:
+          type: string
+          description: Code of vaccination as string.
+          example: EU/1/20/1507
+        productDisplay:
+          type: string
+          description: Display name of vaccination as string.
+          example: Spikevax (previously COVID-19 Vaccine Moderna)
+        prophylaxisCode:
+          type: string
+          description: Code of prophylaxis type as string.
+          example: '1119349007'
+        prophylaxisDisplay:
+          type: string
+          description: Display name of prophylaxis type as string.
+          example: SARS-CoV-2 mRNA vaccine
+        authHolderCode:
+          type: string
+          description: Code of authorization holder as string.
+          example: ORG-100031184
+        authHolderDisplay:
+          type: string
+          description: Display name of authorization holder as string.
+          example: Moderna Biotech Spain S.L.
+    IssuableRapidTestDto:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code of rapid test as string.
+          example: '1232'
+        display:
+          type: string
+          description: Manufacturer and display name of rapid test as string.
+          example: Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test
