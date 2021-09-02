@@ -6,8 +6,10 @@ info:
     name: Apache 2.0
   version: 2.5.0
 servers:
-  - url: https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch
-    description: Generated server url
+  - url: https://ws.covidcertificate.bag.admin.ch
+    description: production
+  - url: https://ws.covidcertificate-a.bag.admin.ch
+    description: test    
 paths:
   /api/v1/covidcertificate/vaccination:
     post:
