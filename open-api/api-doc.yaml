@@ -6,7 +6,7 @@ info:
     name: Apache 2.0
   version: 2.5.0
 servers:
-  - url: 'https://ws.covidcertificate.bag.admin.ch'
+  - url: https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch
     description: Generated server url
 paths:
   /api/v1/covidcertificate/vaccination:
@@ -556,14 +556,6 @@ components:
           type: string
           description: 'the country in which the covid certificate owner has been vaccinated. Format: string (2 chars according to ISO 3166 Country Codes).'
           example: CH
-    RestError:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-          format: int32
-        errorMessage:
-          type: string
     CovidCertificateCreateResponseDto:
       type: object
       properties:
@@ -577,6 +569,14 @@ components:
           type: string
         appDeliveryError:
           $ref: '#/components/schemas/RestError'
+    RestError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          format: int32
+        errorMessage:
+          type: string
     TestCertificateCreateDto:
       type: object
       properties:
