@@ -402,7 +402,7 @@ paths:
     get:
       tags:
         - value-sets-controller
-      summary: Gets a list of all vaccines. *Only available for testing on ABN.
+      summary: Gets a list of all vaccines.
       description: Gets a list of all vaccines based on the official list of the EU. Performs an integrity check for each request based on headers and body.
       operationId: vaccines
       responses:
@@ -418,7 +418,7 @@ paths:
     get:
       tags:
         - value-sets-controller
-      summary: Gets a list of all rapid tests. *Only available for testing on ABN.
+      summary: Gets a list of all rapid tests.
       description: Gets a list of all rapid tests based on the official list of the EU. Performs an integrity check for each request based on headers and body.
       operationId: rapidTests
       responses:
@@ -434,7 +434,7 @@ paths:
     get:
       tags:
         - value-sets-controller
-      summary: Gets a list of all issuable vaccines. *Only available for testing on ABN.
+      summary: Gets a list of all issuable vaccines.
       description: Gets a list of all issuable vaccines accepted by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
       operationId: issuableVaccines
       responses:
@@ -450,7 +450,7 @@ paths:
     get:
       tags:
         - value-sets-controller
-      summary: Gets a list of all issuable rapid tests. *Only available for testing on ABN.
+      summary: Gets a list of all issuable rapid tests.
       description: Gets a list of all issuable rapid tests accepted by the BAG based on the official list of the EU. Performs an integrity check for each request based on headers and body.
       operationId: issuableRapidTests
       responses:
