@@ -212,8 +212,8 @@ Mandatory data appearing in all types of certificates:
   - Format: string, maxLength: 80 CHAR.
   - Example: "Céline"
 - **dateOfBirth**: date of birth of the covid certificate owner.
-  - Format: ISO 8601 date without time.
-  - Example: "1964-03-14"
+  - Format: ISO 8601 date without time **or** YYYY-MM **or** YYYY
+  - Examples: "1964-03-14", "1985-07", "2001"
 - **language**: the national language used to create the covid certificate PDF.
   The PDF always contains English translations.
   - Accepted languages are: `de`, `it`, `fr`, `rm`.
