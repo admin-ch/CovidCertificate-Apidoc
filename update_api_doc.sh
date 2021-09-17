@@ -29,10 +29,6 @@ push_updated_files_to_git() {
   git push origin "$remote_push_target"
 }
 
-create_pull_request() {
-
-}
-
 if [[ $# -eq 0 ]]; then
   echo "Updating api-doc.yaml"
   define_variables
@@ -40,7 +36,6 @@ if [[ $# -eq 0 ]]; then
   take_new_api_doc_from_ABN
   commit_updated_files_to_git
   push_updated_files_to_git
-  create_pull_request
 else
   while test $# -gt 0
   do
