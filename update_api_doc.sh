@@ -6,8 +6,10 @@ define_variables() {
   current_date=$(date +%Y_%m_%d)
   branch_name="feature/api_update_$current_date"
   remote_push_target="refs/heads/$branch_name"
+  git_access_token="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"
+  git_push_address="https://$git_access_token@github.com/admin-ch/CovidCertificate-Apidoc"
   message="Update of api at $current_date"
-  url=https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch/v3/api-docs.yaml
+  url="https://cc-api-gateway-service.abn.app.cfap02.atlantica.admin.ch/v3/api-docs.yaml"
 }
 
 take_new_api_doc_from_ABN() {
@@ -26,7 +28,12 @@ commit_updated_files_to_git() {
 }
 
 push_updated_files_to_git() {
-  git push origin "$remote_push_target"
+  git push "$git_push_address"
+}
+
+create_pull_request() {
+  commit_id=$(git log -1 --format=%H)
+  git request-pull "$commit_id" "$git_push_address"
 }
 
 if [[ $# -eq 0 ]]; then
@@ -36,6 +43,7 @@ if [[ $# -eq 0 ]]; then
   take_new_api_doc_from_ABN
   commit_updated_files_to_git
   push_updated_files_to_git
+  create_pull_request
 else
   while test $# -gt 0
   do
