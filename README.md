@@ -35,6 +35,9 @@
       - [Specific recovery data](#specific-recovery-data)
         * [recoveryInfo](#recoveryinfo)
         * [recovery certificate data](#recovery-certificate-data)
+      - [Specific antibody data](#specific-antibody-data)
+        * [antibodyInfo](#antibodyinfo)
+        * [antibody certificate data](#antibody-certificate-data)
     + [Response - Covid certificate](#response---covid-certificate)
   * [Verification API](#verification-api)
   * [References](#references)
@@ -189,7 +192,7 @@ There are samples scripts at <https://github.com/admin-ch/CovidCertificate-Api-S
 
 ### Request - Certificate data
 
-3 types of covid certificate can be produced: vaccination, test or recovery. One covid certificate contains only one type.
+4 types of covid certificate can be produced: ***vaccination***, ***test***, ***recovery*** or ***antibody***. One covid certificate contains only one type.
 The configuration and personal data sections are the same for all covid certificates. The other data sections are specific to the type of certificate.
 
 One generation request generates always one single covid certificate.
@@ -385,6 +388,24 @@ object containing the following fields. All fields are mandatory.
 - **countryOfTest**: the country in which the covid certificate owner has been tested.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
+
+#### Specific antibody data
+
+##### antibodyInfo
+
+array containing the antibody certificate data.
+  There must be exactly one element containing the data of the positive serology test.
+
+##### antibody certificate data
+
+object containing the following fields. All fields are mandatory.
+
+- **sampleDate**: date when the sample collection for the serology test was known that led to positive test obtained through a procedure established by a public health authority.
+  - Format: ISO 8601 date without time.
+  - Example: "2021-10-03"
+- **testingCentreOrFacility**: name of testing centre or facility.
+  - Format: string, maxLength: 50 CHAR.
+  - Example: "Walk-in-Lyss AG"
 
 ### Response - Covid certificate
 
