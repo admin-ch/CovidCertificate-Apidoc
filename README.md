@@ -403,7 +403,7 @@ object containing the following fields. All fields are mandatory.
 - **sampleDate**: date when the sample collection for the serology test was known that led to positive test obtained through a procedure established by a public health authority.
   - Format: ISO 8601 date without time.
   - Example: "2021-10-03"
-- **testingCentreOrFacility**: name of testing centre or facility.
+- **testingCenterOrFacility**: name of testing centre or facility.
   - Format: string, maxLength: 50 CHAR.
   - Example: "Walk-in-Lyss AG"
 
