@@ -403,9 +403,20 @@ object containing the following fields. All fields are mandatory.
 - **sampleDate**: date when the sample collection for the serology test was known that led to positive test obtained through a procedure established by a public health authority.
   - Format: ISO 8601 date without time.
   - Example: "2021-10-03"
-- **testingCenterOrFacility**: name of testing centre or facility.
+- **testingCenterOrFacility**: the ***Swissmedic*** authorization number (**mandatory**) of the laboratory + name of the laboratory (**optional**)
   - Format: string, maxLength: 50 CHAR.
-  - Example: "Walk-in-Lyss AG"
+  - Examples:
+	  - "512345-123456789 SwissLabTest Center Zürich"
+	  - "512345-123456789, SwissLabTest Center Zürich"
+	  - "512345-123456789"
+
+##### :bulb: For your information :bulb:
+The Antibody Certificate specification is not part of the [EU-DCC Schema Specification](https://github.com/ehn-dcc-development/ehn-dcc-schema), this is also the reason why this certificate is only valid in Switzerland.
+However, in order to ensure compatibility with the mobile applications ***COVID Certificate*** ([Android](https://play.google.com/store/apps/details?id=ch.admin.bag.covidcertificate.wallet) / [iOS](https://apps.apple.com/ch/app/covid-certificate/id1565917320)) and ***COVID Certificate Check*** ([Android](https://apps.apple.com/ch/app/covid-certificate/id1565917320) / [iOS](https://apps.apple.com/ch/app/covid-certificate-check/id1565917510)), the QR-Code of this certificate has been established upon the specification of the Test Certificate with some adaptation regarding the values of the attributes which are in back-end hardcoded:
+
+ - Type of Test-**tt** : (from typeCode in Test Certificate request.) : [94504-8](https://loinc.org/94504-8)
+ - Test Result-**tr** : [260373001](https://github.com/ehn-dcc-development/ehn-dcc-schema/blob/main/valuesets/test-result.json)
+ - Date/Time of Sample Collection-**sc** : **sampleDate** at start of day (midnight: 00:00:00)
 
 ### Response - Covid certificate
 
