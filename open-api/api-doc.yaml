@@ -37,6 +37,38 @@ paths:
               $ref: '#/components/schemas/VaccinationCertificateCreateDto'
         required: true
       responses:
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                INVALID_BEARER:
+                  description: INVALID_BEARER
+                  value: "{\"errorCode\": 492, \"errorMessage\": Invalid OTP}"
+                MISSING_BEARER_JSON:
+                  description: MISSING_BEARER_JSON
+                  value: "{\"errorCode\": 493, \"errorMessage\": Missing OTP}"
+                INVALID_SIGNATURE:
+                  description: INVALID_SIGNATURE
+                  value: "{\"errorCode\": 490, \"errorMessage\": Integrity check failed,\
+                    \ the body hash does not match the hash in the header}"
+                SIGNATURE_PARSE_ERROR:
+                  description: SIGNATURE_PARSE_ERROR
+                  value: "{\"errorCode\": 491, \"errorMessage\": Signature could not\
+                    \ be parsed}"
+                INVALID_IDENTITY_USER:
+                  description: INVALID_IDENTITY_USER
+                  value: "{\"errorCode\": 494, \"errorMessage\": Invalid identity\
+                    \ user}"
+                INVALID_IDENTITY_USER_ROLE:
+                  description: INVALID_IDENTITY_USER_ROLE
+                  value: "{\"errorCode\": 495, \"errorMessage\": Invalid identity\
+                    \ user role}"
+                INVALID_OTP_LENGTH:
+                  description: INVALID_OTP_LENGTH
+                  value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
         "400":
           description: Bad Request
           content:
@@ -110,6 +142,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CovidCertificateCreateResponseDto'
+  /api/v1/covidcertificate/test:
+    post:
+      tags:
+      - covid-certificate-generation-controller
+      summary: Creates a test certificate for the given data.
+      description: Creates a test certificate as an QR-Code and PDF. Performs an integrity
+        check for each request based on headers and body.
+      operationId: createTestCertificate
+      parameters:
+      - name: X-Signature
+        in: header
+        description: "Base64 encoded hash of the canonicalized body, generated with\
+          \ the `SHA256withRSA` algorithm signed with the private key of the certificate\
+          \ issued by \"SwissGov Regular CA 01\". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature)\
+          \ on Github."
+        required: true
+        schema:
+          type: string
+          format: Base64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCertificateCreateDto'
+        required: true
+      responses:
         "403":
           description: Forbidden
           content:
@@ -142,32 +200,6 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
-  /api/v1/covidcertificate/test:
-    post:
-      tags:
-      - covid-certificate-generation-controller
-      summary: Creates a test certificate for the given data.
-      description: Creates a test certificate as an QR-Code and PDF. Performs an integrity
-        check for each request based on headers and body.
-      operationId: createTestCertificate
-      parameters:
-      - name: X-Signature
-        in: header
-        description: "Base64 encoded hash of the canonicalized body, generated with\
-          \ the `SHA256withRSA` algorithm signed with the private key of the certificate\
-          \ issued by \"SwissGov Regular CA 01\". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature)\
-          \ on Github."
-        required: true
-        schema:
-          type: string
-          format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TestCertificateCreateDto'
-        required: true
-      responses:
         "200":
           description: OK
           content:
@@ -248,38 +280,6 @@ paths:
                   description: INVALID_PRINT_FOR_TEST
                   value: "{\"errorCode\": 488, \"errorMessage\": Print is not available\
                     \ for test certificates}"
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: "{\"errorCode\": 492, \"errorMessage\": Invalid OTP}"
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: "{\"errorCode\": 493, \"errorMessage\": Missing OTP}"
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: "{\"errorCode\": 490, \"errorMessage\": Integrity check failed,\
-                    \ the body hash does not match the hash in the header}"
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: "{\"errorCode\": 491, \"errorMessage\": Signature could not\
-                    \ be parsed}"
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: "{\"errorCode\": 494, \"errorMessage\": Invalid identity\
-                    \ user}"
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: "{\"errorCode\": 495, \"errorMessage\": Invalid identity\
-                    \ user role}"
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
   /api/v1/covidcertificate/revoke:
     post:
       tags:
@@ -306,28 +306,6 @@ paths:
               $ref: '#/components/schemas/RevocationDto'
         required: true
       responses:
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_UVCI:
-                  description: INVALID_UVCI
-                  value: "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
-        "409":
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                DUPLICATE_UVCI:
-                  description: DUPLICATE_UVCI
-                  value: "{\"errorCode\": 480, \"errorMessage\": Duplicate UVCI.}"
-        "201":
-          description: CREATED
         "403":
           description: Forbidden
           content:
@@ -360,6 +338,28 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                INVALID_UVCI:
+                  description: INVALID_UVCI
+                  value: "{\"errorCode\": 470, \"errorMessage\": Invalid UVCI format.}"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                DUPLICATE_UVCI:
+                  description: DUPLICATE_UVCI
+                  value: "{\"errorCode\": 480, \"errorMessage\": Duplicate UVCI.}"
+        "201":
+          description: CREATED
   /api/v1/covidcertificate/recovery:
     post:
       tags:
@@ -386,6 +386,38 @@ paths:
               $ref: '#/components/schemas/RecoveryCertificateCreateDto'
         required: true
       responses:
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestError'
+              examples:
+                INVALID_BEARER:
+                  description: INVALID_BEARER
+                  value: "{\"errorCode\": 492, \"errorMessage\": Invalid OTP}"
+                MISSING_BEARER_JSON:
+                  description: MISSING_BEARER_JSON
+                  value: "{\"errorCode\": 493, \"errorMessage\": Missing OTP}"
+                INVALID_SIGNATURE:
+                  description: INVALID_SIGNATURE
+                  value: "{\"errorCode\": 490, \"errorMessage\": Integrity check failed,\
+                    \ the body hash does not match the hash in the header}"
+                SIGNATURE_PARSE_ERROR:
+                  description: SIGNATURE_PARSE_ERROR
+                  value: "{\"errorCode\": 491, \"errorMessage\": Signature could not\
+                    \ be parsed}"
+                INVALID_IDENTITY_USER:
+                  description: INVALID_IDENTITY_USER
+                  value: "{\"errorCode\": 494, \"errorMessage\": Invalid identity\
+                    \ user}"
+                INVALID_IDENTITY_USER_ROLE:
+                  description: INVALID_IDENTITY_USER_ROLE
+                  value: "{\"errorCode\": 495, \"errorMessage\": Invalid identity\
+                    \ user role}"
+                INVALID_OTP_LENGTH:
+                  description: INVALID_OTP_LENGTH
+                  value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
         "400":
           description: Bad Request
           content:
@@ -455,6 +487,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CovidCertificateCreateResponseDto'
+  /api/v1/covidcertificate/antibody:
+    post:
+      tags:
+      - covid-certificate-generation-controller
+      summary: Creates an antibody certificate for the given data.
+      description: Creates an antibody certificate as a QR-Code and PDF. Performs
+        an integrity check for each request based on headers and body.
+      operationId: createAntibodyCertificate
+      parameters:
+      - name: X-Signature
+        in: header
+        description: "Base64 encoded hash of the canonicalized body, generated with\
+          \ the `SHA256withRSA` algorithm signed with the private key of the certificate\
+          \ issued by \"SwissGov Regular CA 01\". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature)\
+          \ on Github."
+        required: true
+        schema:
+          type: string
+          format: Base64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AntibodyCertificateCreateDto'
+        required: true
+      responses:
         "403":
           description: Forbidden
           content:
@@ -487,32 +545,12 @@ paths:
                 INVALID_OTP_LENGTH:
                   description: INVALID_OTP_LENGTH
                   value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
-  /api/v1/covidcertificate/antibody:
-    post:
-      tags:
-      - covid-certificate-generation-controller
-      summary: Creates an antibody certificate for the given data.
-      description: Creates an antibody certificate as a QR-Code and PDF. Performs
-        an integrity check for each request based on headers and body.
-      operationId: createAntibodyCertificate
-      parameters:
-      - name: X-Signature
-        in: header
-        description: "Base64 encoded hash of the canonicalized body, generated with\
-          \ the `SHA256withRSA` algorithm signed with the private key of the certificate\
-          \ issued by \"SwissGov Regular CA 01\". See [documentation](https://github.com/admin-ch/CovidCertificate-Apidoc#content-signature)\
-          \ on Github."
-        required: true
-        schema:
-          type: string
-          format: Base64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AntibodyCertificateCreateDto'
-        required: true
-      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CovidCertificateCreateResponseDto'
         "400":
           description: Bad Request
           content:
@@ -573,44 +611,6 @@ paths:
                   description: INVALID_APP_CODE
                   value: "{\"errorCode\": 479, \"errorMessage\": App code is in an\
                     \ invalid format.}"
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CovidCertificateCreateResponseDto'
-        "403":
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestError'
-              examples:
-                INVALID_BEARER:
-                  description: INVALID_BEARER
-                  value: "{\"errorCode\": 492, \"errorMessage\": Invalid OTP}"
-                MISSING_BEARER_JSON:
-                  description: MISSING_BEARER_JSON
-                  value: "{\"errorCode\": 493, \"errorMessage\": Missing OTP}"
-                INVALID_SIGNATURE:
-                  description: INVALID_SIGNATURE
-                  value: "{\"errorCode\": 490, \"errorMessage\": Integrity check failed,\
-                    \ the body hash does not match the hash in the header}"
-                SIGNATURE_PARSE_ERROR:
-                  description: SIGNATURE_PARSE_ERROR
-                  value: "{\"errorCode\": 491, \"errorMessage\": Signature could not\
-                    \ be parsed}"
-                INVALID_IDENTITY_USER:
-                  description: INVALID_IDENTITY_USER
-                  value: "{\"errorCode\": 494, \"errorMessage\": Invalid identity\
-                    \ user}"
-                INVALID_IDENTITY_USER_ROLE:
-                  description: INVALID_IDENTITY_USER_ROLE
-                  value: "{\"errorCode\": 495, \"errorMessage\": Invalid identity\
-                    \ user role}"
-                INVALID_OTP_LENGTH:
-                  description: INVALID_OTP_LENGTH
-                  value: "{\"errorCode\": 496, \"errorMessage\": Invalid OTP length}"
   /api/v1/valuesets/vaccines:
     get:
       tags:
@@ -969,10 +969,11 @@ components:
           format: date
           example: 2021-10-03
         testingCenterOrFacility:
+          maxLength: 80
           type: string
-          description: "name of centre or facility. Format: string, maxLength: 80\
-            \ CHAR."
-          example: Walk-in-Lyss AG
+          description: ' the Swissmedic authorization number (mandatory) of the laboratory
+            + name of the laboratory (optional).'
+          example: "512345-123456789, SwissLabTest Center Zürich"
     VaccineDto:
       type: object
       properties:
