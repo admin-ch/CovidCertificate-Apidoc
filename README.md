@@ -29,7 +29,7 @@
       - [Specific vaccination data](#specific-vaccination-data)
         * [vaccinationInfo](#vaccinationinfo)
         * [vaccination certificate data](#vaccination-certificate-data)
-      - [Specific vaccination-tourist data](#specific-vaccination--tourist-data)
+      - [Specific vaccination-tourist data](#specific-vaccination-tourist-data)
         * [vaccinationTouristInfo](#vaccinationinfo)
         * [vaccination-tourist certificate data](#vaccination-tourist-certificate-data)
       - [Specific test data](#specific-test-data)
