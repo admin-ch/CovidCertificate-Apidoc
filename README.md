@@ -59,7 +59,7 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 
 ### Generation, revocation and value set API doc
   - [API File](open-api/api-doc.yaml)
-  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.yaml)
+  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-docs.yaml)
 
 ### Verification API doc
   - [API File](open-api/verifier.yaml)
