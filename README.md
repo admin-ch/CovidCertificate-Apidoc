@@ -29,6 +29,9 @@
       - [Specific vaccination data](#specific-vaccination-data)
         * [vaccinationInfo](#vaccinationinfo)
         * [vaccination certificate data](#vaccination-certificate-data)
+      - [Specific vaccination-tourist data](#specific-vaccination-tourist-data)
+        * [vaccinationTouristInfo](#vaccinationtouristinfo)
+        * [vaccination-tourist certificate data](#vaccination-tourist-certificate-data)
       - [Specific test data](#specific-test-data)
         * [testInfo](#testinfo)
         * [testCertificateData](#testcertificatedata)
@@ -56,7 +59,7 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
 
 ### Generation, revocation and value set API doc
   - [API File](open-api/api-doc.yaml)
-  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.yaml)
+  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-docs.yaml)
 
 ### Verification API doc
   - [API File](open-api/verifier.yaml)
@@ -337,6 +340,33 @@ object containing the following fields. All fields are mandatory.
 - **countryOfVaccination**: the country in which the covid certificate owner has been vaccinated.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
+
+#### Specific vaccination-tourist data
+
+##### vaccinationTouristInfo
+
+array containing the vaccination-tourist certificate data.
+  There must be exactly one element containing the data of the latest vaccination.
+
+##### vaccination-tourist certificate data
+
+object containing the following fields. All fields are mandatory.
+
+- **medicinalProductCode**: name of the medicinal product as registered in the country.
+  - Format: string. Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
+    The value of the code has to be sent to the API
+  - Value-set: ["BBIBP-CorV", "Covaxin", "CoronaVac"]
+- **numberOfDoses**: number in a series of doses.
+  - Format: integer, range: from 1 to 9.
+- **totalNumberOfDoses**: total series of doses.
+  - Format: integer, range: from 1 to 9.
+- **vaccinationDate**: date of vaccination.
+  - Format: ISO 8601 date without time.
+  - Example: "2021-05-14"
+- **countryOfVaccination**: the country (exculding CH) in which the person has been vaccinated.
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "DZ" (for Algeria).
+  - Note: 'CH' is excluded from the value-set for this endpoint since the vaccination-tourist certificate is only intended for tourists (non-CH residents).
 
 #### Specific test data
 
