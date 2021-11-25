@@ -13,3 +13,5 @@
 *.iml
 *.ipr
 update_api_doc.sh
+
+update_api_doc_template.sh
