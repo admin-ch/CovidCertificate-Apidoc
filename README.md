@@ -62,8 +62,13 @@ The swiss covid certificate system is hosted and maintained by the [FOITT](https
   - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/api-doc.yaml)
 
 ### Verification API doc
-  - [API File](open-api/verifier.yaml)
-  - [SwaggerUI](https://editor.swagger.io/?url=https://raw.githubusercontent.com/admin-ch/CovidCertificate-Apidoc/main/open-api/verifier.yaml)
+We do not recommend the use of the API. To save the effort of implementing the API, a Docker image of a verification service is provided. This one contains an endpoint that allows you to check, through its QR-Code, the validity of a certificate.
+For mobile solutions, an Android and iOS SDK are available.
+
+The SDKs and the Docker image of the verification service are developed and updated by our teams.
+  - [CovidCertificate-SDK-Android](https://github.com/admin-ch/CovidCertificate-SDK-Android)
+  - [CovidCertificate-SDK-iOS](https://github.com/admin-ch/CovidCertificate-SDK-iOS)
+  - [CovidCertificate-App-Verification-Check-Service](https://github.com/admin-ch/CovidCertificate-App-Verification-Check-Service)
 
 ## Certificate Generation and Revocation API
 
