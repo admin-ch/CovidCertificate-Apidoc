@@ -38,6 +38,9 @@
       - [Specific recovery data](#specific-recovery-data)
         * [recoveryInfo](#recoveryinfo)
         * [recovery certificate data](#recovery-certificate-data)
+      - [Specific recovery-rat data](#specific-recovery-rat-data)
+        * [testInfo 2](#testInfo-2)
+        * [testCertificateData 2](#testcertificatedata-2)
       - [Specific antibody data](#specific-antibody-data)
         * [antibodyInfo](#antibodyinfo)
         * [antibody certificate data](#antibody-certificate-data)
@@ -423,6 +426,38 @@ object containing the following fields. All fields are mandatory.
   - Format: ISO 8601 date without time.
   - Example: "2021-10-03"
 - **countryOfTest**: the country in which the covid certificate owner has been tested.
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "CH" (for switzerland).
+
+#### Specific recovery-rat data
+
+##### testInfo 2
+
+array containing the recovery-rat certificate data.
+  There must be exactly one element containing the data of the latest test.
+
+##### testCertificateData 2
+
+object containing the following fields. All fields are mandatory if not noted otherwise.
+
+- **typeCode**: type of test.
+  This field must always have the value: 'LP217198-3'.
+  - Format: string.
+  The value of the code has to be sent to the API
+  - Accepted: "LP217198-3" for a "Rapid immunoassay" type of test
+- **manufacturerCode**: test manufacturer code.
+  - Format: string.
+    Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
+    The value of the code has to be sent to the API
+  - Example: "1232" for a "Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test" manufacturer and name
+- **sampleDateTime**: date and time of the positive test sample collection.
+  - Format: ISO 8601 date incl. time.
+  - Example: "2022-01-25T17:29:41Z". "Z" means that the time is defined in the UTC timezone. 'sampleDateTime' must be greater or equal to 2022-01-24T00:00:00Z.
+- **testingCentreOrFacility**: name of centre or facility.
+  - Format: string, maxLength: 80 CHAR.
+  - Example: "Walk-in-Lyss AG"
+- **memberStateOfTest**: the country in which the covid certificate owner has been tested.
+  This field must always have the value: 'CH'.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
