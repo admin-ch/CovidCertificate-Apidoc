@@ -344,6 +344,20 @@ object containing the following fields. All fields are mandatory.
   - Format: integer, range: from 1 to 9.
 - **totalNumberOfDoses**: total series of doses.
   - Format: integer, range: from 1 to 9.
+---
+**Important**
+Information on the vaccine doses received (X) and required (Y) must be entered in accordance with one of the following rules:
+- Last dose of a 2-dose vaccine (e.g. mRNA) without prior infection:
+  - 1/2: Incomplete vaccination (not usable for travel or areas subject to certification)
+  - 2/2: Full vaccination (initial immunisation)
+  - 3/3, 4/4, ...: Booster
+- Last dose of a 2-dose vaccine (e.g. mRNA) after prior infection (“required doses”: Y must always be 1):
+  - 1/1: Full vaccination after recovery
+  - 2/1, 3/1, 4/1, ...: Booster after recovery
+- Last dose of a 1-dose vaccine (e.g. Janssen) without prior infection:
+  - 1/1: Full vaccination
+  - 2/1: Booster
+---
 - **vaccinationDate**: date of vaccination.
   - Format: ISO 8601 date without time.
   - Example: "2021-05-14"
@@ -370,6 +384,20 @@ object containing the following fields. All fields are mandatory.
   - Format: integer, range: from 1 to 9.
 - **totalNumberOfDoses**: total series of doses.
   - Format: integer, range: from 1 to 9.
+---
+**Important**
+Information on the vaccine doses received (X) and required (Y) must be entered in accordance with one of the following rules:
+- Last dose of a 2-dose vaccine (e.g. mRNA) without prior infection:
+  - 1/2: Incomplete vaccination (not usable for travel or areas subject to certification)
+  - 2/2: Full vaccination (initial immunisation)
+  - 3/3, 4/4, ...: Booster
+- Last dose of a 2-dose vaccine (e.g. mRNA) after prior infection (“required doses”: Y must always be 1):
+  - 1/1: Full vaccination after recovery
+  - 2/1, 3/1, 4/1, ...: Booster after recovery
+- Last dose of a 1-dose vaccine (e.g. Janssen) without prior infection:
+  - 1/1: Full vaccination
+  - 2/1: Booster
+---
 - **vaccinationDate**: date of vaccination.
   - Format: ISO 8601 date without time.
   - Example: "2021-05-14"
