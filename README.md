@@ -1,5 +1,7 @@
 # Swiss Covid Certificate - API documentation
 
+## :warning: The use of the API is reserved for companies operating within Switzerland. Furthermore, the API is exclusively authorized for the verification of Covid certificates within Switzerland and according to the regulations valid in Switzerland. :warning:
+
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
   * [Introduction](#introduction)
   * [Api docs](#api-docs)
