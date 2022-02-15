@@ -1,5 +1,10 @@
 # Swiss Covid Certificate - API documentation
 
+
+## :warning: This version is archived and no longer represents the current functionality. :warning:
+
+---
+
 ## :warning: The use of the API is reserved for companies operating within Switzerland. Furthermore, the API is exclusively authorized for the verification of Covid certificates within Switzerland and according to the regulations valid in Switzerland. :warning:
 
 - [Swiss Covid Certificate - API documentation](#swiss-covid-certificate---api-documentation)
@@ -367,6 +372,47 @@ Information on the vaccine doses received (X) and required (Y) must be entered i
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
 
+#### Specific vaccination-tourist data
+
+##### vaccinationTouristInfo
+
+array containing the vaccination-tourist certificate data.
+  There must be exactly one element containing the data of the latest vaccination.
+
+##### vaccination-tourist certificate data
+
+object containing the following fields. All fields are mandatory.
+
+- **medicinalProductCode**: name of the medicinal product as registered in the country.
+  - Format: string. Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
+    The value of the code has to be sent to the API
+  - Value-set: ["BBIBP-CorV", "Covaxin", "CoronaVac"]
+- **numberOfDoses**: number in a series of doses.
+  - Format: integer, range: from 1 to 9.
+- **totalNumberOfDoses**: total series of doses.
+  - Format: integer, range: from 1 to 9.
+---
+**Important**
+Information on the vaccine doses received (X) and required (Y) must be entered in accordance with one of the following rules:
+- Last dose of a 2-dose vaccine (e.g. mRNA) without prior infection:
+  - 1/2: Incomplete vaccination (not usable for travel or areas subject to certification)
+  - 2/2: Full vaccination (initial immunisation)
+  - 3/3, 4/4, ...: Booster
+- Last dose of a 2-dose vaccine (e.g. mRNA) after prior infection (“required doses”: Y must always be 1):
+  - 1/1: Full vaccination after recovery
+  - 2/1, 3/1, 4/1, ...: Booster after recovery
+- Last dose of a 1-dose vaccine (e.g. Janssen) without prior infection:
+  - 1/1: Full vaccination
+  - 2/1: Booster
+---
+- **vaccinationDate**: date of vaccination.
+  - Format: ISO 8601 date without time.
+  - Example: "2021-05-14"
+- **countryOfVaccination**: the country (exculding CH) in which the person has been vaccinated.
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "DZ" (for Algeria).
+  - Note: 'CH' is excluded from the value-set for this endpoint since the vaccination-tourist certificate is only intended for tourists (non-CH residents).
+
 #### Specific test data
 
 ##### testInfo
@@ -417,6 +463,67 @@ object containing the following fields. All fields are mandatory.
 - **countryOfTest**: the country in which the covid certificate owner has been tested.
   - Format: string (2 chars according to ISO 3166 Country Codes).
   - Example: "CH" (for switzerland).
+
+#### Specific recovery-rat data
+
+##### testInfo 2
+
+array containing the recovery-rat certificate data.
+  There must be exactly one element containing the data of the latest test.
+
+##### testCertificateData 2
+
+object containing the following fields. All fields are mandatory if not noted otherwise.
+
+- **typeCode**: type of test.
+  This field must always have the value: 'LP217198-3'.
+  - Format: string.
+  The value of the code has to be sent to the API
+  - Accepted: "LP217198-3" for a "Rapid immunoassay" type of test
+- **manufacturerCode**: test manufacturer code.
+  - Format: string.
+    Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
+    The value of the code has to be sent to the API
+  - Example: "1232" for a "Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test" manufacturer and name
+- **sampleDateTime**: date and time of the positive test sample collection.
+  - Format: ISO 8601 date incl. time.
+  - Example: "2022-01-25T17:29:41Z". "Z" means that the time is defined in the UTC timezone. 'sampleDateTime' must be greater or equal to 2022-01-24T00:00:00Z.
+- **testingCentreOrFacility**: name of centre or facility.
+  - Format: string, maxLength: 80 CHAR.
+  - Example: "Walk-in-Lyss AG"
+- **memberStateOfTest**: the country in which the covid certificate owner has been tested.
+  This field must always have the value: 'CH'.
+  - Format: string (2 chars according to ISO 3166 Country Codes).
+  - Example: "CH" (for switzerland).
+
+#### Specific antibody data
+
+##### antibodyInfo
+
+array containing the antibody certificate data.
+  There must be exactly one element containing the data of the positive serology test.
+
+##### antibody certificate data
+
+object containing the following fields. All fields are mandatory.
+
+- **sampleDate**: date when the sample collection for the serology test was known that led to positive test obtained through a procedure established by a public health authority.
+  - Format: ISO 8601 date without time.
+  - Example: "2021-10-03"
+- **testingCenterOrFacility**: the ***Swissmedic*** authorization number (**mandatory**) of the laboratory + name of the laboratory (**optional**)
+  - Format: string, maxLength: 50 CHAR.
+  - Examples:
+	  - "512345-123456789 SwissLabTest Center Zürich"
+	  - "512345-123456789, SwissLabTest Center Zürich"
+	  - "512345-123456789"
+
+##### :bulb: For your information :bulb:
+The Antibody Certificate specification is not part of the [EU-DCC Schema Specification](https://github.com/ehn-dcc-development/ehn-dcc-schema), this is also the reason why this certificate is only valid in Switzerland.
+However, in order to ensure compatibility with the mobile applications ***COVID Certificate*** ([Android](https://play.google.com/store/apps/details?id=ch.admin.bag.covidcertificate.wallet) / [iOS](https://apps.apple.com/ch/app/covid-certificate/id1565917320)) and ***COVID Certificate Check*** ([Android](https://apps.apple.com/ch/app/covid-certificate/id1565917320) / [iOS](https://apps.apple.com/ch/app/covid-certificate-check/id1565917510)), the QR-Code of this certificate has been established upon the specification of the Test Certificate with some adaptation regarding the values of the attributes which are in back-end hardcoded:
+
+ - Type of Test-**tt** : (from typeCode in Test Certificate request.) : [94504-8](https://loinc.org/94504-8)
+ - Test Result-**tr** : [260373001](https://github.com/ehn-dcc-development/ehn-dcc-schema/blob/main/valuesets/test-result.json)
+ - Date/Time of Sample Collection-**sc** : **sampleDate** at start of day (midnight: 00:00:00)
 
 ### Response - Covid certificate
 
