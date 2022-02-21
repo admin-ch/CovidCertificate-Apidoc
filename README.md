@@ -60,6 +60,18 @@ The swiss covid certificate system can be used by authorized third party systems
 
 The swiss covid certificate system is hosted and maintained by the [FOITT](https://www.bit.admin.ch/bit/en/home.html).
 
+The issuing of certificates according to type can be toggled according to the decision of the Federal Office of Public Health (FOPH).
+Consequently, the API endpoints and options in the UI will be enabled/disabled. The table below shows the certificates that can currently be generated. For more information, please contact support @ covid-zertifikat@bag.admin.ch.
+
+| Certificate type      | State |
+| ----------- | ----------- |
+| Vaccination      | enabled       |
+| Vaccination for tourists | disabled        |
+| Test (based on negative PCR or Rapid Antigen Test)   | enabled        |
+| Recovery (based on positive PCR test)   | enabled        |
+| Recovery (based on positive Rapid Antigen Test)   | disabled        |
+| Recovery (based on antibody test)   | disabled        |
+| Exceptional (based on a medical attestation of exemption)   | disabled        |
 ## Api docs
 
 ### Generation, revocation and value set API doc
