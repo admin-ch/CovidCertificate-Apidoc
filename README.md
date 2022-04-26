@@ -301,8 +301,6 @@ The final 9th character is a check character (a.k.a checksum, check digit).
 It is computed using the [Luhn mod N algorithm](https://en.wikipedia.org/wiki/Luhn_mod_N_algorithm).
 Please use the alphabet defined above for the computation.
 
-The transfer app code can be used only for one transfer and expire after 7 days.
-
 The following are examples of valid transfer codes:
 
 ```
