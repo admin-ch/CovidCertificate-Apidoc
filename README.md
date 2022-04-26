@@ -496,11 +496,7 @@ object containing the following fields. All fields are mandatory if not noted ot
   - Example: "1232" for a "Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test" manufacturer and name
 - **sampleDateTime**: date and time of the positive test sample collection.
   - Format: ISO 8601 date incl. time.
-  - Example: "2022-01-25T17:29:41Z". "Z" means that the time is defined in the UTC timezone. 'sampleDateTime' must be greater or equal to 2022-01-24T00:00:00Z.
-- **testingCentreOrFacility**: name of centre or facility.
-  - Format: string, maxLength: 80 CHAR.
-  - Example: "Walk-in-Lyss AG"
-  - Note: This property is not mandatory with the new EU compatibel COVID Recovery certificate based on rapid test.
+  - Example: "2022-01-25T17:29:41Z". "Z" means that the time is defined in the UTC timezone. 'sampleDateTime' must be greater or equal to 2021-01-10T00:00:00Z.
 - **memberStateOfTest**: the country in which the covid certificate owner has been tested.
   This field must always have the value: 'CH'.
   - Format: string (2 chars according to ISO 3166 Country Codes).
