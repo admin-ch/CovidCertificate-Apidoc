@@ -65,13 +65,15 @@ Consequently, the API endpoints and options in the UI will be enabled/disabled. 
 
 | Certificate type      | State |
 | ----------- | ----------- |
-| Vaccination      | enabled       |
-| Vaccination for tourists | disabled        |
-| Test (based on negative PCR or Rapid Antigen Test)   | enabled        |
-| Recovery (based on positive PCR test)   | enabled        |
-| Recovery (based on positive Rapid Antigen Test)   | disabled        |
-| Recovery (based on antibody test)   | disabled        |
-| Exceptional (based on a medical attestation of exemption)   | disabled        |
+| Vaccination      | :heavy_check_mark:       |
+| Vaccination for tourists | :no_entry:        |
+| Test (based on negative PCR or Rapid Antigen Test)   | :heavy_check_mark:        |
+| Recovery (based on positive PCR test)   | :heavy_check_mark:        |
+| Recovery (based on positive Rapid Antigen Test)   | :heavy_check_mark:        |
+| Recovery (based on antibody test)   | :no_entry:        |
+
+:heavy_check_mark:: the certificate and its corresponding endpoints are active  
+:no_entry:: the certificate and its corresponding endpoints are no longer active
 ## Api docs
 
 ### Generation, revocation and value set API doc
