@@ -484,16 +484,6 @@ array containing the recovery-rat certificate data.
 
 object containing the following fields. All fields are mandatory if not noted otherwise.
 
-- **typeCode**: type of test.
-  This field must always have the value: 'LP217198-3'.
-  - Format: string.
-  The value of the code has to be sent to the API
-  - Accepted: "LP217198-3" for a "Rapid immunoassay" type of test
-- **manufacturerCode**: test manufacturer code.
-  - Format: string.
-    Use the defined [endpoint](#generation-revocation-and-value-set-api-doc) for the value set.
-    The value of the code has to be sent to the API
-  - Example: "1232" for a "Abbott Rapid Diagnostics, Panbio Covid-19 Ag Rapid Test" manufacturer and name
 - **sampleDateTime**: date and time of the positive test sample collection.
   - Format: ISO 8601 date incl. time.
   - Example: "2022-01-25T17:29:41Z". "Z" means that the time is defined in the UTC timezone. 'sampleDateTime' must be greater or equal to 2021-01-10T00:00:00Z.
